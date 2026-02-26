@@ -1,0 +1,17 @@
+# Verification Debt Tracker
+# Auto-maintained by /write-document and verification skills.
+# Do not edit manually.
+#
+# Each item tracks an unverified AI-generated claim that needs
+# a source or correction before publication.
+#
+# Statuses: unverified | verified | removed | flagged
+#
+# Example item:
+#   - claim: "Revenue grew 35% year-over-year"
+#     document: "Main Case"
+#     source_needed: "Q4 earnings report or 10-K filing"
+#     status: unverified
+#     date_added: "2026-02-23"
+last_updated: "2026-02-23"
+items: []

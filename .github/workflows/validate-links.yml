@@ -1,0 +1,42 @@
+name: Validate Links
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run weekly on Sunday at midnight UTC
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+    # Allow manual trigger
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: >-
+            --verbose
+            --no-progress
+            --accept 200,204,206,301,302,307,308
+            --exclude-mail
+            --exclude "^https://github.com/\\[username\\]"
+            --exclude "localhost"
+            --exclude "127.0.0.1"
+            './**/*.md'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create link check report
+        if: failure()
+        run: |
+          echo "## Link Check Failed" >> $GITHUB_STEP_SUMMARY
+          echo "Some links in the repository are broken or inaccessible." >> $GITHUB_STEP_SUMMARY
+          echo "Please check the workflow logs for details." >> $GITHUB_STEP_SUMMARY

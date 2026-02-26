@@ -1,0 +1,41 @@
+# macOS
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+
+# Logs (from verification skills)
+*.log
+
+# Python (if using simulations)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Node (if using markdown linting locally)
+node_modules/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# PDF exports (keep folder, ignore contents for privacy)
+# Uncomment if you want to exclude PDFs from git:
+# exports/*.pdf
+
+# Sensitive files
+.env
+.env.local
+*.pem
+*.key

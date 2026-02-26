@@ -1,0 +1,134 @@
+name: Validate Template Structure
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required files exist
+        run: |
+          echo "## Template Structure Validation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          required_files=(
+            "README.md"
+            "STARTER_PROMPT.md"
+            "TEMPLATE_VERSION"
+            "CHANGELOG.md"
+            "LICENSE"
+            "case-config.yaml"
+            "verification-debt.yaml"
+            "sources/Source_Registry.md"
+            "templates/PROMPTS.md"
+            "templates/QA_WORKFLOW.md"
+            "templates/SOURCE_ACQUISITION.md"
+            "templates/FOLDER_TEMPLATE.md"
+            "templates/RETROSPECTIVE.md"
+            ".claude/skills/setup-case.md"
+            ".claude/skills/add-sources.md"
+            ".claude/skills/assess-sources.md"
+            ".claude/skills/write-document.md"
+            ".claude/skills/check-status.md"
+            ".claude/skills/verify-all.md"
+            ".claude/skills/verify-consistency.md"
+            ".claude/skills/verify-quotes.md"
+            ".claude/skills/verify-sources.md"
+            ".claude/skills/verify-links.md"
+            ".claude/skills/validate-financials.md"
+            ".claude/skills/assess-bias.md"
+            ".claude/skills/verify-cross-document.md"
+            ".claude/skills/add-disclaimers.md"
+            ".claude/skills/export-pdf.md"
+            ".claude/skills/git-update.md"
+          )
+
+          missing=0
+          echo "### Required Files Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "- :x: MISSING: \`$file\`" >> $GITHUB_STEP_SUMMARY
+              echo "MISSING: $file"
+              missing=$((missing + 1))
+            else
+              echo "- :white_check_mark: \`$file\`" >> $GITHUB_STEP_SUMMARY
+              echo "OK: $file"
+            fi
+          done
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ $missing -gt 0 ]; then
+            echo "### Result: FAILED" >> $GITHUB_STEP_SUMMARY
+            echo "$missing required files are missing." >> $GITHUB_STEP_SUMMARY
+            echo "ERROR: $missing required files are missing"
+            exit 1
+          fi
+
+          echo "### Result: PASSED" >> $GITHUB_STEP_SUMMARY
+          echo "All required files present!" >> $GITHUB_STEP_SUMMARY
+          echo "All required files present!"
+
+      - name: Validate TEMPLATE_VERSION format
+        run: |
+          version=$(cat TEMPLATE_VERSION | tr -d '[:space:]')
+          if [[ ! $version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "ERROR: TEMPLATE_VERSION must be in semver format (X.Y.Z)"
+            echo "Found: '$version'"
+            exit 1
+          fi
+          echo "Version format OK: $version"
+          echo "- Template Version: \`$version\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Install yq for YAML validation
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Validate case-config.yaml syntax
+        run: |
+          # Validate YAML syntax
+          if ! yq eval '.' case-config.yaml > /dev/null 2>&1; then
+            echo "ERROR: case-config.yaml has invalid YAML syntax"
+            exit 1
+          fi
+          echo "case-config.yaml syntax OK"
+
+      - name: Validate case-config.yaml structure
+        run: |
+          # Check required fields exist
+          required_fields=(
+            ".case.company_name"
+            ".case.topic"
+            ".case.case_type"
+            ".course.name"
+            ".template.version"
+          )
+
+          for field in "${required_fields[@]}"; do
+            value=$(yq eval "$field" case-config.yaml)
+            if [ "$value" == "null" ] || [ -z "$value" ]; then
+              echo "ERROR: Missing required field $field in case-config.yaml"
+              exit 1
+            fi
+          done
+
+          echo "case-config.yaml structure OK"
+          echo "- Configuration file validated" >> $GITHUB_STEP_SUMMARY
+
+      - name: Validate verification-debt.yaml syntax
+        run: |
+          if ! yq eval '.' verification-debt.yaml > /dev/null 2>&1; then
+            echo "ERROR: verification-debt.yaml has invalid YAML syntax"
+            exit 1
+          fi
+          echo "verification-debt.yaml syntax OK"

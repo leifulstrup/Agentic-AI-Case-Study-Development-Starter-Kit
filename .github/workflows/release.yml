@@ -1,0 +1,77 @@
+name: Create Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'TEMPLATE_VERSION'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(cat TEMPLATE_VERSION | tr -d '[:space:]')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check if tag exists
+        id: check-tag
+        run: |
+          if git rev-parse "v${{ steps.version.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Extract changelog section
+        if: steps.check-tag.outputs.exists == 'false'
+        id: changelog
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          # Extract the section for this version from CHANGELOG.md
+          NOTES=$(awk "/## \[$VERSION\]/,/## \[/" CHANGELOG.md | sed '$d' | tail -n +2)
+          if [ -z "$NOTES" ]; then
+            NOTES="Release v$VERSION - see CHANGELOG.md for details."
+          fi
+          # Use delimiter for multiline output
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        if: steps.check-tag.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
+          body: |
+            ${{ steps.changelog.outputs.notes }}
+
+            ---
+
+            ## How to Use This Release
+
+            **New Projects:**
+            Click "Use this template" to create a new case study repository.
+
+            **Existing Projects:**
+            Review the changes above and manually incorporate updates you need.
+            Update your `TEMPLATE_VERSION` file to track which version you're based on.
+
+            ---
+
+            *See [CHANGELOG.md](CHANGELOG.md) for full release history.*
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
