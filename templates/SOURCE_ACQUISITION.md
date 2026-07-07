@@ -383,6 +383,13 @@ Case studies for classroom use generally qualify as fair use when:
 - Don't fabricate or composite quotes
 - Don't use confidential/leaked documents without permission
 
+### Protecting Yourself and Your Sources
+
+- **Keep your case repo private during development.** A private repo containing copied articles for personal research is a very different situation from a public repo redistributing them. This is why the README says to create your repository as Private.
+- **Prefer links + excerpts for T2 sources.** For paywalled or licensed content, store the citation, the URL, and the short excerpts you actually need — not the full text.
+- **Educational fair use is narrower than most people assume.** It is a case-by-case balancing test, not a blanket exemption for classroom use. When in doubt, excerpt less, link more, and ask your institution's library — most universities have copyright guidance staff for exactly this question.
+- **Before making any case repo public**, re-review `sources/` and remove or reduce any full-text copies you don't have rights to redistribute.
+
 ---
 
 ## Tools Summary

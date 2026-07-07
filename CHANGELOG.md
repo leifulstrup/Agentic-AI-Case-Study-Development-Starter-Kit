@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.0] - 2026-07-07
+
+Trust and standards release: relicense to MIT, lead with the verification story, and adopt the AGENTS.md cross-tool standard so the kit works consistently across Claude Code, Copilot, Codex, Cursor, Gemini CLI, and other agentic harnesses.
+
+### Changed
+- **LICENSE** — Relicensed the kit from CC BY-NC 4.0 to **MIT** (loosening restrictions; sole-copyright-holder change). The kit's license now explicitly covers only the kit itself; case studies produced with it remain the author's work under the author's chosen license (`case-config.yaml` still suggests CC BY-NC 4.0 as a sensible default for educational materials)
+- **CLAUDE.md** — Now imports canonical guidance from `AGENTS.md` (`@AGENTS.md`) and keeps only Claude Code-specific content (slash commands, between-document gates)
+- **.github/copilot-instructions.md** — Slimmed to a pointer at `AGENTS.md` plus the Copilot skill-equivalents table (removes duplicated guidance that could drift)
+- **.claude/skills/verify-quotes.md** — Added confidence verdicts (VERIFIED / LIKELY / DISPUTED / APOCRYPHAL) with required evidence per verdict, a publication rule (only VERIFIED ships in quotation marks), and an explicit trace-to-primary-source requirement (quote-aggregator sites are not verification)
+- **README.md** — New "Built for Verification" section explaining verification debt, source tiers/gates, and the seven-check pipeline; new License section; updated badges to v3.2.0/MIT
+- **templates/SOURCE_ACQUISITION.md** — Expanded legal guidance: keep case repos private during development, prefer links + excerpts for T2 sources, educational fair use is a balancing test not a blanket exemption
+
+### Added
+- **AGENTS.md** — Canonical, tool-neutral agent guidance following the Linux Foundation-stewarded AGENTS.md convention (read natively by OpenAI Codex, Cursor, Copilot coding agent, Windsurf, Zed, and others; Gemini CLI via one-line settings entry)
+- **VERIFICATION_PLEDGE.md** — Author sign-off checklist converting the verification workflow into a shareable statement for colleagues, chairs, and editors
+- **CITATION.cff** — Makes the kit citable (GitHub renders a "Cite this repository" button)
+- **CONTRIBUTING.md** — Contribution path for other professors and practitioners, including the verified-body invariant for generator skills
+
 ## [3.1.0] - 2026-02-23
 
 Add VS Code + GitHub Copilot as a second agentic AI path alongside Claude Code. Students with GitHub Education get Copilot Pro free, making this an accessible alternative with Agent Mode (file read/write, terminal commands, custom instructions).

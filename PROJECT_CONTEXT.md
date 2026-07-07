@@ -6,7 +6,7 @@ Quick reference for session continuity. Auto-maintained by skills — you do not
 
 **Repository**: Agentic AI Case Study Development Starter Kit
 **Type**: GitHub template repository
-**Version**: 3.1.0
+**Version**: 3.2.0
 **Course**: ITEC-617, American University Kogod School of Business, Spring 2026
 **Purpose**: Template for developing HBR-style MBA case studies from digital sources using AI tools
 
@@ -44,6 +44,7 @@ See `verification-debt.yaml` for details.
 - v3.1.0: Added VS Code + GitHub Copilot as second agentic path (free via GitHub Education)
 - Copilot instructions mirror CLAUDE.md behavioral guidance with skill equivalents table
 - README Step 3 presents three options: Option A (Claude Code), Option B (VS Code + Copilot), Option C (Chat Tools)
+- v3.2.0: Relicensed kit to MIT (produced cases remain author's choice, CC BY-NC default); AGENTS.md is now the canonical instruction file (CLAUDE.md imports it; copilot-instructions.md points to it); verification story promoted to top of README; confidence verdicts added to /verify-quotes; VERIFICATION_PLEDGE, CITATION.cff, CONTRIBUTING added; development log.md + lessons_learned.md + evals/ regression framework introduced
 
 ## Testing History
 

@@ -74,8 +74,10 @@ repository:
   # Keep private to protect unpublished case content
   private: true
 
-  # License for educational materials
-  # CC-BY-NC-4.0 = Attribution required, non-commercial use only
+  # License for the case materials YOU produce (your choice — separate from
+  # the starter kit itself, which is MIT-licensed).
+  # CC-BY-NC-4.0 = Attribution required, non-commercial use only —
+  # a sensible default for educational case materials.
   license: "CC-BY-NC-4.0"
 
 # -----------------------------------------------------------------------------
@@ -83,7 +85,7 @@ repository:
 # -----------------------------------------------------------------------------
 template:
   # Version of the template this project was created from
-  version: "3.1.0"
+  version: "3.2.0"
 
   # Source repository for updates
   source: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit"

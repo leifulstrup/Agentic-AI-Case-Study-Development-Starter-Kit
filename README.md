@@ -2,8 +2,8 @@
 
 A starter kit for creating HBR-style MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v3.1.0-blue)](TEMPLATE_VERSION)
-[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
+[![Template Version](https://img.shields.io/badge/template-v3.2.0-blue)](TEMPLATE_VERSION)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
@@ -19,6 +19,22 @@ This repository is a **GitHub template** that gives you everything you need to d
 | **Main Case** | Students | Protagonist-centered narrative with strategic tension | 4,000-6,000 words |
 | **Technical Supplement** | Students, Instructors | Industry context, frameworks, glossary | 2,500-4,000 words |
 | **Teaching Note** | Instructors only | Discussion guide, board plans, timing | 2,500-4,000 words |
+
+---
+
+## Built for Verification — Why You Can Trust What This Produces
+
+AI writes fluently and fabricates confidently. Published studies have found leading chatbots inventing anywhere from roughly a fifth to half of the citations they produce, and Ivey Publishing judged a raw ChatGPT-drafted case unpublishable. This kit exists because the answer isn't "don't use AI" — it's a workflow where every claim is tracked, tiered, and traced before anything ships.
+
+Three mechanisms run through every phase:
+
+**Verification debt is tracked like technical debt.** Whenever the AI writes something from its own knowledge rather than your sources, the claim is logged to `verification-debt.yaml` with the source type needed to resolve it. You always know exactly what is sourced and what is not — and publication expects the debt at zero.
+
+**Sources are tiered and gated.** Every source is classified T1 (full text in repo), T2 (partial/excerpted), or T3 (referenced only). Before writing begins, `/assess-sources` applies a go/no-go gate: minimum one T1 source with the protagonist's own voice, one T1 financial source, two independent publications — plus an early bias check that flags when more than half your material comes from one perspective.
+
+**Seven verification checks run before publication.** `/verify-all` traces every quote to a dated source, matches data points across documents, validates arithmetic, checks links, assesses perspective balance, and confirms structural alignment — producing a quality report you can hand to a colleague, a department chair, or an editor. See `VERIFICATION_PLEDGE.md` for the sign-off checklist.
+
+The result: you can defend every sentence in your case, because the workflow made you earn it.
 
 ---
 
@@ -170,6 +186,8 @@ Check your progress anytime: `/check-status`
 
 | Path | Purpose |
 |------|---------|
+| `AGENTS.md` | Canonical instructions for AI agents (all tools) |
+| `VERIFICATION_PLEDGE.md` | Author sign-off checklist for sharing a finished case |
 | `STARTER_PROMPT.md` | Prompt for chat tools (ChatGPT, Claude.ai, Gemini) |
 | `case-config.yaml` | Central configuration (auto-written by `/setup-case`) |
 | `verification-debt.yaml` | Tracks unverified AI-generated claims |
@@ -181,6 +199,8 @@ Check your progress anytime: `/check-status`
 | `.claude/skills/` | Claude Code skill definitions |
 | `.github/copilot-instructions.md` | VS Code Copilot custom instructions |
 | `PROJECT_CONTEXT.md` | Session continuity context |
+| `evals/` | Regression-testing framework for kit versions (see `evals/EVALS.md`) |
+| `log.md`, `lessons_learned.md` | Development log and per-version lessons |
 
 ---
 
@@ -259,10 +279,16 @@ Ask Claude Code for help reverting to a previous state.
 
 ---
 
-## Acknowledgments
+## License
 
-This methodology was developed through the creation of MBA case studies for ITEC-617 at American University's Kogod School of Business, Spring 2026.
+The kit itself — skills, templates, workflows, documentation — is **MIT-licensed**: use it, adapt it, build on it at any institution, commercial or not. **Case studies you create with the kit are your own work**, under whatever license you choose; the setup process suggests CC BY-NC 4.0 as a sensible default for educational case materials.
 
 ---
 
-*Template Version: 3.1.0*
+## Acknowledgments
+
+This methodology was developed through the creation of MBA case studies for ITEC-617 at American University's Kogod School of Business, Spring 2026, supported by a Kogod AI mini-grant (Carmel & Ulstrup).
+
+---
+
+*Template Version: 3.2.0*
