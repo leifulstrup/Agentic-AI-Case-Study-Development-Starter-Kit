@@ -37,8 +37,47 @@
 
 ---
 
-## v3.2.0 — 2026-07-07 — (no corpus run yet)
+## v3.2.0 — 2026-07-07 — (framework established)
 
-- Status: **Framework established with this release; no regression run executed.**
-- v3.2.0's changes are documentation, licensing, and instruction-file structure — no changes to write-document or assess-sources logic. The one behavioral change is `/verify-quotes` (confidence verdicts + trace-to-primary rule), which should *increase* Layer 2 quote-defect detection.
-- **Next action**: build the `jpm-llm-suite` fixture (copy sources from the private JPM case repo, write CORPUS_MANIFEST.md and setup-answers.md, seed defect-set v1), run the first baseline pass against v3.2.0, and designate that output as `golden/`. All future versions compare against this baseline.
+- Status: framework established with this release. Baseline run executed 2026-07-08 (next entry).
+
+---
+
+## v3.2.0 — 2026-07-08 — jpm-llm-suite (BASELINE RUN)
+
+- Harness/model: Claude (Cowork/Agent SDK), writer + verifier agents = claude-fable-5; Layer 3 judge = claude-opus (different model per method) | Runs: **n=1** (variance run deferred — see Notes)
+- Corpus manifest hash confirmed: **yes** (all 6 files matched before run)
+- Run artifacts: `eval-runs/run-2026-07-08-A/` (clean) and `run-2026-07-08-A-defected/` (Layer 2), kept outside the repo
+
+### Layer 1 — Deterministic
+| Check | Run 1 |
+|-------|-------|
+| Quote grounding (script v1) | 54.8% (219/400) — **script artifact, see Notes** |
+| Quote grounding (agent full trace) | ~97% (≈225 VERIFIED, 5 LIKELY, 0 DISPUTED, 0 APOCRYPHAL of ~230) |
+| Number grounding (script) | 89.7% (113/126); agent recomputation: 0 arithmetic errors, segment sums foot |
+| Open verification debt at end | 6 logged by writer (honest general-knowledge flags) + 3 added by verifier |
+| Docs complete / word counts | 4/4 docs; 4,821 / 5,788 / 2,957 / 2,959 words (Main Case +15% over target) |
+
+### Layer 2 — Seeded defects (defect-set v1, 10 defects)
+- **Detection recall: 10/10** | False alarms: 0 (all 8 additional flags were genuine pre-existing issues, cross-confirmed by the clean-run verification)
+- Missed: none. Every defect class caught: financial figure, internal % inconsistency, misattribution, fabricated quote, silent paraphrase, shifted date, vague-attribution stat, wrong URL slug (caught offline via source-footer cross-check), gutted registry, phantom exhibit.
+
+### Layer 3 — Judged (claude-opus, dual-pass, no dimension moved >1)
+- Rubric: Decision focus 5 · Protagonist 4 · Evidence discipline 5 · **Data sufficiency 3 (weakest)** · Narrative craft 4 · Teachability 5 · Balance 5 → **31/35**
+- Pairwise: n/a (first baseline — this run becomes the comparator)
+- Verdict on teachability: "would teach with minor edits." Biggest editor flag: decision is *constructed from public statements, not confronted in-scene*; top fixes: forcing event with stakes, a quantitative exhibit, one dissenting/non-executive voice.
+
+### What changed in execution vs. previous version
+First run — baseline. Writer-agent observations for future versions: (1) no rule for quoting noisy ASR transcripts (improvised bracket-correction policy); (2) bias heuristic counts outlet origin, not claim-maker voice — scored 20% "company-generated" for a corpus that is ~80% executive voice; (3) minor spec gaps: tiering of extracted-PDF companions, "Overall" score aggregation, filename convention, whether citations count toward word targets. Verifier-agent observations: (4) verdict scale needs a **MODIFIED** category for spliced/silently-corrected quotes (had to shoehorn into LIKELY); (5) skills don't define the counting unit for "one quote," so pass/warn/fail counts are partly verifier-defined.
+
+### Clean-run publication status (kit's own gate)
+"Needs Review" — verification correctly caught real authoring flaws: 1 spliced composite quote, 1 altered quote ("can…use" vs "can be used"), companion-title mismatch, 1 garbled attribution, silent transcript corrections. **This is the system working**: the writer erred, the verifier caught it, publication blocked.
+
+### Verdict
+**PASS (baseline established)** — grounding effectively clean on full trace, seeded-defect recall 10/10 with zero false alarms, judged 31/35 and teachable with minor edits. Output staged at `evals/fixtures/jpm-llm-suite/golden/baseline-v3.2.0-candidate/` **pending Leif's human review before blessing as golden**.
+
+### Notes / actions arising
+1. **grounding_check.py v2 needed**: v1's regex counts rhetorical/hypothetical quoted text (esp. Teaching Note prompts like "It's January 2026. You're Waldron…") as attributed quotes → 45% false-flag rate. Fix: only check quoted spans with nearby attribution patterns; skip Teaching Note hypotheticals. Until then, the script is a lead-generator, not a gate.
+2. **n=2 variance run deferred** (cost/time). Do a second clean run before using this baseline to fail a future version on a small margin.
+3. Add to defect-set v2: composite/spliced quote and silent transcript correction (the two real-world classes this run discovered).
+4. Skill-spec fixes queued for v3.3 (ASR quoting rule, MODIFIED verdict, voice-based bias counting, counting units, filename tolerance).

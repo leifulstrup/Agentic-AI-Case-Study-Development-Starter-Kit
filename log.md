@@ -34,3 +34,17 @@
 **Testing**: grounding_check.py validated against a synthetic corpus: true quote grounded (after fixing a fuzzy-window bug where oversized comparison windows penalized true matches below threshold), fabricated quote flagged, ungrounded number flagged, and a 5-word silent paraphrase correctly flagged as ungrounded — the D5 defect class is detectable.
 
 **Remaining before first baseline run**: copy sources from the private JPM repo, populate manifest hashes, run the pipeline twice on v3.2.0, bless `golden/`.
+
+---
+
+## 2026-07-08 — Corpus frozen + BASELINE EVAL RUN executed (v3.2.0, jpm-llm-suite)
+
+**Corpus**: Leif copied 6 source files from the private JPM repo; sorted into type subfolders; SHA-256 manifest frozen as corpus v1.
+
+**Run**: full pipeline executed via agent harness in `eval-runs/run-2026-07-08-A/` (kept outside the repo). Writer agent (claude-fable-5) followed the kit's skill files with scripted setup-answers; separate fresh verifier agent ran verify-all; separate opus judge scored the rubric. Defected variant (`-defected/`) carried all 10 seeded defects from defect-set v1.
+
+**Results** (full detail in `evals/test-log.md`): 4/4 documents produced (GREEN gate); agent-traced quote verification ~97% VERIFIED with real flaws caught (spliced quote, altered wording, garbled attribution) → clean-run status "Needs Review" = publication gate correctly blocked; **seeded-defect recall 10/10, zero false alarms**; opus rubric 31/35, "teach with minor edits," weakest = data sufficiency (no quantitative exhibit).
+
+**Output staged**: `evals/fixtures/jpm-llm-suite/golden/baseline-v3.2.0-candidate/` (gitignored) — awaiting Leif's human review before blessing as golden.
+
+**Actions queued for v3.3** (from run observations): ASR-transcript quoting rule; MODIFIED verdict for spliced/silently-corrected quotes; voice-based (not outlet-based) bias counting; quote counting unit; filename tolerance in verify skills; grounding_check.py v2 (attribution-aware extraction — v1 false-flags rhetorical quotes at ~45%); defect-set v2 adds spliced-quote and silent-correction classes; n=2 variance run.
