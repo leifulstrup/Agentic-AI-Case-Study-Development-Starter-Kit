@@ -1,0 +1,102 @@
+# Seeded Defect Set — jpm-llm-suite
+# Layer 2 of the eval design (see ../../EVALS.md).
+#
+# Usage: AFTER a clean pipeline run, make a copy of the run directory,
+# inject each defect below into the copy, run /verify-all on the copy,
+# and score: recall = defects flagged / defects injected;
+# note any false alarms separately.
+#
+# Rules:
+# - Inject into the COPY only; never into the fixture or a golden run.
+# - Adjust exact figures/quotes to match the actual draft at run time —
+#   each defect specifies the KIND of corruption, targeted at real content.
+# - Every real-world verification miss discovered in production should be
+#   added here as a new defect (bump the version).
+#
+# Provenance note: defects D1, D2, D9 are modeled on real issues surfaced
+# in the v3.0 Moderna power-user test (financial errors, late-found bias).
+
+version: 1
+date: "2026-07-07"
+defects:
+  - id: D1
+    layer: financial
+    injection_target: main_case_draft
+    instruction: >-
+      Change one revenue or investment figure in the Main Case to a
+      plausible but wrong value (e.g., alter a $2B figure to $2.4B)
+      while leaving the source documents untouched.
+    expected_detector: "/validate-financials or /verify-consistency"
+
+  - id: D2
+    layer: financial
+    injection_target: main_case_draft
+    instruction: >-
+      Break one percentage: change a derived percentage so it no longer
+      matches the underlying numbers stated in the same document.
+    expected_detector: "/validate-financials"
+
+  - id: D3
+    layer: quote
+    injection_target: main_case_draft
+    instruction: >-
+      Misattribute one real quote: keep the exact wording from a source
+      but attribute it to a different named executive.
+    expected_detector: "/verify-quotes (speaker mismatch)"
+
+  - id: D4
+    layer: quote
+    injection_target: main_case_draft
+    instruction: >-
+      Insert one fabricated quote: plausible in voice and topic, attributed
+      to the protagonist, appearing in no source document.
+    expected_detector: "/verify-quotes (APOCRYPHAL verdict)"
+
+  - id: D5
+    layer: quote
+    injection_target: main_case_draft
+    instruction: >-
+      Silently paraphrase one quoted passage: keep quotation marks but
+      alter 3-5 words from the source wording.
+    expected_detector: "/verify-quotes (should downgrade from VERIFIED)"
+
+  - id: D6
+    layer: timeline
+    injection_target: supplement_draft
+    instruction: >-
+      Shift one dated event by several months so it contradicts the date
+      given for the same event in the Main Case.
+    expected_detector: "/verify-consistency or /verify-cross-document"
+
+  - id: D7
+    layer: attribution
+    injection_target: supplement_draft
+    instruction: >-
+      Add one specific statistic with a vague attribution ("analysts
+      estimate...") and no source.
+    expected_detector: "/verify-sources"
+
+  - id: D8
+    layer: links
+    injection_target: additional_sources_draft
+    instruction: >-
+      Replace one working bibliography URL with a plausible dead URL
+      (404) on the same domain.
+    expected_detector: "/verify-links"
+
+  - id: D9
+    layer: bias
+    injection_target: source_registry
+    instruction: >-
+      Remove the two most independent/critical sources from the registry
+      copy (leaving mostly company-generated and friendly coverage), then
+      re-run the bias assessment.
+    expected_detector: "/assess-bias (risk should rise to MEDIUM/HIGH)"
+
+  - id: D10
+    layer: cross_document
+    injection_target: teaching_note_draft
+    instruction: >-
+      Change one discussion question so it references a case exhibit or
+      section that does not exist.
+    expected_detector: "/verify-cross-document"

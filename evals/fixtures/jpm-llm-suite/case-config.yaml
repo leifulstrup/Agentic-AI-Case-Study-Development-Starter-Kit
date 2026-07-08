@@ -1,0 +1,32 @@
+# FROZEN EVAL FIXTURE — do not edit between runs.
+# Based on the ITEC-617 Spring 2026 JPMorgan Chase LLM Suite case prototype.
+
+case:
+  company_name: "JPMorgan Chase & Co."
+  company_short: "JPMorgan"
+  topic: "Enterprise AI Transformation — LLM Suite Deployment"
+  protagonist_name: "Derek Waldron"
+  protagonist_title: "Chief Analytics Officer"
+  case_type: "business"
+
+course:
+  name: "ITEC-617"
+  institution: "Kogod School of Business"
+  semester: "Spring 2026"
+
+documents:
+  target_word_counts:
+    main_case: 5000
+    supplement: 3000
+    teaching_note: 3000
+    additional_sources: 4000
+  session_length_minutes: 80
+
+repository:
+  private: true
+  license: "CC-BY-NC-4.0"
+
+template:
+  # Set to the kit version under test at run time; record actual value in test-log.md
+  version: "3.2.0"
+  source: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit"

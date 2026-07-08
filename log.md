@@ -24,3 +24,13 @@
 **Not done in this version** (planned, see upgrade-plan/05-roadmap.md): SKILL.md directory migration, rubrics, verification-literacy guide, examples/ excerpts (v3.3); MARP slides, provenance manifest, red-team skill (v3.4); front-end generators (v4.0).
 
 **Execution notes**: `.claude/` paths were write-protected for the assistant's file tools in this session; edits routed through the sandbox shell. Worth remembering for future agentic maintenance sessions.
+
+---
+
+## 2026-07-07 (later) — jpm-llm-suite eval fixture scaffolded (post-v3.2.0)
+
+**Changes**: Created `evals/fixtures/jpm-llm-suite/`: fixture README (setup + run procedure + cautions), frozen `case-config.yaml` (Waldron/LLM Suite/ITEC-617), `setup-answers.md` (scripted answers for every skill decision point, including "accept defaults, no edits" policy so runs test default output quality), `CORPUS_MANIFEST.md` (hash template, unpopulated until sources copied from private JPM repo), `defect-set.yaml` v1 (10 seeded defects across financial/quote/timeline/attribution/link/bias/cross-document layers; D1/D2/D9 modeled on real Moderna-test misses), and `scripts/grounding_check.py` (dependency-free Layer 1 quote+number grounding checker).
+
+**Testing**: grounding_check.py validated against a synthetic corpus: true quote grounded (after fixing a fuzzy-window bug where oversized comparison windows penalized true matches below threshold), fabricated quote flagged, ungrounded number flagged, and a 5-word silent paraphrase correctly flagged as ungrounded — the D5 defect class is detectable.
+
+**Remaining before first baseline run**: copy sources from the private JPM repo, populate manifest hashes, run the pipeline twice on v3.2.0, bless `golden/`.
