@@ -47,4 +47,6 @@
 
 **Output staged**: `evals/fixtures/jpm-llm-suite/golden/baseline-v3.2.0-candidate/` (gitignored) — awaiting Leif's human review before blessing as golden.
 
+**Baseline blessed (same day, per Leif)**: all verify-flagged issues fixed surgically (FIXES-2026-07-08.md), 6 definitional citations web-confirmed and added as T3 references, debt 9/9 verified. `golden/baseline-v3.2.0/` is the release-gate comparator; Leif's original Jan 2026 human-finished package added as `golden/reference-human/` ceiling anchor. Fixes spot-checked independently against transcripts before blessing.
+
 **Actions queued for v3.3** (from run observations): ASR-transcript quoting rule; MODIFIED verdict for spliced/silently-corrected quotes; voice-based (not outlet-based) bias counting; quote counting unit; filename tolerance in verify skills; grounding_check.py v2 (attribution-aware extraction — v1 false-flags rhetorical quotes at ~45%); defect-set v2 adds spliced-quote and silent-correction classes; n=2 variance run.
