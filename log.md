@@ -50,3 +50,14 @@
 **Baseline blessed (same day, per Leif)**: all verify-flagged issues fixed surgically (FIXES-2026-07-08.md), 6 definitional citations web-confirmed and added as T3 references, debt 9/9 verified. `golden/baseline-v3.2.0/` is the release-gate comparator; Leif's original Jan 2026 human-finished package added as `golden/reference-human/` ceiling anchor. Fixes spot-checked independently against transcripts before blessing.
 
 **Actions queued for v3.3** (from run observations): ASR-transcript quoting rule; MODIFIED verdict for spliced/silently-corrected quotes; voice-based (not outlet-based) bias counting; quote counting unit; filename tolerance in verify skills; grounding_check.py v2 (attribution-aware extraction — v1 false-flags rhetorical quotes at ~45%); defect-set v2 adds spliced-quote and silent-correction classes; n=2 variance run.
+
+
+---
+
+## 2026-07-08 (later) — /coach-case: the coach & advisor cycle (post-v3.2.0, toward v3.3)
+
+**Direction from Leif**: the kit should coach the case developer — find holes in source types and foundational confidence, offer to research additional material (including bios of the protagonist and other named people/orgs), iterate with version control, logging, and QA/QC of whether additions help or hurt.
+
+**Built**: `.claude/skills/coach-case.md` — six-phase loop: Diagnose (5-lens Gap Map: source types, voice-based perspectives, load-bearing-claim confidence, people/org biographical grounding, rubric-facing weaknesses) → Coach (max 3 gaps at a time, each with a pedagogical why + research offer) → Research (with permission; primary-source-first; bios saved as sources/reports/BIO_[Name].md) → QA/QC gate (provenance/independence/corroboration/tier/risk; rejections logged; conflicts kept as teachable discrepancies) → Measure (re-run assessment, record deltas + HELPED/NEUTRAL/HURT) → log iteration to coaching/coaching-log.md + git checkpoint. Plus `templates/COACHING_LOG.md`; wired into AGENTS.md (behavior rule + workflow table), README, WORKFLOW.md, CLAUDE.md, copilot equivalents; CHANGELOG [Unreleased]. Design rationale in upgrade-plan/07-coach-and-advisor.md, including eval hooks (gap-detection recall + QA/QC discrimination probes for a future defect-set).
+
+**Design notes**: lenses 2 and 4 come straight from baseline-run findings (outlet-vs-voice bias miscount; Buehler misattribution traced to missing bio grounding). Impact measurement is deliberately allowed to say a new source HURT.

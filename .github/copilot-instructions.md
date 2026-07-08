@@ -13,6 +13,7 @@ This repo includes `/slash-commands` for Claude Code (defined in `.claude/skills
 | `/setup-case` | "Help me configure my case study" |
 | `/add-sources` | "Scan the sources folder and register any new files" |
 | `/assess-sources` | "Evaluate my source quality and give me a go/no-go assessment" |
+| `/coach-case` | "Coach me on strengthening my sources — find the gaps and help me research them" |
 | `/write-document` | "Help me write the next document in my case study" |
 | `/check-status` | "Show me my project status and what to do next" |
 | `/verify-all` | "Run all quality checks on my case study" |

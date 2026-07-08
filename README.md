@@ -213,6 +213,7 @@ These `/slash-commands` work in **Claude Code**. **VS Code + Copilot** users: as
 | `/setup-case` | Configure project (asks questions, writes files) |
 | `/add-sources` | Register source materials with tier classification |
 | `/assess-sources` | Evaluate source quality with go/no-go gate |
+| `/coach-case` | Coaching loop: diagnose gaps, offer research help, QA/QC new sources, log iterations |
 | `/write-document` | Guided document writing with inline verification |
 | `/check-status` | Project dashboard with progress and debt tracking |
 | `/verify-all` | Run all quality checks |

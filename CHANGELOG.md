@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **`/coach-case` skill** — the kit now acts as a coach and advisor, not just a pipeline: diagnoses gaps across five lenses (source-type coverage, voice-based perspective coverage, foundational confidence of load-bearing claims, biographical grounding for every named person/organization, rubric-facing weaknesses), offers targeted research help with proposed queries, runs a QA/QC gate (provenance/independence/corroboration/tier/risk) on everything gathered before it counts, measures before/after assessment deltas so additions that hurt are caught honestly, and logs every iteration to `coaching/coaching-log.md` with a git checkpoint
+- **`templates/COACHING_LOG.md`** — iteration log template: gap map, QA/QC verdicts, teachable discrepancies, score deltas, helped/neutral/hurt judgment
+- **`evals/`** baseline results: v3.2.0 baseline run vs frozen JPM corpus (10/10 seeded-defect recall, 31/35 judged; golden blessed after surgical fixes)
+
 ## [3.2.0] - 2026-07-07
 
 Trust and standards release: relicense to MIT, lead with the verification story, and adopt the AGENTS.md cross-tool standard so the kit works consistently across Claude Code, Copilot, Codex, Cursor, Gemini CLI, and other agentic harnesses.

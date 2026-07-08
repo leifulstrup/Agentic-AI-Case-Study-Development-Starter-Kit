@@ -100,6 +100,17 @@ This evaluates depth, breadth, reliability, and completeness with a **go/no-go g
 - **YELLOW**: Can proceed with caution
 - **RED**: Need more sources first
 
+### Strengthen with Coaching (YELLOW/RED — or anytime)
+
+**Claude Code users:**
+```
+/coach-case
+```
+
+**VS Code + Copilot users:** Say *"Coach me on strengthening my sources — find the gaps and help me research them."*
+
+The coach diagnoses what's missing (source types, perspectives and voices, thin support under load-bearing claims, biographical grounding for the protagonist and other named people/organizations), explains why each gap matters for teaching quality, and offers to research and gather stronger material. Everything gathered passes a QA/QC gate before it counts, the assessment is re-scored so you can see whether the iteration helped or hurt, and each iteration is logged to `coaching/coaching-log.md` with a git checkpoint. Repeat until the assessment goes GREEN.
+
 ### Git Checkpoint
 ```bash
 git add -A && git commit -m "Add source materials" && git push
@@ -227,6 +238,7 @@ These `/slash-commands` work in **Claude Code**. **VS Code + Copilot** users: as
 | Setup | `/setup-case` | First thing after cloning |
 | Sources | `/add-sources` | After adding files to `sources/` |
 | Assessment | `/assess-sources` | Before writing |
+| Coaching | `/coach-case` | After assessment, or whenever the case feels thin |
 | Writing | `/write-document` | To create each document |
 | Status | `/check-status` | Anytime — see where you are |
 | Verification | `/verify-all` | Before publication |
