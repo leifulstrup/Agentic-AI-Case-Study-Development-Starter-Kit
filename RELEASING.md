@@ -14,6 +14,24 @@ local clone (single git history)
 
 Because both remotes receive the *same commits* from one history, the public repo's lineage, tags, and CHANGELOG stay continuous. This is deliberately not a fork: forking creates two histories that drift and must be reconciled by hand.
 
+The repos in use:
+
+| Remote | Repository | Role |
+|--------|-----------|------|
+| `origin` | `leifulstrup/Agentic-AI-Case-Study-Starter-Kit-dev` (private) | Daily work, eval corpus, experiments. Always the newest state. |
+| `public` | `leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit` (public template) | What students and other faculty clone. Always behind, by design. |
+
+## Direction of flow — read this first
+
+**Development flows dev → public, never the reverse.** The public template is a *publishing target*, not a source. It contains only what you deliberately push to it, so the dev repo is always the newest version of the kit. There is no routine step for "updating dev from public" — dev is already ahead.
+
+```
+dev repo  ──── you publish ────►  public template
+(always ahead)                     (always behind, by design)
+```
+
+The one exception is covered under [When the public repo gets ahead](#when-the-public-repo-gets-ahead).
+
 ## One-time setup
 
 ```bash
@@ -48,6 +66,20 @@ Then on GitHub: create a Release from the new tag so the CHANGELOG entry is visi
 - [ ] `log.md` and `lessons_learned.md` updated
 - [ ] No copyrighted source material staged (see below)
 - [ ] Skills referenced in README/AGENTS/WORKFLOW all exist
+
+## When the public repo gets ahead
+
+Only happens if changes are made *directly on GitHub* in the public repo — a README typo fixed in the web UI, or a merged pull request from another professor. That commit exists in `public` but not in your history. Bring it back before your next release:
+
+```bash
+git fetch public
+git merge public/main      # bring that commit into local history
+git push origin main       # dev now has it too
+```
+
+Skip this and the next `git push public main` is rejected for divergent histories.
+
+**The habit that avoids it entirely:** never edit the public repo on GitHub. Make every change locally, commit, push to dev, publish when ready. If a contributor opens a PR, merging it on GitHub is fine — just remember to fetch/merge afterward.
 
 ## Eval assets and copyright
 
