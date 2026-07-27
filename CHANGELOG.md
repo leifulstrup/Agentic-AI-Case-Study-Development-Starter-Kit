@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **`examples/`** — excerpts from a real generated case package (JPMorgan LLM Suite, ITEC-617), so a prospective adopter can judge the output before investing time: main case opening, teaching note learning objectives and 80-minute session plan, source registry showing tier/independence/processing side by side, the `/verify-all` report including the two defects it caught, and the verification-debt ledger. Each excerpt is annotated with what to notice and why. Linked prominently from the main README
+
 ## [3.3.0] - 2026-07-27
 
 Source integrity release. Every change traces to a defect found by running the kit against real source material — the JPMorgan corpus baseline run and the 2026-07-27 coaching probes. The theme: tier measures *access*, but nothing measured *interest* or *quotability*, and documents were asserting rigor they couldn't support.

@@ -20,6 +20,8 @@ This repository is a **GitHub template** that gives you everything you need to d
 | **Technical Supplement** | Students, Instructors | Industry context, frameworks, glossary | 2,500-4,000 words |
 | **Teaching Note** | Instructors only | Discussion guide, board plans, timing | 2,500-4,000 words |
 
+**→ [See what this actually produces](examples/)** — excerpts from a real case package: the main case opening, an 80-minute session plan, the source registry, and the verification report that caught two defects before publication.
+
 ---
 
 ## Built for Verification — Why You Can Trust What This Produces
@@ -201,6 +203,7 @@ Check your progress anytime: `/check-status`
 | `.claude/skills/` | Claude Code skill definitions |
 | `.github/copilot-instructions.md` | VS Code Copilot custom instructions |
 | `PROJECT_CONTEXT.md` | Session continuity context |
+| `examples/` | Excerpts from a real generated case package — start here |
 | `evals/` | Regression-testing framework for kit versions (see `evals/EVALS.md`) |
 | `log.md`, `lessons_learned.md` | Development log and per-version lessons |
 

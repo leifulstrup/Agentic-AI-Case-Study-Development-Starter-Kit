@@ -45,6 +45,7 @@ The workflow is **iterative**, not linear. Expect research loops:
 | `sources/Source_Registry.md` | Source catalog with quality tiers (T1/T2/T3) |
 | `case-study/` | The four case study documents |
 | `exports/` | PDF exports for distribution |
+| `examples/` | Excerpts from a real generated case package (reference for output quality) |
 | `templates/` | Detailed prompts, QA workflows, source acquisition guide |
 | `.claude/skills/` | Skill definitions (Claude Code slash commands; other agents: perform the equivalent action described in each file) |
 

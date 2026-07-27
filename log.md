@@ -122,3 +122,15 @@ Published to both remotes; the public repo showed a failing check. Reproduced ma
 - `log.md` (3, mine): a `---` placed directly after a paragraph turned that paragraph into a setext heading (MD003 + MD026 trailing punctuation), plus a double blank line. Fixed by blank-line separation.
 
 **Lesson**: lint the tracked file set, not the working directory — gitignored artifacts produce phantom failures that hide the real ones.
+
+---
+
+## 2026-07-27 (later) — examples/ folder: making the output visible
+
+**Rationale**: the kit had 3 stars and 1 fork. A professor landing on the repo saw a README about verification debt and source tiering, and had to *imagine* the output. The blessed golden baseline — a complete, verified, four-document package — was sitting gitignored on one laptop. Publishing excerpts converts the abstract pitch into evidence at near-zero cost.
+
+**Built**: `examples/` with a README (what went in, what came out, what verification found, what an independent judge scored, and honest caveats) plus five annotated excerpts — main case opening, teaching note objectives + session plan + discussion questions + verification coda, source registry showing tier/independence/processing as three separate questions, the `/verify-all` report including the two defects that blocked publication, and the verification-debt ledger showing an item tracked and resolved. Every excerpt ends with "what to notice" so a reader knows what they're looking at. Linked from the README package table and the file listings in README/AGENTS.
+
+**Deliberate choices**: (1) the main case excerpt shows the **v3.3-standard** integrity note, not the v3.2-era one that shipped in the golden — publishing the old wording would have shipped the exact error the current release catches; (2) the verification report excerpt leads with the defects found rather than the clean numbers, because a quality report that only shows passes isn't credible; (3) the caveats section states plainly that this package has a thin, executive-heavy source base — the kit measured it, so hiding it would undercut the whole premise.
+
+**Self-check caught an error**: the README claimed a ~32,000-word corpus. That came from a `wc` glob that matched extracted PDFs twice. True figure is ~22,000. Fixed before commit — a reminder that the kit's own standard applies to its marketing copy.
