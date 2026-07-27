@@ -61,3 +61,20 @@
 **Built**: `.claude/skills/coach-case.md` — six-phase loop: Diagnose (5-lens Gap Map: source types, voice-based perspectives, load-bearing-claim confidence, people/org biographical grounding, rubric-facing weaknesses) → Coach (max 3 gaps at a time, each with a pedagogical why + research offer) → Research (with permission; primary-source-first; bios saved as sources/reports/BIO_[Name].md) → QA/QC gate (provenance/independence/corroboration/tier/risk; rejections logged; conflicts kept as teachable discrepancies) → Measure (re-run assessment, record deltas + HELPED/NEUTRAL/HURT) → log iteration to coaching/coaching-log.md + git checkpoint. Plus `templates/COACHING_LOG.md`; wired into AGENTS.md (behavior rule + workflow table), README, WORKFLOW.md, CLAUDE.md, copilot equivalents; CHANGELOG [Unreleased]. Design rationale in upgrade-plan/07-coach-and-advisor.md, including eval hooks (gap-detection recall + QA/QC discrimination probes for a future defect-set).
 
 **Design notes**: lenses 2 and 4 come straight from baseline-run findings (outlet-vs-voice bias miscount; Buehler misattribution traced to missing bio grounding). Impact measurement is deliberately allowed to say a new source HURT.
+---
+
+## 2026-07-09/10 — Pipeline bookends: /scout-case + learning-context.yaml (toward v3.3)
+
+**Direction from Leif**: explore a pre-case sourcing coach and post-case mass-customization front-ends tailored to student/classroom context. Also: whether to fork a new private "2.0" repo.
+
+**Repo strategy decided**: no fork. Two remotes on one clone — private dev repo as `origin` (default push target, can hold copyrighted eval corpus), public template as `public` (curated releases only). Documented in `RELEASING.md` with a pre-publish checklist; `.gitignore-private` variant provided for the private repo where corpus/golden ARE tracked. Version lineage stays continuous (3.x) — marketing "2.0" is a separate label for a future public relaunch.
+
+**Built**:
+1. `.claude/skills/scout-case.md` (18th skill) — pre-commitment scouting of 1–4 candidates across five evidence areas (protagonist voice and decision moment fatal-if-absent), scored on the same four dimensions as `/assess-sources` plus tension quality and effort estimate; verdicts PURSUE / VIABLE WITH WORK / REDIRECT / AVOID; outputs comparison table, per-candidate detail, recommendation, and a starter source list feeding `/add-sources`. Verdict recorded in PROJECT_CONTEXT so later coaching distinguishes known-from-the-start gaps from new ones.
+2. `learning-context.yaml` — classroom config (audience/session/teaching/front_ends/guardrails) that front-end generators will read for tailoring. Guardrails from design doc 03 are now machine-readable (`verified_body_only`, `provenance_header`, `reveal_outcome`).
+3. Wiring: AGENTS.md (behavior rule, process model now shows SCOUT + COACH loop, workflow table, file structure), README (skills table, contents, 18-skills count), WORKFLOW.md (new Phase 0: Scouting), CLAUDE.md, copilot equivalents, CHANGELOG [Unreleased].
+4. Local backup `eval-assets-backup-2026-07-27.tar.gz` (2.2 MB) of the gitignored corpus + golden baselines — they existed on one laptop only.
+
+**Design rationale**: upgrade-plan/08-scout-and-learning-context.md, including three eval hooks — scouting calibration against the baseline's actual assessment scores (systematic optimism is measurable), scouting discrimination (strong vs. unworkable candidate), and context sensitivity (same front-end under two contexts must actually differ).
+
+**Not done**: `/setup-context` conversational writer for learning-context.yaml (currently hand-edited, which violates the kit's no-manual-YAML principle — fix when generators land); public-policy scouting variants.

@@ -87,7 +87,7 @@ Pick the option that fits your setup. **Options A and B are agentic** — they c
 | Reads local files | Yes | Yes (Agent Mode) | No |
 | Writes/edits files | Yes | Yes (Agent Mode) | No |
 | Runs terminal commands | Yes | Yes | No |
-| `/slash-commands` | Yes (16 skills) | No (use natural language) | No |
+| `/slash-commands` | Yes (18 skills) | No (use natural language) | No |
 | Custom instructions | CLAUDE.md | .github/copilot-instructions.md + CLAUDE.md | N/A |
 | Cost | Subscription | Free (GitHub Education) | Free tier varies |
 | Best for | Full automation | Students with VS Code | Quick start, no setup |
@@ -190,6 +190,8 @@ Check your progress anytime: `/check-status`
 | `VERIFICATION_PLEDGE.md` | Author sign-off checklist for sharing a finished case |
 | `STARTER_PROMPT.md` | Prompt for chat tools (ChatGPT, Claude.ai, Gemini) |
 | `case-config.yaml` | Central configuration (auto-written by `/setup-case`) |
+| `learning-context.yaml` | Classroom context for tailoring generated teaching materials |
+| `RELEASING.md` | Two-remote workflow for maintainers |
 | `verification-debt.yaml` | Tracks unverified AI-generated claims |
 | `sources/` | Your research materials |
 | `sources/Source_Registry.md` | Source catalog with quality tiers |
@@ -210,6 +212,7 @@ These `/slash-commands` work in **Claude Code**. **VS Code + Copilot** users: as
 
 | Command | Purpose |
 |---------|---------|
+| `/scout-case` | Scout candidate topics before committing — caseworthiness verdict |
 | `/setup-case` | Configure project (asks questions, writes files) |
 | `/add-sources` | Register source materials with tier classification |
 | `/assess-sources` | Evaluate source quality with go/no-go gate |

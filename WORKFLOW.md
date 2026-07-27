@@ -20,6 +20,19 @@ Case study development is **iterative**, not linear. You'll cycle between gather
 
 ---
 
+## Phase 0: Scouting (optional, but the cheapest step you'll take)
+
+Still choosing a topic? Scout before you commit.
+
+**Claude Code users:** `/scout-case`
+**VS Code + Copilot users:** *"Help me scout whether these companies can support a teaching case."*
+
+Give it one to four candidate companies or decisions. It researches whether each has what a case actually requires — a named protagonist with public, quotable material; an identifiable decision made under uncertainty; a quantitative base students can compute with; independent coverage — then scores each on the same four dimensions used later by `/assess-sources` and returns PURSUE / VIABLE WITH WORK / REDIRECT / AVOID with a starter source list for the winner.
+
+A weekend spent on a company with no protagonist voice is the most common way case projects fail. Twenty minutes here prevents it.
+
+---
+
 ## Phase 1: Setup
 
 Create your repository and configure the case study.
@@ -235,6 +248,7 @@ These `/slash-commands` work in **Claude Code**. **VS Code + Copilot** users: as
 
 | Phase | Command | When to Use |
 |-------|---------|-------------|
+| Scouting | `/scout-case` | Before committing to a topic |
 | Setup | `/setup-case` | First thing after cloning |
 | Sources | `/add-sources` | After adding files to `sources/` |
 | Assessment | `/assess-sources` | Before writing |

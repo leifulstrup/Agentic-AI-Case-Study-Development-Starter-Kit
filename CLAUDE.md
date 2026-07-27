@@ -8,7 +8,7 @@ The canonical behavioral guidance above comes from `AGENTS.md` (shared across al
 
 Every workflow action in AGENTS.md is available as a `/slash-command` — the skill definitions live in `.claude/skills/`. Prefer running the skill over improvising the procedure:
 
-`/setup-case` · `/add-sources` · `/assess-sources` · `/coach-case` · `/write-document` · `/check-status` · `/verify-all` · `/verify-consistency` · `/verify-quotes` · `/verify-sources` · `/verify-links` · `/validate-financials` · `/assess-bias` · `/verify-cross-document` · `/add-disclaimers` · `/export-pdf` · `/git-update`
+`/scout-case` · `/setup-case` · `/add-sources` · `/assess-sources` · `/coach-case` · `/write-document` · `/check-status` · `/verify-all` · `/verify-consistency` · `/verify-quotes` · `/verify-sources` · `/verify-links` · `/validate-financials` · `/assess-bias` · `/verify-cross-document` · `/add-disclaimers` · `/export-pdf` · `/git-update`
 
 ### Between-Document Gates
 

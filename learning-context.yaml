@@ -1,0 +1,105 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  LEARNING CONTEXT                                                            ║
+# ║                                                                              ║
+# ║  case-config.yaml describes the CASE. This file describes the CLASSROOM.     ║
+# ║                                                                              ║
+# ║  Front-end generators (teaching slides, character personas, decision games,  ║
+# ║  quiz banks, podcast briefs, concept maps) read this file so the same        ║
+# ║  verified case body can be rendered differently for different audiences,     ║
+# ║  session formats, and teaching goals — mass customization from one source.   ║
+# ║                                                                              ║
+# ║  Optional: leave it untouched and generators use sensible defaults.          ║
+# ║  Copy per section/term (learning-context-fall2026.yaml) when teaching the    ║
+# ║  same case to different audiences.                                           ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+# -----------------------------------------------------------------------------
+# AUDIENCE — who is in the room
+# -----------------------------------------------------------------------------
+audience:
+  # e.g. "MBA core", "MS Analytics", "Executive Education", "Undergraduate"
+  program: "MBA core"
+
+  # Typical work experience in years (0 for pre-experience programs)
+  years_experience: 5
+
+  # Assumed fluency, per area: "none" | "basic" | "working" | "expert"
+  # Generators use these to decide what needs explaining vs. what to assume.
+  fluency:
+    finance: "working"
+    technology: "basic"
+    strategy: "working"
+
+  # Anything that shapes framing: international cohort, industry concentration,
+  # career switchers, etc. Free text — generators read it as guidance.
+  notes: ""
+
+# -----------------------------------------------------------------------------
+# SESSION — the format you're teaching in
+# -----------------------------------------------------------------------------
+session:
+  length_minutes: 80          # should match case-config documents.session_length_minutes
+  sessions_count: 1           # 2+ if the case spans multiple class meetings
+  class_size: 45
+  modality: "in_person"       # in_person | online_sync | online_async | hybrid
+  # "cold_call" | "small_group" | "debate" | "lecture_discussion" | "simulation"
+  dominant_format: "cold_call"
+  prep_expectation_minutes: 60   # realistic student prep time — governs pre-class front-ends
+
+# -----------------------------------------------------------------------------
+# TEACHING GOALS — what this case is being used to accomplish
+# -----------------------------------------------------------------------------
+teaching:
+  # Course-level themes this case must serve (drives emphasis, not content)
+  themes:
+    - "enterprise technology strategy"
+    - "innovation management"
+
+  # Where the case sits in the arc: "opening" | "mid_course" | "capstone"
+  position_in_course: "mid_course"
+
+  # What you most want students to practice:
+  # "analysis" | "decision_making" | "stakeholder_empathy" | "quantitative_reasoning"
+  primary_skill: "decision_making"
+
+  # Assessment tied to this case, if any (affects quiz bank and rubric emphasis)
+  assessment: "class participation"
+
+# -----------------------------------------------------------------------------
+# FRONT-ENDS — which renderings to generate, and how
+# -----------------------------------------------------------------------------
+front_ends:
+  teaching_slides: true       # instructor deck from the Teaching Note
+  student_brief: true         # spoiler-free student briefing deck
+  personas: true              # AI characters students can interview
+  decision_game: false        # branching scenario
+  podcast_brief: false        # pre-class audio script
+  quiz_bank: true             # reading checks + cold-call bank
+  concept_map: true           # objectives ↔ case moments ↔ questions
+
+  personas_config:
+    # Characters to generate, by name as they appear in the case.
+    # "auto" lets the generator select from named individuals in the case body.
+    characters: "auto"
+    # How forthcoming characters are: "open" | "guarded" | "mixed"
+    disclosure: "mixed"
+    # Require students to earn information through good questions?
+    require_probing: true
+
+  accessibility:
+    # Generators produce accessible output by default; note specifics here.
+    captions_required: false
+    high_contrast_slides: false
+    notes: ""
+
+# -----------------------------------------------------------------------------
+# GUARDRAILS — non-negotiable for every generated front-end
+# -----------------------------------------------------------------------------
+guardrails:
+  # Front-ends may ONLY use content from the verified four-document case body.
+  # Personas must decline to invent facts: "the case doesn't cover that."
+  verified_body_only: true
+  # Stamp every generated artifact with case version, date, and verification status.
+  provenance_header: true
+  # Reveal case outcomes/epilogue in student-facing front-ends?
+  reveal_outcome: false

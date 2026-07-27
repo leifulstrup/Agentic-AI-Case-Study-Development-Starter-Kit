@@ -10,6 +10,7 @@ This repo includes `/slash-commands` for Claude Code (defined in `.claude/skills
 
 | Claude Code Skill | What to Ask Copilot |
 |-------------------|---------------------|
+| `/scout-case` | "Help me scout whether these companies can support a teaching case" |
 | `/setup-case` | "Help me configure my case study" |
 | `/add-sources` | "Scan the sources folder and register any new files" |
 | `/assess-sources` | "Evaluate my source quality and give me a go/no-go assessment" |

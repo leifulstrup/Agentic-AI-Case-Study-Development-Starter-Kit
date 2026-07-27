@@ -29,3 +29,11 @@
 **11. (Baseline run) The judge's critique converged with the human plan.** The opus judge's top improvements (forcing event, quantitative exhibit, dissenting voice) independently match what the case-method literature says separates drafts from published cases — evidence the rubric dimensions are pointing at real quality, and a concrete authoring-skill improvement: `/write-document` should ask "what quantitative exhibit will students compute with?" during Main Case setup.
 
 **12. Agentic maintenance sessions have their own friction.** `.claude/` was write-protected for file tools in this environment; shell was the workaround. Documenting environment quirks in log.md saves the next session the rediscovery.
+
+**13. (Bookends, 2026-07-09) The pipeline's ends were where the leverage was.** Two conversations added a pre-stage and a post-stage input without touching the verified middle — evidence that the "verified body as hinge" architecture is sound: upstream work makes the body trustworthy, downstream work renders it, and neither perturbs the other.
+
+**14. Scouting predictions are an eval signal, not just a convenience.** Because `/scout-case` scores on the same four dimensions `/assess-sources` uses later, predicted-vs-actual becomes measurable. A scout that systematically over-promises is a defect we can catch, not a vibe.
+
+**15. Mass customization needed an input, not more generators.** The front-end plan was complete except for anything describing the classroom. `learning-context.yaml` is small, but without it "many front-ends" means "the same artifact generated repeatedly." The failure mode to watch: a generator that reads the context file and ignores it — hence the context-sensitivity eval probe.
+
+**16. Two remotes beat a fork.** The instinct to protect a working repo was right; the fork was the wrong mechanism. One history with a private default remote and a public release remote gives the same safety without the eventual manual porting between drifting codebases.
