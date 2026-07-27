@@ -94,3 +94,17 @@
 **Added**: `evals/fixtures/jpm-llm-suite/probe-set.yaml` — makes both probes repeatable with recorded pass criteria and baseline results, the coaching analogue of defect-set.yaml.
 
 **New actions queued**: fix the inaccurate "All quotations verbatim" assertion; add a source independence/interests column to the Source Registry (both the Cisco sponsorship and McKinsey's commercial interest fell through that hole); `/assess-sources` should check for ASR/editor-processing disclaimers before allowing T1; defect-set v2 gains sponsored-source and third-headcount classes.
+
+---
+
+## 2026-07-27 — v3.3.0 "Source Integrity" released
+
+**Theme**: everything the probes and baseline run found. Tier measured access; nothing measured interest or quotability; documents asserted rigor they couldn't support.
+
+**Built**: Independence column + Processing Status in the registry; capture at registration in `add-sources`; integrity step in `assess-sources` ahead of the gates (with Reliability downgrade when quoted sources are EDITED/ASR); MODIFIED verdict in `verify-quotes` covering five look-verbatim-but-aren't classes plus an integrity-claim check; voice-based counting in `assess-bias`; integrity-claim audit in `add-disclaimers`; canonical Quoting Rules in AGENTS.md; defect-set v2 (16); grounding_check v2.
+
+**grounding_check v2 finding worth remembering**: the ~45% false-flag rate was NOT rhetorical quoting as first assumed. It was a quote-parity bug — a single character class for open and close marks meant one unpaired quote flipped pairing and the checker compared *narrative prose between quotations* against the corpus. Documents using straight quotes only (306 in the test corpus) are especially exposed since straight marks are open/close ambiguous. Fixed by matching curly and straight separately plus rejecting captured prose by content. 54.8% → 78.7% on identical input; residual gap is PDF line-break artifacts and borderline compound phrases. Still a lead-generator, not a gate.
+
+**Regression** (`evals/test-log.md`): 5/5 on the new defect classes (D12–D16), pre-existing defects re-caught, plus novel finds (two more silent ASR corrections, a Supplement splice, ~40 unmarked smoothings). Headline: same documents, v3.2.0 reported ~225 VERIFIED; v3.3.0 reports ~33 of ~195 because three of five sources can't support verbatim quotation. The standard became accurate.
+
+**Open items**: golden baseline is a v3.2.0-standard artifact — do not re-bless retroactively; create a v3.3-standard golden at the next full authoring run. Carry the AGENTS.md quoting rules into `write-document.md` so the writer follows them at drafting time rather than having verification catch ~40 smoothings after the fact. n=2 variance run still deferred.

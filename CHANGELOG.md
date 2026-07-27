@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.3.0] - 2026-07-27
+
+Source integrity release. Every change traces to a defect found by running the kit against real source material — the JPMorgan corpus baseline run and the 2026-07-27 coaching probes. The theme: tier measures *access*, but nothing measured *interest* or *quotability*, and documents were asserting rigor they couldn't support.
+
+### Changed
+- **`sources/Source_Registry.md`** — new **Independence** column (INDEPENDENT / INTERESTED / COMPANY / UNKNOWN, with the specific interest named) and **Processing Status** definitions (VERBATIM / EDITED / ASR / EXTRACTED). A full-text vendor-sponsored transcript is T1 *and* compromised; both facts now get recorded
+- **`.claude/skills/add-sources.md`** — captures independence and processing status at registration, reading the document itself for sponsor reads, editorial notes, and ASR artifacts; warns the user immediately when a source cannot support verbatim quotation
+- **`.claude/skills/assess-sources.md`** — new source-integrity step ahead of the go/no-go gates; downgrades Reliability when quoted T1 sources are edited or machine-transcribed; treats "no independent source" as blocking regardless of source count
+- **`.claude/skills/verify-quotes.md`** — new **MODIFIED** verdict covering the five failure classes that look verbatim but aren't (spliced, silently corrected, smoothed, edited-source, assent-converted-to-assertion); establishes processing status before assigning any verdict; checks whether the documents' own integrity claims are true
+- **`.claude/skills/assess-bias.md`** — counts by **voice** (who is speaking) rather than outlet (who published), since five interviews with one executive across five outlets is one perspective; flags interested non-company voices
+- **`.claude/skills/add-disclaimers.md`** — audits integrity claims already in the drafts and replaces overstated ones with precise, supportable statements
+- **`AGENTS.md`** — new canonical **Quoting Rules**: quote only from VERBATIM sources, never verbatim from an edited source, bracket convention for ASR, no splicing, attribute to the speaker rather than the venue, and never assert more integrity than the evidence supports
+- **`evals/fixtures/jpm-llm-suite/defect-set.yaml`** — v2, 16 defects; six new classes all drawn from real production failures
+- **`evals/fixtures/jpm-llm-suite/scripts/grounding_check.py`** — v2 fixes a quote-parity bug where one unpaired quotation mark caused the checker to compare narrative prose against the corpus (measured 54.8% → 78.7% on identical input)
+
+### Added
+- **`evals/fixtures/jpm-llm-suite/probe-set.yaml`** — repeatable coaching-skill probes with recorded pass criteria: coach gap-detection recall, scout calibration against actual post-sourcing assessment, scout discrimination
+
+### Regression results (`evals/test-log.md`)
+5/5 detection on the new defect classes, plus additional true positives. On the same documents, v3.2.0's verification reported ~225 verified quotes; v3.3.0 reports ~33 of ~195, because three of five sources cannot support verbatim quotation at all. The standard became accurate, not stricter for its own sake.
+
 ### Added
 - **`/scout-case` skill** — pre-commitment coaching: scouts 1–4 candidate topics for whether they can support a case at all (protagonist voice and decision moment are fatal-if-absent; quantitative base, independent coverage, and perspective range grade quality), scores each on the same four dimensions `/assess-sources` uses later, and returns PURSUE / VIABLE WITH WORK / REDIRECT / AVOID with a starter source list. Prevents the most expensive failure in case development — discovering three weekends in that the company can't support a case
 - **`learning-context.yaml`** — optional classroom-context config (audience program and per-domain fluency, session length/size/modality/format, prep expectations, teaching themes and target skill, which front-ends to generate, persona behavior, accessibility, and machine-readable guardrails). Front-end generators read it so one verified case body renders differently for different audiences — the mechanism behind mass customization

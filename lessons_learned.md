@@ -45,3 +45,13 @@
 **19. Scouting predicts well enough to be trusted.** MAE 0.5 with zero signed bias against a post-sourcing assessment, from web reconnaissance alone. More interesting: where scout and baseline disagreed on Reliability, the coach's independent analysis sided with the scout — the blind prediction may have been more accurate than the informed assessment it was scored against.
 
 **20. A regression fixture and a teaching corpus are different artifacts.** Both probes flagged the JPM corpus as stale. That's a virtue for regression testing (a moving corpus makes version comparison meaningless) and a defect for classroom use. Don't let one requirement corrupt the other — freeze v1 forever as the fixture, build v2 if the case is to be taught.
+
+## v3.3.0 — 2026-07-27
+
+**21. The bug was never where I assumed.** grounding_check's false-flag rate looked like a rhetorical-quoting problem; measuring it revealed a quote-parity bug that made the checker compare narrative prose against the corpus. I shipped an "attribution-aware" v2 that barely moved the number before measuring again and finding the real cause. Lesson: when a fix doesn't move the metric, the diagnosis is wrong — don't ship the second guess either, measure again.
+
+**22. Straight quotes are structurally ambiguous and prose tooling must respect that.** You cannot tell an opening `"` from a closing one. Any tool pairing them positionally breaks on the first unpaired mark and fails silently for the rest of the document. Curly quotes are self-describing; straight quotes need content-based validation.
+
+**23. The kit now demands more of the writer than the writer delivers.** v3.3's verification found ~40 unmarked smoothings in text the same system authored under the old rules. That's not hypocrisy, it's sequencing — but the fix belongs at drafting time, not verification time. A rule that only exists in the checker teaches the author nothing.
+
+**24. A stricter standard makes old results look worse, and that's success.** Same documents: ~225 verified under v3.2.0, ~33 under v3.3.0. The temptation is to read that as a regression. It's the opposite — v3.2.0 was counting quotes as verified that no honest reviewer would accept, because it asked "does this string appear in the corpus?" instead of "can this source support a quotation at all?" Corollary: golden baselines are versioned artifacts. Don't retroactively re-bless; record which standard a baseline was blessed under.

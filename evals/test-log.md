@@ -149,3 +149,39 @@ Both probes independently flagged it. The scout, working from the open web, foun
 2. Add a **source independence/interests column** to the Source Registry (sponsorship, commercial interest, personal ties) — the Cisco and McKinsey findings both fell through this hole.
 3. Add "third headcount figure (600,000)" and "sponsored-source independence" to defect-set v2.
 4. `/assess-sources` should check for editor/ASR processing disclaimers before allowing T1 classification.
+
+---
+
+## v3.3.0 — 2026-07-27 — jpm-llm-suite — REGRESSION (source-integrity release)
+
+- Harness/model: Claude agent harness, claude-fable-5 verifier | Runs: n=1
+- Target: the five defect classes v3.3 was built to catch (defect-set v2: D12–D16), injected into a copy of the baseline authoring output
+- Artifacts: `eval-runs/regression-v3.3-defected/verify-v3.3-2026-07-27.log`
+
+### Layer 2 — New defect classes (defect-set v2)
+
+| Defect | Injected | Caught? | Evidence |
+|--------|----------|---------|----------|
+| D12 silent ASR correction | Removed the `[squandering]` bracket marker | **YES** | Flagged, with transcript's "squanding" quoted back |
+| D13 stripped independence annotation | Removed Independence column from registry | **YES** | Flagged, *and* noticed `assess-bias` now references a column that no longer exists |
+| D14 edited source quoted as verbatim + false integrity claim | Added "All quotations verbatim… independently verified" | **YES** | "False on both counts… the worst line in the package" |
+| D15 third unreconciled figure | Inserted "600,000 employees" | **YES** | Blocking; traced the only corpus instance of 600,000 to a garbled ASR fragment about H-1B visas, not headcount |
+| D16 assent converted to assertion | Attributed the 30,000 figure to Waldron as a quotation | **YES** | Identified as fabricated quotation + assent-as-assertion; noted the package's own exhibit records the provenance correctly |
+
+**New-class detection recall: 5/5.** Pre-existing unfixed defects from the baseline copy (splice, altered "can be used", companion-title mismatch) were also re-caught.
+
+### Novel findings beyond the injected set
+Two additional silent ASR corrections ("nascence" for "nence", "countless" for "ideiation"), a splice in the Supplement's RAG definition, **~40+ instances of unmarked smoothing** (disfluencies removed without ellipsis), and the observation that the bracket convention is used but never declared.
+
+### The headline change vs. v3.2.0
+On substantially the same documents, v3.2.0's verification reported **~225 VERIFIED** quotes and a status of "Needs Review." v3.3.0's verification reports **only ~33 of ~195 can be VERIFIED**, because three of five sources cannot support verbatim quotation at all — two are uncorrected ASR, one states it was edited for clarity and length.
+
+This is not a regression in the case; it is the standard becoming accurate. v3.2.0 was counting quotes as verified that no honest reviewer would accept. The source-integrity work moved the kit from *"does this string appear in the corpus?"* to *"can this source support a quotation at all, and is the document's claim about its own rigor true?"*
+
+### Verdict
+**PASS.** 5/5 on targeted classes, additional true positives, no false positives identified. The v3.3 checks are materially stricter and correctly so.
+
+### Notes
+1. The blessed golden (`golden/baseline-v3.2.0/`) predates these checks. It was fixed against v3.2.0's standard, not v3.3's — its McKinsey quotations would now be MODIFIED (edited source), and its integrity note needs the edited-source disclosure. **Do not re-bless retroactively**; instead record that golden is a v3.2.0-standard artifact and create a v3.3-standard golden at the next full authoring run.
+2. n=2 variance run still deferred.
+3. The kit's own guidance now demands more of the *writer* than the writer currently delivers (~40 unmarked smoothings). The next authoring-side change should carry the AGENTS.md quoting rules into `write-document.md` at drafting time, rather than leaving them to be caught in verification.

@@ -2,7 +2,7 @@
 
 A starter kit for creating HBR-style MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v3.2.0-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v3.3.0-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -295,4 +295,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 3.2.0*
+*Template Version: 3.3.0*
