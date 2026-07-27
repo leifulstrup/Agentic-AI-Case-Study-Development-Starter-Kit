@@ -61,20 +61,43 @@ Evaluate the source materials in `sources/` and produce a Source Assessment Repo
    - **YELLOW** (score 3): Adequate but would benefit from more sources
    - **RED** (score 1-2): Insufficient, must improve before writing
 
-7. **Check minimum viable source gate**:
+7. **Check source integrity** (processing status and independence — do this before the gates):
+
+   **Processing check.** For every T1 source, scan the document for evidence of how the text was produced:
+   - Editorial notes: "edited for clarity and length", "condensed", "lightly edited", "excerpts from"
+   - ASR artifacts: no speaker labels, no sentence punctuation, run-on paragraphs, garbled proper nouns and technical terms
+   - PDF extraction artifacts: column bleed, header/footer intrusion
+
+   A source that is EDITED or ASR remains T1 for *access*, but **cannot support verbatim quotation**. Flag each one explicitly:
+   ```
+   ⚠ {source} is an {edited transcript / uncorrected ASR transcript}. It is T1 for access,
+   but quotations from it must not be presented as verbatim. Use indirect speech, or quote
+   with an explicit note about the source's processing status.
+   ```
+   Downgrade the **Reliability** score by at least one point if more than one T1 source carrying quotations is EDITED or ASR without audio available for adjudication.
+
+   **Independence check.** For each source, establish who produced it and what they gain. Look for sponsor reads, disclosure statements, author affiliation, and whether the producer sells services related to the subject. Classify INDEPENDENT / INTERESTED / COMPANY / UNKNOWN and name the specific interest.
+
+   Report:
+   ```
+   | Source | Tier | Independence | Specific interest | Processing |
+   ```
+   If no source is INDEPENDENT, that is a blocking gap regardless of how many sources exist — say so.
+
+8. **Check minimum viable source gate**:
    - At least 1 T1 primary source with protagonist's voice (interview, podcast, keynote)
    - At least 1 T1 financial source (10-K, earnings, investor presentation)
    - At least 2 news/industry sources from different publications
    - If any minimum not met, flag as blocking gap
 
-8. **Early bias detection**:
+9. **Early bias detection**:
    - Count sources by origin: company-generated vs. independent
    - If >50% from single perspective (e.g., all company PR), flag bias risk
    - Note missing perspectives: employee, customer, critic, regulator, competitor
 
-9. **Identify gaps**: For each dimension scoring below 4, list specific types of sources that would improve the score, with concrete search suggestions.
+10. **Identify gaps**: For each dimension scoring below 4, list specific types of sources that would improve the score, with concrete search suggestions.
 
-10. **Generate report**:
+11. **Generate report**:
 
 ```
 # Source Assessment Report
@@ -110,6 +133,15 @@ Case: [company_name] — [topic]
 | Reliability | X/5 | GREEN/YELLOW/RED | [one-line summary] |
 | Completeness | X/5 | GREEN/YELLOW/RED | [one-line summary] |
 | **Overall** | **X/5** | **[gate]** | |
+
+## Source Integrity
+
+| Source | Tier | Independence | Specific interest | Processing |
+|--------|------|--------------|-------------------|------------|
+
+- Independent sources: X of Y
+- Sources that cannot support verbatim quotation (EDITED/ASR): X — [list]
+- **Integrity flags**: [any source whose independence or processing was missed by earlier registration]
 
 ## Minimum Viable Source Check
 

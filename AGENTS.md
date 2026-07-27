@@ -89,6 +89,22 @@ These map to Claude Code `/slash-commands` in `.claude/skills/`. Agents without 
 - `course.name`, `course.institution`, `course.semester`
 - `documents.session_length_minutes`
 
+## Quoting Rules
+
+Quotation marks are a promise that these are the speaker's exact words. Honor it:
+
+- **Quote only from VERBATIM sources.** Official transcripts, published article text, filings.
+- **Never quote verbatim from an EDITED source.** If the source says it was "edited for clarity and length," its words are the editor's arrangement of the speaker's. Use indirect speech ("Waldron said the platform had reached…"), or quote with an explicit note that the source is an edited transcript.
+- **ASR transcripts require the bracket convention.** Machine transcription corrupts names and technical terms. When quoting from uncorrected speech-to-text:
+  - Reproduce the transcript's words exactly, including disfluencies, *or* mark every change.
+  - Corrections go in square brackets: `"the [nascence] of the technology"`, `"30,000 personal assistance [assistants]"`.
+  - Never silently fix a word inside quotation marks — that is fabrication, however small.
+  - Use an ellipsis for omitted material: `"an hour saved here and three hours there… often just shift bottlenecks"`.
+  - State the convention once, near the first ASR quotation, e.g. *"Quotations from this source are drawn from an uncorrected machine transcript; bracketed text marks corrections."*
+- **Never splice.** Two statements from different parts of an interview cannot be joined inside one set of quotation marks, even with an ellipsis, if they answer different questions. Quote them separately, or paraphrase the connection outside the quotes.
+- **Attribute to the speaker, not the venue.** In a multi-party interview, check who actually said it — an interviewer's framing question is not the subject's claim. Where an interviewer asserts a figure and the subject merely assents, report it that way; do not convert assent into assertion.
+- **Do not claim more than you can support.** Only assert "all quotations verbatim" in a document if every quoted source is VERBATIM. Otherwise state the actual position: which sources are edited or machine-transcribed, and what convention was used.
+
 ## Writing Standards
 
 - **Protagonist-centered**: Name a real person, show their reasoning

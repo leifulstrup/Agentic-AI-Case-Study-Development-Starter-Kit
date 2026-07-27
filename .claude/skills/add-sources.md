@@ -32,6 +32,29 @@ Then **classify the tier automatically**:
 - **T2**: File is present but contains only excerpts, summaries, or partial content
 - **T3**: Should not normally apply to files in the repo (reserved for URL-only references)
 
+Then **classify independence** — who produced this, and what do they gain? Read the document itself for evidence: sponsor reads ("this episode is brought to you by…"), editorial notes, author affiliation, disclosure statements, and whether the producer sells something related to the subject.
+
+- **INDEPENDENT** — no commercial, employment, or personal stake in how the subject is portrayed
+- **INTERESTED** — producer has a stake (consultancy summarizing its own report; sponsored episode; vendor content; interviewer with a long tie to the subject; firm selling related services)
+- **COMPANY** — produced or controlled by the case subject
+- **UNKNOWN** — could not establish; treat as INTERESTED until resolved
+
+Record the *specific* interest, not just the label — "INTERESTED — episode sponsored by [vendor]" is useful; "INTERESTED" alone is not. Independence is **independent of tier**: a full-text vendor-sponsored transcript is T1 and INTERESTED at the same time.
+
+Then **classify processing status** — how did this text reach its current form? Scan for editorial notes and transcription artifacts:
+
+- **VERBATIM** — official transcript, published article text, filing
+- **EDITED** — the source says so (e.g., "this interview has been edited for clarity and length"). **Flag loudly**: this source cannot support verbatim quotation
+- **ASR** — machine speech-to-text, uncorrected, no audio available (tell-tale signs: garbled proper nouns, no speaker labels, no punctuation structure, run-on text)
+- **EXTRACTED** — text pulled from PDF
+
+If a source is EDITED or ASR, say so to the user at registration time, not later:
+```
+Note: {source} states it was edited for clarity and length. It's still T1 for access,
+but quotations from it cannot be presented as verbatim. I'll flag this in the registry
+and use indirect speech unless you want to quote it with an explicit "edited transcript" note.
+```
+
 **Determine the source type** from the subfolder and content:
 - `transcripts/` → Primary Interviews & Transcripts
 - `financial/` → Financial Sources
@@ -73,7 +96,8 @@ Which would you like to do?
 
 After collecting metadata for all new sources:
 
-- Add each source to the appropriate table in `sources/Source_Registry.md`
+- Add each source to the appropriate table in `sources/Source_Registry.md`, filling the **Independence** column with label + specific interest
+- Record processing status (VERBATIM / EDITED / ASR / EXTRACTED) in the Key Content column or a note
 - Assign sequential numbers continuing from existing entries
 - Update the **Source Summary** counts at the top of the file
 - Update the "Last updated" timestamp at the bottom
@@ -83,9 +107,9 @@ After collecting metadata for all new sources:
 ```
 ## Sources Registered
 
-| # | Source | Tier | Type |
-|---|--------|------|------|
-| {n} | {description} | T{tier} | {type} |
+| # | Source | Tier | Independence | Processing | Type |
+|---|--------|------|--------------|------------|------|
+| {n} | {description} | T{tier} | {label — specific interest} | {status} | {type} |
 
 ### Source Summary
 - T1 (Primary): {count}

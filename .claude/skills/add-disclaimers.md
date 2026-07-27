@@ -110,6 +110,24 @@ verification. The development process included:
 - Financial projections and forward-looking statements reflect source material as of [date]
 ```
 
+### 3b. Audit integrity claims already in the documents
+
+Before adding anything, check what the documents already *assert* about their own rigor — and delete or correct anything they cannot support. Drafts commonly acquire confident lines like "All quotations are verbatim from primary sources" or "every figure independently verified." An overstated integrity claim is worse than no claim: it is the one error a reader will never forgive, and it sits in a document whose entire purpose is trustworthiness.
+
+For each such assertion, test it:
+
+| Assertion found | Test | If it fails |
+|-----------------|------|-------------|
+| "All quotations verbatim" | Is every quoted source VERBATIM in the registry? Any MODIFIED verdicts outstanding? | Replace with the true position: which sources are edited or machine-transcribed, and what convention was used |
+| "Independently verified" | Were figures checked against a source *other than* the one asserting them? | Say "verified against company-reported figures" or similar |
+| "Comprehensive review of sources" | Does the registry show meaningful breadth? | Soften to what the source base actually supports |
+
+Replace, don't just delete — a precise statement builds more credibility than a vague one:
+
+> *Quotations are reproduced from the sources listed in the bibliography. Two sources are uncorrected machine transcripts; quotations from them mark corrections in square brackets. One source states that it was edited for clarity and length; material from it is presented as indirect speech.*
+
+Report every assertion you changed.
+
 ### 4. Report Changes
 
 ```

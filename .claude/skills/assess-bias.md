@@ -35,6 +35,25 @@ Classify each source by origin:
 
 Count sources in each category. Calculate percentages.
 
+**Then count again by VOICE, which is the number that matters.** Categorizing by outlet systematically understates concentration: five interviews with the same executive published by five independent outlets is one perspective, not five independent ones. For every substantive claim in the case, ask *who is speaking*, not *who published it*.
+
+1. List every named individual whose statements are used as evidence, with their affiliation and interest.
+2. Attribute each substantive claim in the case to the person who made it.
+3. Report the distribution:
+
+```
+| Voice | Affiliation | Interest | Sources appearing in | Claims carried |
+|-------|-------------|----------|---------------------|----------------|
+```
+
+- **Voice concentration**: % of substantive claims carried by the single most-used voice, and by company-affiliated voices in total
+- **Independent-voice share**: % of claims carried by people with no stake in how the subject is portrayed
+- **Missing voices**: which stakeholder groups have zero named representation
+
+Bias risk is judged on the **voice** distribution. If >50% of substantive claims come from company-affiliated speakers — regardless of how many outlets published them — the risk is at least MEDIUM. If no affected party (employee, customer, regulator, competitor, critic) is represented by a named voice, say so as a blocking gap for the workforce/impact portions of the case.
+
+Also flag **interested non-company voices**: a consultant summarizing their own firm's research, or a vendor whose product is discussed, is not an independent check on the company's claims even though they are not the company. Use the Independence column in `sources/Source_Registry.md`.
+
 ### 3. Bias Type Assessment
 
 Check for each type of bias:
