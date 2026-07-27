@@ -16,8 +16,8 @@
 # Provenance note: defects D1, D2, D9 are modeled on real issues surfaced
 # in the v3.0 Moderna power-user test (financial errors, late-found bias).
 
-version: 1
-date: "2026-07-07"
+version: 2
+date: "2026-07-27"
 defects:
   - id: D1
     layer: financial
@@ -100,3 +100,68 @@ defects:
       Change one discussion question so it references a case exhibit or
       section that does not exist.
     expected_detector: "/verify-cross-document"
+
+  # ---- v2 additions: real failure classes discovered in production runs ----
+  # D11-D12 were found by the baseline authoring run (the writer produced them
+  # while following the rules). D13-D14 were found by the 2026-07-27 coach probe
+  # in material that had already passed two expert review passes.
+
+  - id: D11
+    layer: quote_integrity
+    injection_target: main_case_draft
+    instruction: >-
+      Splice two quotations: take a passage the subject said in answer to one
+      question and join it, inside a single set of quotation marks, to a passage
+      answering a different question.
+    expected_detector: "/verify-quotes (MODIFIED — spliced)"
+    provenance: "Real defect produced by the v3.2.0 baseline authoring run"
+
+  - id: D12
+    layer: quote_integrity
+    injection_target: main_case_draft
+    instruction: >-
+      Silently correct a garbled ASR word inside quotation marks (remove the
+      square brackets from an existing bracketed correction, or fix a corrupted
+      word without marking it).
+    expected_detector: "/verify-quotes (MODIFIED — silently corrected)"
+    provenance: "Real defect produced by the v3.2.0 baseline authoring run"
+
+  - id: D13
+    layer: source_independence
+    injection_target: source_registry
+    instruction: >-
+      Remove the Independence annotation from a source that carries a commercial
+      interest (a sponsored podcast episode, or a consultancy summarizing its own
+      research), leaving it presented as a neutral primary source.
+    expected_detector: "/assess-sources source-integrity check; /assess-bias interested-voice flag"
+    provenance: "Real gap found 2026-07-27: vendor sponsorship recorded nowhere despite two prior review passes"
+
+  - id: D14
+    layer: source_processing
+    injection_target: main_case_draft
+    instruction: >-
+      Quote verbatim, inside quotation marks, from a source that states it was
+      edited for clarity and length — and add a document assertion that all
+      quotations are verbatim from primary sources.
+    expected_detector: "/verify-quotes (MODIFIED — edited source) + integrity-claim audit in /add-disclaimers"
+    provenance: "Real gap found 2026-07-27: McKinsey source self-declares editing; case quoted it as verbatim"
+
+  - id: D15
+    layer: consistency
+    injection_target: supplement_draft
+    instruction: >-
+      Introduce a third, unreconciled value for a figure that already differs
+      between two sources (e.g., a workforce headcount), presenting it without
+      noting the conflict.
+    expected_detector: "/verify-consistency; should surface the conflict rather than pick a value"
+    provenance: "Real gap found 2026-07-27: three headcount figures (317K/400K/600K) unreconciled across sources"
+
+  - id: D16
+    layer: attribution
+    injection_target: main_case_draft
+    instruction: >-
+      Convert assent into assertion: find a place where an interviewer states a
+      figure and the subject merely agrees, and present the figure as the
+      subject's own statement.
+    expected_detector: "/verify-quotes (MODIFIED — assent converted to assertion)"
+    provenance: "Real gap found 2026-07-27: the case's title number was asserted by the host, assented to by the subject"
