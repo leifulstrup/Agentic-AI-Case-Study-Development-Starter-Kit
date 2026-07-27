@@ -7,8 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.4.0] - 2026-07-27
+
+Adoption release. The kit was good and invisible: a prospective adopter landing on the repository had to imagine the output before deciding whether to invest a weekend. This release shows the work.
+
 ### Added
-- **`examples/`** — excerpts from a real generated case package (JPMorgan LLM Suite, ITEC-617), so a prospective adopter can judge the output before investing time: main case opening, teaching note learning objectives and 80-minute session plan, source registry showing tier/independence/processing side by side, the `/verify-all` report including the two defects it caught, and the verification-debt ledger. Each excerpt is annotated with what to notice and why. Linked prominently from the main README
+- **`examples/`** — excerpts from a real generated case package (JPMorgan LLM Suite, ITEC-617), so a prospective adopter can judge the output before investing time: main case opening, teaching note learning objectives and 80-minute session plan, source registry showing tier/independence/processing side by side, the `/verify-all` report including the two defects it caught, and the verification-debt ledger. Each excerpt is annotated with what to notice and why, and the folder README states the package's weaknesses (thin, executive-heavy source base) as plainly as its strengths. Linked prominently from the main README
+
+### Changed
+- **Terminology** — "HBR-style" replaced with "business school" throughout (README, AGENTS.md, STARTER_PROMPT, add-disclaimers, PROJECT_CONTEXT, CITATION.cff, PROMPTS). The kit teaches general case method, not one publisher's house style, and the previous wording invoked a trademark the project has no relationship to
+- **`.markdownlint.json`** — MD029 disabled: step numbers in procedural skill files are semantic, and renumbering them to satisfy the linter would degrade them for human readers
+
+### Fixed
+- **Markdown lint CI** — ten violations resolved, six of which predated v3.1.0 and had left the build red long enough to stop being read. Two were structural defects introduced in the v3.3.0 release commit: a duplicate `### Added` heading in the changelog, and a horizontal rule placed directly after a paragraph, which markdown parses as a setext heading
 
 ## [3.3.0] - 2026-07-27
 

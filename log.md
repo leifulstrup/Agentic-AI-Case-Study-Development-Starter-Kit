@@ -134,3 +134,13 @@ Published to both remotes; the public repo showed a failing check. Reproduced ma
 **Deliberate choices**: (1) the main case excerpt shows the **v3.3-standard** integrity note, not the v3.2-era one that shipped in the golden — publishing the old wording would have shipped the exact error the current release catches; (2) the verification report excerpt leads with the defects found rather than the clean numbers, because a quality report that only shows passes isn't credible; (3) the caveats section states plainly that this package has a thin, executive-heavy source base — the kit measured it, so hiding it would undercut the whole premise.
 
 **Self-check caught an error**: the README claimed a ~32,000-word corpus. That came from a `wc` glob that matched extracted PDFs twice. True figure is ~22,000. Fixed before commit — a reminder that the kit's own standard applies to its marketing copy.
+
+---
+
+## 2026-07-27 (later) — v3.4.0 "Adoption" released
+
+Version bumped for the `examples/` addition (additive and user-facing = semver minor), the HBR→business-school terminology change, and the markdownlint CI fix.
+
+**Release mechanics note worth remembering**: the `v3.3.0` tag pointed at `f950ebf`, but three commits had landed since. Cutting a GitHub Release from that tag would have produced a tarball *without* `examples/` — the very artifact built to make the kit evaluable. Rather than force-move a published tag, bumped to 3.4.0 so the release points at current main. `release.yml` fires on `TEMPLATE_VERSION` changes and auto-creates the GitHub Release from the matching CHANGELOG section, so the bump does the publishing.
+
+**Version now lives in seven places** — TEMPLATE_VERSION, README badge + footer, case-config.yaml, setup-case.md's config template block, CITATION.cff, PROJECT_CONTEXT.md, VERIFICATION_PLEDGE.md. All updated; grep confirms no stale 3.3.0 outside historical records (CHANGELOG, logs, examples' note about which standard the golden reflects). This restating-in-seven-places is itself a small design smell; worth collapsing if it grows.
