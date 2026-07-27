@@ -213,7 +213,7 @@ Based on the source analysis, write the opening section of the case study (500-8
 5. Create forward momentum toward the strategic question
 6. Do NOT provide background history yet (that comes after the hook)
 
-**Tone:** Business journalism (WSJ, HBR) - authoritative but engaging
+**Tone:** Business journalism - authoritative but engaging
 
 **Example opening patterns:**
 - A number that surprised the protagonist

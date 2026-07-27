@@ -1,6 +1,6 @@
 # Agentic AI Case Study Development Starter Kit
 
-A starter kit for creating HBR-style MBA case studies from digital sources, guided by AI.
+A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
 [![Template Version](https://img.shields.io/badge/template-v3.3.0-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)

@@ -11,7 +11,7 @@ url: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-K
 repository-code: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit"
 license: MIT
 abstract: >-
-  A GitHub template for developing HBR-style MBA case studies from digital
+  A GitHub template for developing business school MBA case studies from digital
   sources using agentic AI tools, with a verification-first workflow:
   source quality tiers, go/no-go assessment gates, verification-debt
   tracking, and seven automated quality checks. Developed for ITEC-617 at

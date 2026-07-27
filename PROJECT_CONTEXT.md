@@ -8,14 +8,14 @@ Quick reference for session continuity. Auto-maintained by skills — you do not
 **Type**: GitHub template repository
 **Version**: 3.3.0
 **Course**: ITEC-617, American University Kogod School of Business, Spring 2026
-**Purpose**: Template for developing HBR-style MBA case studies from digital sources using AI tools
+**Purpose**: Template for developing business school MBA case studies from digital sources using AI tools
 
 ## Current Status
 
 **Phase**: Template development (this is the starter kit, not an individual case study)
 
 **Agentic Tool Paths**:
-- [x] Claude Code — 16 `/slash-commands` via `.claude/skills/`
+- [x] Claude Code — 18 `/slash-commands` via `.claude/skills/`
 - [x] VS Code + GitHub Copilot — Agent Mode via `.github/copilot-instructions.md`
 - [x] Chat Tools — Starter prompt via `STARTER_PROMPT.md`
 

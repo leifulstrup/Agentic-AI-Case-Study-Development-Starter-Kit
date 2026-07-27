@@ -90,7 +90,7 @@ verification. The development process included:
    and themes from source materials.
 
 3. **AI-Assisted Writing**: Case documents were drafted with AI assistance,
-   following HBR-style case study conventions.
+   following business school case study conventions.
 
 4. **Verification Procedures**:
    - Quote verification: All quoted text traced to source documents
