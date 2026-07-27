@@ -144,3 +144,19 @@ Version bumped for the `examples/` addition (additive and user-facing = semver m
 **Release mechanics note worth remembering**: the `v3.3.0` tag pointed at `f950ebf`, but three commits had landed since. Cutting a GitHub Release from that tag would have produced a tarball *without* `examples/` — the very artifact built to make the kit evaluable. Rather than force-move a published tag, bumped to 3.4.0 so the release points at current main. `release.yml` fires on `TEMPLATE_VERSION` changes and auto-creates the GitHub Release from the matching CHANGELOG section, so the bump does the publishing.
 
 **Version now lives in seven places** — TEMPLATE_VERSION, README badge + footer, case-config.yaml, setup-case.md's config template block, CITATION.cff, PROJECT_CONTEXT.md, VERIFICATION_PLEDGE.md. All updated; grep confirms no stale 3.3.0 outside historical records (CHANGELOG, logs, examples' note about which standard the golden reflects). This restating-in-seven-places is itself a small design smell; worth collapsing if it grows.
+
+---
+
+## 2026-07-27 (later) — v3.5.0: maintainer tooling + Perplexity guidance
+
+**Rationale**: three consecutive releases were done by hand and each manual step failed at least once — version drift needing a follow-up grep every time, local lint disagreeing with CI, and a release nearly cut from a tag that predated its headline feature. None were hard problems; they were memory problems. A kit premised on "important work needs checklists and gates" was releasing itself on recall.
+
+**Built and tested** (`scripts/`): `bump-version.sh` (7-file propagation + `--check` audit — tested against non-semver input, same-version, empty arg, single-file sabotage, and a full 3.4.0→9.9.9→revert round trip), `lint.sh` (tracked-files-only, matching CI — tested clean, violation detection, and `--fix`), `release-preflight.sh` (nine checks — **tested the two that matter by sabotage**: staged a fake copyrighted corpus file and confirmed it fails with DO-NOT-PUSH; created a commit after the tag and confirmed it detects "tag N commits behind HEAD," the exact v3.3.0 mistake), `release-notes.sh` (CHANGELOG section extraction — tested default arg, unknown version, older versions, and no next-heading bleed).
+
+Preflight caught one false positive during its own testing: README's generic "`/slash-commands`" was being read as a skill name. Fixed by excluding that literal.
+
+**Skills**: `/release-kit` (judgment layer — semver decision, changelog prose, then delegate to scripts; explicitly states which decisions are the human's and which are the script's) and `/run-eval` (fixture orchestration, role separation between writer/verifier/judge, and honest interpretation — including that a stricter version scoring worse against an older baseline is success, not regression).
+
+**Perplexity guidance in README** — researched because AU faculty commonly have campus licenses. The finding that changes the advice: Perplexity's agentic surfaces mostly *cannot* touch a local repository. Comet's agent is blocked from `file://`; Computer's filesystem is an isolated cloud sandbox; only the Mac-only Personal Computer connects to a local folder, and git/shell are absent from its documented capabilities. Windows and Linux faculty have no local-file agent at all. So the honest framing is two tools, two jobs: Perplexity for scouting and sourcing (which is genuinely well suited to `/scout-case` and `/coach-case` work), an agentic tool for authoring and verification. Also flagged that inline citations make sources easy to find but do not confirm a source supports the claim attached to it — exactly the gap `/verify-quotes` closes. Two corrections worth noting: "Spaces" are now "Projects," and Comet is not Perplexity's most capable agentic surface.
+
+**Note for the next release**: this one was cut *using* `/release-kit` and the scripts. First dogfooding.

@@ -55,3 +55,13 @@
 **23. The kit now demands more of the writer than the writer delivers.** v3.3's verification found ~40 unmarked smoothings in text the same system authored under the old rules. That's not hypocrisy, it's sequencing — but the fix belongs at drafting time, not verification time. A rule that only exists in the checker teaches the author nothing.
 
 **24. A stricter standard makes old results look worse, and that's success.** Same documents: ~225 verified under v3.2.0, ~33 under v3.3.0. The temptation is to read that as a regression. It's the opposite — v3.2.0 was counting quotes as verified that no honest reviewer would accept, because it asked "does this string appear in the corpus?" instead of "can this source support a quotation at all?" Corollary: golden baselines are versioned artifacts. Don't retroactively re-bless; record which standard a baseline was blessed under.
+
+## v3.5.0 — 2026-07-27
+
+**25. The kit was preaching a discipline it did not practice.** Verification gates, provenance logs, and checklists for case writing; memory and goodwill for its own releases. Every manual release step failed at least once across three releases. Automating them was not efficiency work — it was consistency between what the project claims and how it operates.
+
+**26. Test the failure path, not the happy path.** `release-preflight.sh` passing on a clean repo proves almost nothing. Staging a fake copyrighted file and confirming it refuses to proceed, and creating a commit after the tag to confirm it detects the drift — those tests are the reason to trust it. Both sabotage tests targeted errors that had actually occurred or nearly occurred.
+
+**27. A script's own testing found a bug in the script.** The preflight's skill-existence check read README's generic "`/slash-commands`" as a skill name. Automation introduces its own defects; the answer is to test it like anything else, not to trust it because it is code.
+
+**28. Research changed the guidance rather than confirming it.** The plausible assumption about Perplexity — agentic browser, therefore agentic workflow — is wrong in the way that matters. Comet cannot read local files at all, and the one surface that can is Mac-only with no documented git or shell. Faculty told "use your Perplexity license for this" would have hit a wall. Checking first-party documentation rather than reasoning from the product category is what the kit tells its users to do.

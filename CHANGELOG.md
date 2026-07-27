@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.5.0] - 2026-07-27
+
+Maintainer tooling and Perplexity guidance. This kit argues that important work needs checklists, verification gates, and logged provenance — while its own release process ran on memory. Three consecutive releases each failed at a manual step. This release makes the release process as disciplined as the case process.
+
+### Added
+- **`scripts/bump-version.sh`** — propagates a version to all seven files that restate it, then verifies; `--check` audits consistency without changing anything. Rejects non-semver input and detects drift in any single file
+- **`scripts/lint.sh`** — lints *tracked* markdown exactly as CI does. Linting the working directory locally reported 78 violations where CI saw 10; the 68 phantoms came from gitignored eval content and hid the real ones
+- **`scripts/release-preflight.sh`** — nine checks, each corresponding to something that previously went wrong. The critical one refuses to proceed if copyrighted eval corpus or golden baselines are staged for publication — the single error that cannot be undone once pushed to a public repository
+- **`scripts/release-notes.sh`** — extracts a CHANGELOG section for `gh release create --notes-file`
+- **`/release-kit` skill** — the judgment layer above those scripts: decide the semver bump, write the changelog, run preflight, commit, tag, push dev-then-public, verify what shipped
+- **`/run-eval` skill** — orchestrates a regression run against a frozen fixture, including the separation of writer, verifier, and judge roles (an agent that checks its own work does not find the errors it just made) and honest interpretation of results
+- **README — guidance for Perplexity users.** Many faculty have campus Enterprise Pro or Education licenses. Perplexity is well suited to scouting and sourcing, and cannot run the authoring workflow: Comet's agent is blocked from local files, Computer's filesystem is an isolated cloud sandbox, and only the Mac-only Personal Computer can touch a local folder — without documented git or shell support. Windows and Linux users have no Perplexity local-file agent at all. Also notes that inline citations make sources easy to find but do not confirm that a source supports the claim attached to it
+
+### Changed
+- **`RELEASING.md`** — pre-publish checklist replaced with the executable preflight; added a script reference table and the reasoning behind automating these steps
+- **`AGENTS.md`, `README.md`, `CLAUDE.md`** — maintainer skills separated from authoring skills, so a professor writing a case is never offered `/release-kit`
+
 ## [3.4.0] - 2026-07-27
 
 Adoption release. The kit was good and invisible: a prospective adopter landing on the repository had to imagine the output before deciding whether to invest a weekend. This release shows the work.

@@ -10,6 +10,8 @@ Every workflow action in AGENTS.md is available as a `/slash-command` — the sk
 
 `/scout-case` · `/setup-case` · `/add-sources` · `/assess-sources` · `/coach-case` · `/write-document` · `/check-status` · `/verify-all` · `/verify-consistency` · `/verify-quotes` · `/verify-sources` · `/verify-links` · `/validate-financials` · `/assess-bias` · `/verify-cross-document` · `/add-disclaimers` · `/export-pdf` · `/git-update`
 
+Maintainer-only (template development): `/release-kit` · `/run-eval`
+
 ### Between-Document Gates
 
 After completing each document, automatically run a quick consistency check across existing documents, report the current verification-debt count, and flag critical issues before proceeding to the next document.

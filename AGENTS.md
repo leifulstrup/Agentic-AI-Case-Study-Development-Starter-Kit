@@ -48,6 +48,12 @@ The workflow is **iterative**, not linear. Expect research loops:
 | `examples/` | Excerpts from a real generated case package (reference for output quality) |
 | `templates/` | Detailed prompts, QA workflows, source acquisition guide |
 | `.claude/skills/` | Skill definitions (Claude Code slash commands; other agents: perform the equivalent action described in each file) |
+| `scripts/` | Maintainer tooling for releasing the kit itself (not used when authoring a case) |
+| `RELEASING.md` | Two-remote release workflow for maintainers |
+
+## Maintainer vs. Author Workflows
+
+Most skills help someone **author a case study**. Four are for **maintaining the kit itself** and should not be offered to a professor or student writing a case: `release-kit`, `run-eval`, and the `scripts/` tooling they call. If you are working inside the template repository rather than a case project, see `RELEASING.md`.
 
 ## Source Tier Definitions
 
@@ -79,6 +85,13 @@ These map to Claude Code `/slash-commands` in `.claude/skills/`. Agents without 
 | Disclaimers | `add-disclaimers.md` | AI methodology disclaimers |
 | Export | `export-pdf.md` | Prepare PDF exports |
 | Git | `git-update.md` | Stage, commit, push |
+
+### Maintainer-only (template development, not case authoring)
+
+| Action | Skill file | Purpose |
+|--------|-----------|---------|
+| Release | `release-kit.md` | Cut a kit version: decide semver, write changelog, bump, preflight, tag, push |
+| Eval | `run-eval.md` | Regression-test the kit against a frozen fixture so results stay comparable |
 
 ## Key Configuration
 

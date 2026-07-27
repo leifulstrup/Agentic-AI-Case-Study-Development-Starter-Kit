@@ -60,12 +60,26 @@ git push public main --tags
 
 Then on GitHub: create a Release from the new tag so the CHANGELOG entry is visible to adopters. Verify the repo's "Template repository" setting is still enabled.
 
-**Pre-publish checklist**
-- [ ] `evals/test-log.md` has a passing run for this version
-- [ ] `CHANGELOG.md` entry written; `TEMPLATE_VERSION`, README badge, `case-config.yaml` template version all bumped and consistent
-- [ ] `log.md` and `lessons_learned.md` updated
-- [ ] No copyrighted source material staged (see below)
-- [ ] Skills referenced in README/AGENTS/WORKFLOW all exist
+**Pre-publish checks are executable.** Do not run this list by hand:
+
+```bash
+scripts/release-preflight.sh
+```
+
+Nine checks, each corresponding to something that previously went wrong: uncommitted changes, version drift across the seven files that restate it, lint failures, a missing CHANGELOG section, **copyrighted eval material staged for publication** (the one unrecoverable error), misconfigured remotes, a release tag that lags HEAD, a public remote you are behind, and documentation referencing skills that do not exist.
+
+The one thing the script cannot judge: whether `evals/test-log.md` has a passing run for behavior changes. Documentation-only releases do not need one; anything touching a skill does.
+
+**Supporting scripts:**
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/bump-version.sh X.Y.Z` | Propagate a version to all seven locations and verify; `--check` audits consistency without changing anything |
+| `scripts/lint.sh` | Lint tracked markdown exactly as CI does (`--fix` applies safe autofixes) |
+| `scripts/release-preflight.sh` | The nine checks above |
+| `scripts/release-notes.sh X.Y.Z` | Extract a CHANGELOG section for `gh release create --notes-file` |
+
+Claude Code users: `/release-kit` runs this whole workflow, making the judgment calls (version number, changelog prose) and delegating the deterministic parts to these scripts.
 
 ## When the public repo gets ahead
 
@@ -94,6 +108,10 @@ git push origin main
 ```
 
 **Never push those commits to `public`.** If they were ever added to a shared history, removing them requires a history rewrite. Safer alternative if you're unsure: keep them out of git entirely and back them up to your own storage — see `evals/EVALS.md`.
+
+## Why these are scripts
+
+Three consecutive releases were done by hand, and each manual step failed at least once: version drift needed a follow-up grep every time, local linting disagreed with CI because it included gitignored files, and a release was nearly cut from a tag that predated the feature it was named for. None of those were hard problems — they were memory problems. The scripts exist so the next release does not depend on remembering.
 
 ## Versioning
 
