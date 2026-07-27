@@ -1,0 +1,47 @@
+# Coaching-skill probes — the /coach-case and /scout-case analogue of defect-set.yaml.
+# Where defect-set measures whether verification CATCHES planted errors, this
+# measures whether coaching FINDS real weaknesses and whether scouting PREDICTS
+# what sourcing will later measure.
+version: 1
+date: "2026-07-27"
+
+coach_gap_recall:
+  # Ground truth established independently by the v3.2.0 baseline run's
+  # verification pass and rubric judge. Run /coach-case Phase 1-2 offline against
+  # the baseline run directory; score how many are found.
+  method: "Give the coach the baseline sources + drafts + registry + debt file, offline. Score detection."
+  known_gaps:
+    - id: G1
+      gap: "No employee, customer, regulator, or critic voice — all substantive claims are executive"
+    - id: G2
+      gap: "No biographical grounding for the protagonist or other named individuals"
+    - id: G3
+      gap: "Load-bearing claims (30,000 assistants; $2B/$2B; adoption %) rest on single sources"
+    - id: G4
+      gap: "Headcount and adoption figures unreconciled across sources"
+    - id: G5
+      gap: "No computable quantitative exhibit — students cannot run numbers"
+    - id: G6
+      gap: "No forcing event and no dissenting voice; protagonist already endorses both pillars"
+  baseline_result: "2026-07-27: 6/6 recall, plus 8 verified novel findings, 0 false positives in spot-check"
+
+scout_calibration:
+  # Scout the SAME case blind (no sources in hand, web only), then compare
+  # predicted dimension scores to the actual post-sourcing assessment.
+  method: "Run /scout-case on JPMorgan LLM Suite with no source materials. Compare to actual."
+  actual_assessment: {depth: 5, breadth: 3, reliability: 5, completeness: 4}
+  pass_criteria: "Mean absolute error <= 1.0 AND signed error near zero (no systematic optimism)"
+  baseline_result: "2026-07-27: predicted 5/4/4/4 — MAE 0.5, signed error 0"
+
+scout_discrimination:
+  # Pair a workable candidate with an unworkable framing; a healthy scout separates them.
+  method: "Scout two candidates together; check verdicts and reasoning."
+  candidates:
+    - name: "JPMorgan Chase — LLM Suite enterprise AI"
+      expected_verdict: "PURSUE"
+      why: "Public company: filings, investor day, named executive with extensive public voice"
+    - name: "Bloomberg L.P. — internal AI tooling build-vs-buy"
+      expected_verdict: "REDIRECT or AVOID"
+      why: "Private partnership: no filings, no disclosed financials — completeness gap cannot be closed by effort"
+  pass_criteria: "Correct separation AND a proposed reframe rather than a bare rejection"
+  baseline_result: "2026-07-27: PURSUE / REDIRECT with BloombergGPT-2023 reframe offered — PASS"

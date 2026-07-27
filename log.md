@@ -78,3 +78,19 @@
 **Design rationale**: upgrade-plan/08-scout-and-learning-context.md, including three eval hooks — scouting calibration against the baseline's actual assessment scores (systematic optimism is measurable), scouting discrimination (strong vs. unworkable candidate), and context sensitivity (same front-end under two contexts must actually differ).
 
 **Not done**: `/setup-context` conversational writer for learning-context.yaml (currently hand-edited, which violates the kit's no-manual-YAML principle — fix when generators land); public-policy scouting variants.
+
+---
+
+## 2026-07-27 — Coaching-skill probes against the JPM fixture
+
+**Rationale**: the authoring pipeline is unchanged since the v3.2.0 baseline, so re-running it would measure model variance, not kit improvement. Probed the two genuinely new skills against ground truth the baseline already established.
+
+**Probe A — /coach-case gap detection** (offline, `eval-runs/probe-2026-07-27-coach/`): **6/6 recall** on known gaps, plus **8 verified novel findings** the baseline's verification pass and rubric judge both missed — including that the VentureBeat episode is vendor-sponsored (Outshift by Cisco), that the McKinsey source says on its face it was "edited for clarity and length" while being quoted as verbatim, a third unreconciled headcount figure (Dimon's "600,000"), and that the case's title number (30,000 assistants) is confirmation-by-assent from the host rather than a Waldron statement. All four spot-checked against the corpus and confirmed true. Zero false positives in the sample. The probe also challenged the baseline's own assessment scores with reasons (Reliability 5 → 3-4, Breadth 3 → 2).
+
+**Probe B — /scout-case calibration + discrimination** (web-enabled, no sources in hand): predicted 5/4/4/4 vs. actual 5/3/5/4 — **MAE 0.5, signed error 0**, i.e. no systematic optimism, which is the specific defect this probe exists to catch. Correctly separated PURSUE (JPMorgan) from REDIRECT (Bloomberg L.P. — private partnership, completeness gap uncloseable by effort) and offered a reframe (BloombergGPT frozen at March 2023) rather than a bare rejection, as the skill specifies.
+
+**Cross-probe finding**: both independently flagged the frozen corpus as stale (nothing after Dec 2025; the scout found an Apr 2026 Dimon letter and a 2026 shift from voluntary adoption to tracked usage). Decision recorded: keep corpus v1 frozen for regression comparability; build a corpus v2 separately if teaching realism is wanted. Different jobs, different corpora.
+
+**Added**: `evals/fixtures/jpm-llm-suite/probe-set.yaml` — makes both probes repeatable with recorded pass criteria and baseline results, the coaching analogue of defect-set.yaml.
+
+**New actions queued**: fix the inaccurate "All quotations verbatim" assertion; add a source independence/interests column to the Source Registry (both the Cisco sponsorship and McKinsey's commercial interest fell through that hole); `/assess-sources` should check for ASR/editor-processing disclaimers before allowing T1; defect-set v2 gains sponsored-source and third-headcount classes.

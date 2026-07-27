@@ -84,3 +84,68 @@ All issues flagged by the run's own verify-all pass were fixed surgically before
 2. **n=2 variance run deferred** (cost/time). Do a second clean run before using this baseline to fail a future version on a small margin.
 3. Add to defect-set v2: composite/spliced quote and silent transcript correction (the two real-world classes this run discovered).
 4. Skill-spec fixes queued for v3.3 (ASR quoting rule, MODIFIED verdict, voice-based bias counting, counting units, filename tolerance).
+
+---
+
+## Unreleased (post-v3.2.0) — 2026-07-27 — jpm-llm-suite — COACHING-SKILL PROBES
+
+Testing the two skills added since the baseline (`/coach-case`, `/scout-case`). The authoring pipeline is unchanged since v3.2.0, so a full re-run would measure model variance rather than kit improvement; these probes test what's actually new, against ground truth the baseline run already established.
+
+- Harness/model: Claude agent harness, claude-fable-5 for both probes | Runs: n=1 each
+- Probe A (coach): offline, `eval-runs/probe-2026-07-27-coach/` — kit skills + baseline run's sources/drafts/registry/debt
+- Probe B (scout): web-enabled, no source materials in hand, two candidates — `eval-runs/scouting-report-2026-07-27.md`
+
+### Probe A — `/coach-case` gap-detection recall
+
+Ground truth = the six weaknesses independently established by the baseline run's verification pass and opus rubric judge.
+
+| # | Known gap | Detected? | Where |
+|---|-----------|-----------|-------|
+| 1 | No employee/customer/regulator/critic voice | YES | Lens 2, P1–P8 |
+| 2 | No protagonist biographical grounding | YES | Lens 4, O1 "protagonist minimum NOT met" |
+| 3 | Load-bearing claims resting on single sources | YES | Lens 3, F1–F10 ranked by thinness |
+| 4 | Unreconciled headcount/adoption discrepancies | YES | Lens 3, F6/F7 |
+| 5 | No computable quantitative exhibit | YES | Lens 5, R1/R2/R8 |
+| 6 | No forcing event; no dissenting voice | YES | Lens 5, R3/R4/R5 |
+
+**Detection recall: 6/6.**
+
+**Novel findings beyond ground truth (spot-checked against the corpus — all TRUE):**
+1. The VentureBeat episode is **sponsored by Outshift by Cisco**, an AI vendor — an independence problem recorded nowhere. *Verified: sponsor read present in transcript.*
+2. The McKinsey interview states on its face it "has been **edited for clarity and length**" yet is quoted as verbatim throughout. *Verified.* This makes the "All quotations verbatim" assertion in all four documents inaccurate.
+3. Dimon says **"600,000 employees"** on Bloomberg — a third headcount figure alongside 317,000 and 400,000, unreconciled anywhere. *Verified.*
+4. The headline **30,000 assistants** figure is confirmation-by-assent: the *host* asserts it, Waldron replies "it it's correct." *Verified.* It is the case's title number.
+5. The **$18B** figure traces to an MSN aggregator repost, and the Main Case converts a *technology* budget into an *AI* program — a 9× contradiction with Dimon's $2B.
+6. Buehler carries all industry economics with **no disclosure** of McKinsey's commercial interest or his 18-year tie to Waldron.
+7. Two of five "T1" sources are unattributed ASR transcripts with visible corruption and no audio/timecode to adjudicate ~20 quotations.
+8. Challenged the baseline's own assessment scores with reasons: Reliability 5 → honestly 3–4; Breadth 3 → honestly 2.
+
+Total gap inventory produced: 23 source-type, 15 perspective, 26 confidence, 24 people/org, 16 rubric-facing. No false positives found in the spot-checked sample.
+
+**Verdict: PASS — exceeds design intent.** The skill found everything two prior expert passes found, plus eight material issues they missed, and correctly prioritized three coaching offers with executable search strategies.
+
+### Probe B — `/scout-case` calibration and discrimination
+
+**Calibration** (predicted blind, with no sources in hand, vs. the baseline's actual post-sourcing assessment):
+
+| Dimension | Scout predicted | Baseline actual | Error |
+|-----------|-----------------|-----------------|-------|
+| Depth | 5 | 5 | 0 |
+| Breadth | 4 | 3 | +1 |
+| Reliability | 4 | 5 | −1 |
+| Completeness | 4 | 4 | 0 |
+
+**Mean absolute error 0.5; signed error 0 — no systematic optimism**, the defect this probe exists to catch. Note: Probe A independently argues actual Reliability is 3–4, which would make the scout's prediction *more* accurate than the baseline assessment it was scored against.
+
+**Discrimination**: correctly separated a workable candidate (JPMorgan → PURSUE) from an unworkable framing (Bloomberg L.P. internal AI tooling → REDIRECT), with the right reasoning — a private partnership has no filings, so the completeness gap cannot be closed by effort. It then did what the skill asks and offered a *reframe rather than a rejection*: "BloombergGPT: build the model or rent the frontier?" frozen at ~March 2023, with the arXiv paper as a quantitative spine.
+
+**Verdict: PASS.** Correctly calibrated, correctly discriminating, and the REDIRECT-not-AVOID behavior worked as designed.
+
+### Cross-probe finding: the frozen corpus is stale
+Both probes independently flagged it. The scout, working from the open web, found materially newer primary sources (Dimon's Apr 2026 shareholder letter, a named counter-voice for the top-down pillar, a 2026 mandate shift from voluntary adoption to tracked usage) and proposed a June 2026 freeze date; the coach flagged the corpus as seven months stale with nothing after Dec 17, 2025. **Action: consider a corpus v2 for pedagogical realism — but keep corpus v1 frozen as the regression fixture.** Regression comparability requires a stable corpus; teaching realism requires a current one. These are different jobs and need different corpora.
+
+### Actions arising
+1. Fix the "All quotations verbatim" assertion — it is inaccurate wherever ASR or editor-processed sources are quoted. Ties to the queued ASR-quoting rule and MODIFIED verdict.
+2. Add a **source independence/interests column** to the Source Registry (sponsorship, commercial interest, personal ties) — the Cisco and McKinsey findings both fell through this hole.
+3. Add "third headcount figure (600,000)" and "sponsored-source independence" to defect-set v2.
+4. `/assess-sources` should check for editor/ASR processing disclaimers before allowing T1 classification.
