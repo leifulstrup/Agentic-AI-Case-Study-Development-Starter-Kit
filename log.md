@@ -51,7 +51,6 @@
 
 **Actions queued for v3.3** (from run observations): ASR-transcript quoting rule; MODIFIED verdict for spliced/silently-corrected quotes; voice-based (not outlet-based) bias counting; quote counting unit; filename tolerance in verify skills; grounding_check.py v2 (attribution-aware extraction — v1 false-flags rhetorical quotes at ~45%); defect-set v2 adds spliced-quote and silent-correction classes; n=2 variance run.
 
-
 ---
 
 ## 2026-07-08 (later) — /coach-case: the coach & advisor cycle (post-v3.2.0, toward v3.3)
@@ -61,6 +60,7 @@
 **Built**: `.claude/skills/coach-case.md` — six-phase loop: Diagnose (5-lens Gap Map: source types, voice-based perspectives, load-bearing-claim confidence, people/org biographical grounding, rubric-facing weaknesses) → Coach (max 3 gaps at a time, each with a pedagogical why + research offer) → Research (with permission; primary-source-first; bios saved as sources/reports/BIO_[Name].md) → QA/QC gate (provenance/independence/corroboration/tier/risk; rejections logged; conflicts kept as teachable discrepancies) → Measure (re-run assessment, record deltas + HELPED/NEUTRAL/HURT) → log iteration to coaching/coaching-log.md + git checkpoint. Plus `templates/COACHING_LOG.md`; wired into AGENTS.md (behavior rule + workflow table), README, WORKFLOW.md, CLAUDE.md, copilot equivalents; CHANGELOG [Unreleased]. Design rationale in upgrade-plan/07-coach-and-advisor.md, including eval hooks (gap-detection recall + QA/QC discrimination probes for a future defect-set).
 
 **Design notes**: lenses 2 and 4 come straight from baseline-run findings (outlet-vs-voice bias miscount; Buehler misattribution traced to missing bio grounding). Impact measurement is deliberately allowed to say a new source HURT.
+
 ---
 
 ## 2026-07-09/10 — Pipeline bookends: /scout-case + learning-context.yaml (toward v3.3)
@@ -108,3 +108,17 @@
 **Regression** (`evals/test-log.md`): 5/5 on the new defect classes (D12–D16), pre-existing defects re-caught, plus novel finds (two more silent ASR corrections, a Supplement splice, ~40 unmarked smoothings). Headline: same documents, v3.2.0 reported ~225 VERIFIED; v3.3.0 reports ~33 of ~195 because three of five sources can't support verbatim quotation. The standard became accurate.
 
 **Open items**: golden baseline is a v3.2.0-standard artifact — do not re-bless retroactively; create a v3.3-standard golden at the next full authoring run. Carry the AGENTS.md quoting rules into `write-document.md` so the writer follows them at drafting time rather than having verification catch ~40 smoothings after the fact. n=2 variance run still deferred.
+
+---
+
+## 2026-07-27 (post-release) — CI green for the first time
+
+Published to both remotes; the public repo showed a failing check. Reproduced markdownlint locally against tracked files only (CI checks out the repo, so gitignored `golden/` case documents never reach it — 68 of the 78 local violations were phantom).
+
+**Ten real violations, six of them pre-existing since at least v3.1.0** — CI has been red since before this work began, which is worth knowing: a red check that has always been red stops being read.
+
+- `setup-case.md` (6, pre-existing): MD029 ordered-list numbering. Renumbering would have made procedural steps read 1,1,1,1 — worse for the human reader than for the linter. Disabled MD029 in `.markdownlint.json` instead; step numbers in instruction files are semantic.
+- `CHANGELOG.md` (1, mine): duplicate `### Added` under [3.3.0], created when the release section was inserted above the existing unreleased block. Merged into one Added list and moved the regression summary to the end of the section — a genuine structure fix, not a lint workaround.
+- `log.md` (3, mine): a `---` placed directly after a paragraph turned that paragraph into a setext heading (MD003 + MD026 trailing punctuation), plus a double blank line. Fixed by blank-line separation.
+
+**Lesson**: lint the tracked file set, not the working directory — gitignored artifacts produce phantom failures that hide the real ones.
