@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v3.5.0-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v3.5.1-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -126,30 +126,18 @@ Chat tools work but cannot read files on your computer directly. You must upload
 
 #### Using Perplexity (common at universities with campus licenses)
 
-Many faculty have Perplexity through a campus Enterprise Pro or Education license. It is genuinely useful for this workflow — but for the **research half**, not the authoring half. Knowing which is which saves a frustrating afternoon.
+Perplexity pairs well with this kit. Use it for the research half, and an agentic tool for the authoring half.
 
-**What Perplexity is very good at here:**
+**Where it shines:**
 
-- **Scouting a topic before you commit.** Exactly the job `/scout-case` describes: does this company have a protagonist who speaks publicly, an identifiable decision, accessible financials? Perplexity's cited search is well suited to answering that quickly.
-- **Finding and vetting sources.** Hunting the interview, the filing, the independent coverage, the biographical background on named people — the work `/coach-case` sends you to do.
-- **Working a source corpus in a Project.** Upload your sources (Enterprise Pro allows 500 files per Project, 50 MB each) and interrogate them with custom instructions. Projects can be shared with students, which makes them a reasonable front-end for a finished case. *Note: "Spaces" were renamed "Projects."*
+- **Scouting a topic.** Before committing to a company, find out whether it has a protagonist who speaks publicly, an identifiable decision, and accessible financials — the questions `/scout-case` asks.
+- **Finding and vetting sources.** Hunting interviews, filings, independent coverage, and background on named people — the legwork `/coach-case` sends you to do.
+- **Keeping a source base current.** Perplexity **Computer** runs recurring background tasks, so it can watch a company for new filings and coverage between semesters. Useful for a case you will teach more than once.
+- **Working your corpus.** Load sources into a **Project** (Enterprise Pro allows 500 files, 50 MB each), add custom instructions, and share it with students as a front-end for the finished case.
 
-**What Perplexity cannot do for this kit — and this is the part to get right:**
+**The handoff.** Perplexity works in its own environment rather than in your case repository, so once you have sources, bring them into this repo and switch to Option A or B for writing and verification. Comet automates browsers; Computer runs tasks in a cloud workspace; the Mac-only Personal Computer can reach a local folder but has no documented git or shell support. Plan availability varies — check what your campus license covers.
 
-| Perplexity surface | Can it read/edit the files in your case repository? |
-|---|---|
-| Web app, Projects | **No** — you upload copies; it never touches your folder |
-| **Comet** (agentic browser) | **No** — the agent operates on web pages; it is blocked from local files |
-| **Computer** (cloud agent) | **No** — it has a filesystem, but that is an isolated cloud sandbox, not your repo |
-| **Personal Computer** (Mac app) | **Partly** — it can connect to a folder on your Mac and read, write, and search files there |
-
-Even Personal Computer is not equivalent to Claude Code or Copilot Agent Mode: it is a Mac-only paid feature, and git operations, shell commands, and running the verification checks in your working tree are not part of its documented capabilities. Windows and Linux users have no Perplexity local-file agent at all.
-
-**The practical recommendation:** use Perplexity for scouting and sourcing, then bring the sources into this repository and use an agentic tool (Option A or B) for writing and verification. Two tools, two jobs. If Perplexity is your *only* option, treat it as a chat tool and follow Option C — you will be copying and pasting, and the verification skills will not run automatically.
-
-**One caution that matters for this kit specifically.** Perplexity's inline citations make sources easy to *find*, which is not the same as confirming that a cited source actually supports the claim attached to it. That gap is precisely what `/verify-quotes` and the verification-debt ledger exist to close. Treat anything Perplexity surfaces as a lead to verify against the primary source, not as verification itself.
-
-**For campus IT conversations:** Enterprise Pro terms state that customer data is not used for model training, with SOC 2 Type II, SSO, and audit logs; education pricing is discounted. The GitHub connector, if anyone proposes it, requests very broad repository permissions — worth reviewing before enabling.
+One habit worth keeping: Perplexity's citations make sources easy to find, which is not the same as confirming the source supports the claim. Bring the source into `sources/` and let `/verify-quotes` close that loop.
 
 #### Getting Tech Help
 
@@ -329,4 +317,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 3.5.0*
+*Template Version: 3.5.1*

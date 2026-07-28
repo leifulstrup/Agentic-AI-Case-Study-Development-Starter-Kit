@@ -160,3 +160,17 @@ Preflight caught one false positive during its own testing: README's generic "`/
 **Perplexity guidance in README** — researched because AU faculty commonly have campus licenses. The finding that changes the advice: Perplexity's agentic surfaces mostly *cannot* touch a local repository. Comet's agent is blocked from `file://`; Computer's filesystem is an isolated cloud sandbox; only the Mac-only Personal Computer connects to a local folder, and git/shell are absent from its documented capabilities. Windows and Linux faculty have no local-file agent at all. So the honest framing is two tools, two jobs: Perplexity for scouting and sourcing (which is genuinely well suited to `/scout-case` and `/coach-case` work), an agentic tool for authoring and verification. Also flagged that inline citations make sources easy to find but do not confirm a source supports the claim attached to it — exactly the gap `/verify-quotes` closes. Two corrections worth noting: "Spaces" are now "Projects," and Comet is not Perplexity's most capable agentic surface.
 
 **Note for the next release**: this one was cut *using* `/release-kit` and the scripts. First dogfooding.
+
+---
+
+## 2026-07-27 (later) — v3.5.1: Perplexity guidance sharpened against the product page
+
+Leif surfaced Perplexity's Computer product page. Three refinements to the README section written in v3.5.0:
+
+1. **A capability I had undersold.** Computer runs background and recurring tasks over long horizons with connectors and subagents. For a case taught across multiple semesters, standing monitors for new filings or coverage are a genuine fit — that belongs in the "what Perplexity is good at" list, not the limitations.
+2. **The name is a trap, and saying so is the teaching moment.** Perplexity markets Computer as an assistant that "uses your computer." Its own help documentation says each task runs in an isolated container with a dedicated filesystem, separate from the user's machine. A reasonable reading of the product name yields the wrong operational answer. The README now names this explicitly as a live demonstration of the kit's own rule: check claims against primary sources rather than inferring from how something is described.
+3. **Plan availability is not what I assumed.** The product page lists Pro and Max; Enterprise inclusion is not stated there. Since the guidance is aimed at faculty with campus licenses, the README now says to confirm coverage with whoever administers the license rather than assuming.
+
+**Correction, same day**: Leif's read of the first draft — "not right, too wordy, and very negative." Accurate. 704 words for a tool note, framed around what Perplexity cannot do, with a moralizing aside about the product name being a "trap." Rewritten to ~260 words leading with genuine strengths (topic scouting, source hunting, Computer's recurring tasks for keeping a corpus current, Projects for student sharing) and stating the handoff to an agentic tool once, plainly, instead of as accumulated warnings. Lesson: a limitation worth one sentence does not become more useful at five, and framing a capable tool by its boundaries misrepresents it to the reader who needs to decide whether to use it.
+
+**Process note**: this was cut with `/release-kit` and the scripts — `bump-version.sh 3.5.1`, `lint.sh`, `release-preflight.sh`. Second dogfooding, and the first patch release. The preflight's tag check correctly flagged that v3.5.1 did not yet exist before tagging.

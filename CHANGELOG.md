@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.5.1] - 2026-07-27
+
+### Changed
+- **README Perplexity guidance** — rewritten: cut from ~700 words to ~260 and reframed around what Perplexity does well for this work (scouting a topic, finding and vetting sources, Computer's recurring tasks for keeping a source base current between semesters, Projects for working a corpus and sharing it with students). The handoff point — Perplexity works in its own environment, so bring sources into the repo and switch tools for authoring and verification — is stated once instead of repeated as a series of caveats
+
 ## [3.5.0] - 2026-07-27
 
 Maintainer tooling and Perplexity guidance. This kit argues that important work needs checklists, verification gates, and logged provenance — while its own release process ran on memory. Three consecutive releases each failed at a manual step. This release makes the release process as disciplined as the case process.
