@@ -159,7 +159,7 @@ whisper audio_file.mp3 --model medium --output_format txt
 [Source]_[Speaker/Topic]_[Type].[ext]
 
 Examples:
-- McKinsey_Waldron_Interview.pdf
+- Analyst_Interview_Protagonist.pdf
 - Bloomberg_Dimon_Interview.txt
 - CNBC_JPMorgan_AI_Blueprint.pdf
 - JPMorgan_Q3_2025_Earnings.pdf
@@ -180,7 +180,7 @@ sources/
 │   ├── CNBC_JPMorgan_AI_Blueprint.pdf
 │   └── WSJ_AI_Banking_Analysis.pdf
 ├── reports/               # Analyst/industry reports
-│   └── McKinsey_Waldron_Interview.pdf
+│   └── Analyst_Interview_Protagonist.pdf
 └── Source_Links.md        # URLs and references
 ```
 

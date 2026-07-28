@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.5.3] - 2026-07-27
+
+### Changed
+- **Remaining placeholder names genericized** — v3.5.2 fixed the two company-name examples; this completes the sweep. Eight further instances used real executives or names alluding to them, including one that fused two real people ("Teresa Carlson Waldron") paired with an invented title ("Chief Availability Officer"). Replaced across `case-config.yaml` (header example block and inline comments), the indirect-speech examples in `AGENTS.md`, `/verify-quotes`, and `QA_WORKFLOW`, and the source-filename examples in `SOURCE_ACQUISITION`. Placeholders now read `CompanyXYZ`, `Jane Doe`, `Doe`. A kit built on attribution discipline should not model a fabricated composite of real executives as an example. **Deliberately preserved**: real names in the testing history, `assess-bias` provenance, `defect-set.yaml`, `evals/`, and `examples/` — those record real runs against real sources, and genericizing them would destroy the evidence trail
+
 ## [3.5.2] - 2026-07-27
 
 ### Changed

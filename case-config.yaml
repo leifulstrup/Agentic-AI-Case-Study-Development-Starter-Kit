@@ -10,12 +10,12 @@
 # ║  Preferred setup: Run /setup-case and answer the questions.                ║
 # ║  Manual setup: Replace every placeholder value below.                      ║
 # ║                                                                            ║
-# ║  Example (Tesla factory automation case):                                  ║
-# ║    company_name: "Tesla, Inc."                                             ║
-# ║    company_short: "Tesla"                                                  ║
+# ║  Example (illustrative placeholders — replace with your real case):        ║
+# ║    company_name: "CompanyXYZ, Inc."                                        ║
+# ║    company_short: "CompanyXYZ"                                             ║
 # ║    topic: "Factory Automation and Manufacturing Innovation"                ║
-# ║    protagonist_name: "Lars Moravy"                                         ║
-# ║    protagonist_title: "VP of Vehicle Engineering"                          ║
+# ║    protagonist_name: "Jane Doe"                                            ║
+# ║    protagonist_title: "VP of Engineering"                                  ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
 # -----------------------------------------------------------------------------
@@ -23,17 +23,17 @@
 # -----------------------------------------------------------------------------
 case:
   # Full company name as it appears in formal documents
-  company_name: "Company Name"           # e.g., "JPMorgan Chase & Co."
+  company_name: "Company Name"           # e.g., "CompanyXYZ, Inc."
 
   # Short name for file naming and casual references
-  company_short: "Company"               # e.g., "JPMorgan"
+  company_short: "Company"               # e.g., "CompanyXYZ"
 
   # Brief description of the case topic
   topic: "Topic Description"             # e.g., "Enterprise AI Transformation"
 
   # Primary decision-maker the case follows
-  protagonist_name: "Protagonist Name"   # e.g., "Teresa Carlson Waldron"
-  protagonist_title: "Title"             # e.g., "Chief Availability Officer"
+  protagonist_name: "Protagonist Name"   # e.g., "Jane Doe"
+  protagonist_title: "Title"             # e.g., "Chief Operating Officer"
 
   # Case type: "business" or "public_policy"
   case_type: "business"                  # For public policy cases, set to "public_policy"
@@ -85,7 +85,7 @@ repository:
 # -----------------------------------------------------------------------------
 template:
   # Version of the template this project was created from
-  version: "3.5.2"
+  version: "3.5.3"
 
   # Source repository for updates
   source: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit"

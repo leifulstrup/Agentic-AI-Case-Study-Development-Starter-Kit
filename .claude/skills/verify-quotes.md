@@ -57,7 +57,7 @@ If no filename provided, verify quotes in all .md files in the case-study/ folde
 5. **Apply the publication rule**:
    - Only **VERIFIED** quotes may appear inside quotation marks.
    - **MODIFIED** quotes must be repaired: restore the source wording, split a splice into separate quotations, add brackets around corrections, or convert to indirect speech. An edited-source quotation stays only if the document states the source was edited.
-   - **LIKELY** quotes must be rewritten as indirect speech ("Waldron noted that...") or upgraded by locating the primary source.
+   - **LIKELY** quotes must be rewritten as indirect speech ("Doe noted that...") or upgraded by locating the primary source.
    - **DISPUTED** and **APOCRYPHAL** quotes must be logged to `verification-debt.yaml` and either resolved or removed before publication.
    - **Check the document's own integrity claims.** If any document asserts that all quotations are verbatim while any quote is MODIFIED — or while any quoted source is EDITED or ASR — that assertion is itself a defect. Report it.
 

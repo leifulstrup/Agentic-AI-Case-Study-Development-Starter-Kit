@@ -37,7 +37,7 @@ Quality verification ensures that case studies are:
 - Financial figures match across documents (e.g., "$2B" vs "$2 billion")
 - Dates for events are consistent
 - Names and titles are spelled the same way
-- Key terminology is uniform (e.g., "LLM Suite" vs "LLM suite")
+- Key terminology is uniform (e.g., "Platform One" vs "Platform one")
 
 **Common issues found:**
 - Case says "150,000 users" but Supplement says "150K users"
@@ -67,7 +67,7 @@ Quality verification ensures that case studies are:
 2. Verify speaker identity
 3. If paraphrased, either:
    - Find the exact quote and use it, or
-   - Rewrite as indirect speech ("Waldron noted that...")
+   - Rewrite as indirect speech ("Doe noted that...")
 4. Add source citation if missing
 
 ### 3. Source Verification (`/verify-sources`)

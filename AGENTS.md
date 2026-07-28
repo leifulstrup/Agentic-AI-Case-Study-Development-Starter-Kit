@@ -108,7 +108,7 @@ These map to Claude Code `/slash-commands` in `.claude/skills/`. Agents without 
 Quotation marks are a promise that these are the speaker's exact words. Honor it:
 
 - **Quote only from VERBATIM sources.** Official transcripts, published article text, filings.
-- **Never quote verbatim from an EDITED source.** If the source says it was "edited for clarity and length," its words are the editor's arrangement of the speaker's. Use indirect speech ("Waldron said the platform had reached…"), or quote with an explicit note that the source is an edited transcript.
+- **Never quote verbatim from an EDITED source.** If the source says it was "edited for clarity and length," its words are the editor's arrangement of the speaker's. Use indirect speech ("Doe said the platform had reached…"), or quote with an explicit note that the source is an edited transcript.
 - **ASR transcripts require the bracket convention.** Machine transcription corrupts names and technical terms. When quoting from uncorrected speech-to-text:
   - Reproduce the transcript's words exactly, including disfluencies, *or* mark every change.
   - Corrections go in square brackets: `"the [nascence] of the technology"`, `"30,000 personal assistance [assistants]"`.

@@ -185,4 +185,18 @@ Two small corrections, both from Leif reviewing the published repo.
 
 **Maintainer files travel with the template.** Reviewing the published tree surfaced that "Use this template" hands every case author the kit's own release machinery — `scripts/`, `evals/`, `RELEASING.md`, `.gitignore-private`, and two maintainer skills. Harmless but confusing: release tooling for a kit they are not maintaining, sitting beside the files they need. Added a one-line README note that it can all be deleted. Considered and rejected: `.gitattributes export-ignore` (affects `git archive`, not template instantiation) and removing the files (a forker who wants to maintain their own variant needs them).
 
-**Flagged, not changed**: `case-config.yaml`'s protagonist example reads "Teresa Carlson Waldron," which appears to conflate two real executives' names. In a kit about attribution discipline, an invented-looking composite name is a poor example. Left for Leif's call.
+**Placeholder names swept (per Leif).** The flagged `case-config.yaml` example — "Teresa Carlson Waldron," with the equally invented title "Chief Availability Officer" — turned out to be one of ten. A grep across template contexts found real companies and real executives used as illustrations throughout: a real Tesla VP in the config header block, "JPMorgan Chase & Co." in inline comments, "Waldron noted that…" as the indirect-speech example in AGENTS.md, verify-quotes, and QA_WORKFLOW, and "McKinsey_Waldron_Interview.pdf" as a filename example in SOURCE_ACQUISITION. All now use unmistakable placeholders (CompanyXYZ, Jane Doe, Doe).
+
+The distinction applied throughout: **placeholders must be obviously fictional; provenance must stay factual.** Real names in the testing history, `assess-bias` motivation note, `defect-set.yaml`, `evals/`, and `examples/` were left untouched — those record real runs against real sources, and genericizing them would destroy the evidence trail. A kit that teaches attribution discipline cannot put a fabricated composite of two real executives in front of users as an example, and equally cannot scrub the record of what it actually tested.
+
+---
+
+## 2026-07-27 (later) — v3.5.3: placeholder sweep completed, and a divergence caught by preflight
+
+**The fix**: v3.5.2 genericized the two company-name examples Leif flagged. A grep across template contexts found eight more instances using real executives or names alluding to them — a real Tesla VP in the `case-config.yaml` header block, "Waldron noted that…" as the indirect-speech example in three files, "McKinsey_Waldron_Interview.pdf" as a filename example, and the composite "Teresa Carlson Waldron" with the invented title "Chief Availability Officer." All now `CompanyXYZ` / `Jane Doe` / `Doe`.
+
+The rule applied throughout: **placeholders must be obviously fictional; provenance must stay factual.** Real names in testing history, `assess-bias` motivation, `defect-set.yaml`, `evals/`, and `examples/` were left alone — those record real runs against real sources.
+
+**The process failure worth recording.** I amended the v3.5.2 commit to fold in the extra sweep — but Leif had already pushed v3.5.2 to both remotes. The amend produced a divergent commit carrying the same version number as one already published. `release-preflight.sh` caught it: *"public/main has 1 commit(s) you don't — fetch and merge first."* Check 8 exists precisely for this and did its job on a mistake I made, not a hypothetical one.
+
+Resolution: reset to the published commit, restore the `v3.5.2` tag to it, and ship the extra work as **v3.5.3** on top. No published history rewritten. **Rule for the future, now in `/release-kit`'s spirit: never amend a commit that has been pushed — cut a patch release instead.** Amending is cheap right up until it isn't, and "has this been pushed?" is a question worth asking before every `--amend`.
