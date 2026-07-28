@@ -215,3 +215,17 @@ Resolution: reset to the published commit, restore the `v3.5.2` tag to it, and s
 3. `RELEASING.md` documents the same, including the deliberate path if a tag genuinely must move (`git push --delete`, so the change is visible rather than silently overwritten).
 
 **Observation worth keeping**: check 8, written the previous day for a hypothetical divergence, caught a real one within a day. The value of a preflight is not that it validates the happy path — it is that it fires on the mistake you were about to make while confident you weren't making one.
+
+---
+
+## 2026-07-27 — Project reflection at v3.5.4
+
+Stocktake rather than a change entry. Eight releases and 21 commits since v3.1.0: MIT relicense, AGENTS.md cross-harness structure, source-integrity release, coaching and scouting skills, examples folder, maintainer tooling, and four patch releases of hygiene.
+
+**Where the kit genuinely stands**: 20 skills, 4 tested scripts, a 10-check release preflight, a frozen JPM fixture with 16 seeded defects and recorded probe baselines, a blessed golden package, and 38 recorded lessons. Quality is now measured rather than asserted — the strongest claim available is that the kit's own verification blocked publication of its own output, twice, on defects a careful human review had missed.
+
+**Where it does not stand**: no external adopter. Three stars, one fork, zero professors outside this project have authored a case with it. Every metric collected is internal. The v4.0 front-end generators — personas, concept maps, decision games, the "one case, many front-ends" thesis that motivated the whole effort — remain unbuilt. The `learning-context.yaml` written to drive them has never been read by anything.
+
+**Honest note on this session's back half**: four patch releases in a day, all correct, none advancing adoption. Release hygiene is legible and satisfying in a way that outreach is not, and that asymmetry pulled effort away from the stated Fall-semester goal. Recording it here because the pattern will recur.
+
+**Deferred and still deferred**: n=2 variance run; corpus v2 for teaching realism (v1 stays frozen as the fixture); SKILL.md directory migration; the three grading rubrics; verification-literacy guide; carrying the quoting rules into `write-document` so the author follows them at drafting time rather than verification catching them after.

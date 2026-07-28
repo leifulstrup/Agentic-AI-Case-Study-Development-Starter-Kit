@@ -75,3 +75,21 @@
 **31. Chain independent operations with `;`, not `&&`.** `git push origin … && git push public …` meant one rejected tag ref silently skipped the public push entirely. The two remotes are independent; failure on one says nothing about the other. Small syntax choice, real consequence.
 
 **32. Ask "has this been pushed?" before every `--amend` and `git tag -f`.** Both errors trace to the same skipped question. Amending is cheap right up until the moment it isn't, and the moment is invisible unless you check.
+
+---
+
+## Project reflection — 2026-07-27
+
+*Written at v3.5.4, after eight releases and twenty-one commits from v3.1.0. A stocktake rather than a version note.*
+
+**33. The kit is now defensible in a way it was not three weeks ago — and that is the real change.** Before, its quality rested on the author's care. Now it rests on measurement: a frozen corpus, sixteen seeded defects, recorded probe results, a blessed baseline, and an append-only test log. When the coach found eight material issues in material that had already passed two expert review passes, that was not a lucky catch — it was a designed one. The kit can now answer "how do you know?" with something other than "I checked carefully."
+
+**34. Nearly every improvement came from running the thing, not from thinking about it.** The independence column, the MODIFIED verdict, voice-based bias counting, the ASR quoting rule, the grounding-script parity bug, four preflight checks — all of them originated in a real run producing a real failure. The planning documents were useful for direction; almost none of the substance came from them. Build the smallest thing that can fail visibly, then run it.
+
+**35. The scoreboard that matters has not moved.** Three stars. One fork. Zero external professors have authored a case with this. Every measurement above is internal, and the pilot evidence (~95% engagement) predates all of it. The kit got substantially better at a job nobody outside this project has yet asked it to do.
+
+**36. Late in this session, effort drifted from the goal.** Four patch releases in one day — placeholder hygiene, a Perplexity rewrite, tag-immutability checks. Each was correct in isolation, and correctness is seductive: a failing lint check or a badly-worded paragraph presents itself as urgent in a way that "email three colleagues" never does. But the stated priority was adoption before Fall, and none of those four releases moves a professor closer to using the kit. The tell was the ratio: hours on release mechanics versus zero on getting it in front of a human.
+
+**37. Rigor has a cost, and it should be spent where the risk is.** The maintainer tooling was worth building — the release process was genuinely failing, repeatedly. But a starter kit with a ten-check release preflight and no users has its investment inverted. The verification machinery earns its keep the moment a student publishes a case with a fabricated quote; the release preflight earns its keep at a scale this project may never reach.
+
+**38. What would actually settle the open question.** One professor outside this project, taking the kit through `/scout-case` to a finished package, in their own subject area, with their own sources. That single run would test more than the entire eval suite does: whether the instructions are followable by someone who did not write them, whether the go/no-go gate feels helpful or obstructive, whether the output survives contact with a syllabus. Everything measured so far assumes a user who thinks like the author. Nothing has tested a user who does not.
