@@ -20,6 +20,19 @@ The scripts handle what is deterministic; you handle what requires judgment. Nev
 | Propagating the version | `scripts/bump-version.sh` |
 | Whether markdown is clean | `scripts/lint.sh` |
 
+## The one rule that is not negotiable
+
+**Anything already pushed is immutable — commits and tags alike.**
+
+Both halves of that have been violated once and cost a cleanup:
+
+- **Never `git commit --amend` a commit that has been pushed.** The amend creates a different commit carrying the same version number as one already published. Ship the correction as a patch release instead.
+- **Never recreate or move a tag that has been pushed.** An annotated tag is an object; recreating it produces a *new object* even when it points at the same commit, and the push is rejected mid-run — after some refs have already landed. If a local tag has drifted, adopt the published one: `git tag -d <tag> && git fetch <remote> --tags`.
+
+Before any `--amend` or `git tag -f`, ask one question: *has this been pushed?* If yes or unsure, don't. `scripts/release-preflight.sh` checks 8 and 10 catch both, but the check is a backstop, not permission to skip the question.
+
+**Push targets separately.** Use `git push origin main --tags; git push public main --tags` with a semicolon, not `&&`. They are independent remotes, and a rejected ref on the first should not silently skip the second.
+
 ## Instructions
 
 ### 1. Establish what changed
@@ -75,8 +88,8 @@ git add -A && git commit -m "vX.Y.Z — <release name>
 <why this release exists, 2-4 lines>"
 git tag -a vX.Y.Z -m "<release name>"
 scripts/release-preflight.sh          # re-run: the tag check now has something to check
-git push origin main --tags           # private dev repo first
-git push public main --tags           # public template only when ready
+git push origin main --tags; \
+git push public main --tags           # semicolon: independent targets, don't chain
 ```
 
 Order matters: dev first, so a mistake is caught somewhere invisible.

@@ -65,3 +65,13 @@
 **27. A script's own testing found a bug in the script.** The preflight's skill-existence check read README's generic "`/slash-commands`" as a skill name. Automation introduces its own defects; the answer is to test it like anything else, not to trust it because it is code.
 
 **28. Research changed the guidance rather than confirming it.** The plausible assumption about Perplexity — agentic browser, therefore agentic workflow — is wrong in the way that matters. Comet cannot read local files at all, and the one surface that can is Mac-only with no documented git or shell. Faculty told "use your Perplexity license for this" would have hit a wall. Checking first-party documentation rather than reasoning from the product category is what the kit tells its users to do.
+
+## v3.5.3 — 2026-07-27
+
+**29. Published refs are immutable — and that includes tags.** Two mistakes in one release, both mine. I amended a commit that had already been pushed, producing a divergent commit carrying a published version number. Then, cleaning that up, I recreated the `v3.5.2` tag locally — which makes a *new tag object* even pointing at the same commit, so the next push was rejected part-way through, after other refs had landed. The intuition that "a tag is just a pointer" is wrong for annotated tags: they are objects with their own identity.
+
+**30. The backstop caught it, which is the argument for backstops.** Preflight check 8 flagged the divergent commit before it could reach a remote. That check was written the day before for a hypothetical; it fired on a real error within twenty-four hours. Check 10 (local tags must match published tags) has now been added for the second half, and tested by sabotage — because a rule that lives only in a document is a rule that gets skipped when you're moving fast.
+
+**31. Chain independent operations with `;`, not `&&`.** `git push origin … && git push public …` meant one rejected tag ref silently skipped the public push entirely. The two remotes are independent; failure on one says nothing about the other. Small syntax choice, real consequence.
+
+**32. Ask "has this been pushed?" before every `--amend` and `git tag -f`.** Both errors trace to the same skipped question. Amending is cheap right up until the moment it isn't, and the moment is invisible unless you check.

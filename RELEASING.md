@@ -109,6 +109,16 @@ git push origin main
 
 **Never push those commits to `public`.** If they were ever added to a shared history, removing them requires a history rewrite. Safer alternative if you're unsure: keep them out of git entirely and back them up to your own storage — see `evals/EVALS.md`.
 
+## Published refs are immutable
+
+Once a commit or tag has been pushed, treat it as permanent.
+
+- **Amending a pushed commit** creates a divergent commit with the same version number. Ship a patch release instead.
+- **Recreating a pushed tag** makes a new tag object even when it points at the same commit, and the push is rejected part-way through, after other refs have already landed. Adopt the published tag instead: `git tag -d <tag> && git fetch <remote> --tags`.
+- If a tag genuinely must move, delete it on the remote deliberately (`git push --delete public vX.Y.Z`) so the change is visible, rather than force-pushing over it.
+
+Preflight checks 8 and 10 catch both cases. Push targets with a semicolon rather than `&&` — they are independent remotes, and a rejected ref on one should not silently skip the other.
+
 ## Why these are scripts
 
 Three consecutive releases were done by hand, and each manual step failed at least once: version drift needed a follow-up grep every time, local linting disagreed with CI because it included gitignored files, and a release was nearly cut from a tag that predated the feature it was named for. None of those were hard problems — they were memory problems. The scripts exist so the next release does not depend on remembering.

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.5.4] - 2026-07-27
+
+### Added
+- **`release-preflight.sh` check 10 — published tags are immutable.** Compares every local tag against both remotes' tag *objects* and fails with the remedy. Written because a tag recreated locally (pointing at the same commit, but a new annotated-tag object) got a push rejected part-way through, after other refs had already landed. Verified by sabotage: recreated a published tag, confirmed the check fires and names the drift, confirmed it clears on restore
+
+### Changed
+- **`/release-kit` and `RELEASING.md`** — a non-negotiable rule stated up front: never amend a pushed commit, never recreate a pushed tag, and ask "has this been pushed?" before either. If a tag genuinely must move, delete it on the remote deliberately so the change is visible rather than force-pushed over. Push commands now use `;` instead of `&&`, since the two remotes are independent and a rejected ref on one should not silently skip the other
+
 ## [3.5.3] - 2026-07-27
 
 ### Changed

@@ -200,3 +200,18 @@ The rule applied throughout: **placeholders must be obviously fictional; provena
 **The process failure worth recording.** I amended the v3.5.2 commit to fold in the extra sweep — but Leif had already pushed v3.5.2 to both remotes. The amend produced a divergent commit carrying the same version number as one already published. `release-preflight.sh` caught it: *"public/main has 1 commit(s) you don't — fetch and merge first."* Check 8 exists precisely for this and did its job on a mistake I made, not a hypothetical one.
 
 Resolution: reset to the published commit, restore the `v3.5.2` tag to it, and ship the extra work as **v3.5.3** on top. No published history rewritten. **Rule for the future, now in `/release-kit`'s spirit: never amend a commit that has been pushed — cut a patch release instead.** Amending is cheap right up until it isn't, and "has this been pushed?" is a question worth asking before every `--amend`.
+
+---
+
+## 2026-07-27 (later) — preflight check 10: published tags are immutable
+
+**Trigger**: the v3.5.3 push was rejected on the `v3.5.2` tag ref — after the dev push had already landed the commits. Cause: when undoing the earlier amend I recreated the local `v3.5.2` tag, producing a new tag *object* (annotated tags carry their own identity) even though it pointed at the same commit. Git will not silently replace a remote tag, so it rejected that one ref and, because the two pushes were chained with `&&`, the public push never ran.
+
+**Fix applied**: adopted the published tag (`git tag -d v3.5.2 && git fetch public --tags`). No force-push; nothing rewritten on a remote.
+
+**Encoded so it cannot recur**:
+1. `scripts/release-preflight.sh` **check 10** — compares every local tag against both remotes' tag objects and fails with the exact remedy. Tested by sabotage: recreated a published tag, confirmed the check fires and names the drift, confirmed it clears on restore.
+2. `/release-kit` gains a non-negotiable rule section at the top: never amend a pushed commit, never recreate a pushed tag, ask "has this been pushed?" before either — and push targets with `;` rather than `&&`.
+3. `RELEASING.md` documents the same, including the deliberate path if a tag genuinely must move (`git push --delete`, so the change is visible rather than silently overwritten).
+
+**Observation worth keeping**: check 8, written the previous day for a hypothetical divergence, caught a real one within a day. The value of a preflight is not that it validates the happy path — it is that it fires on the mistake you were about to make while confident you weren't making one.

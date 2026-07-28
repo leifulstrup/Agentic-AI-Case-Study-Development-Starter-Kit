@@ -75,6 +75,31 @@ for s in $(grep -oE '`/[a-z-]+`' README.md AGENTS.md 2>/dev/null | grep -oE '/[a
 done
 [ "$MISSING" -eq 0 ] && ok "every skill named in README/AGENTS exists" || bad "docs reference skills that do not exist"
 
+# 10. Published refs are immutable — local tags must match what remotes already have.
+#     Recreating an annotated tag makes a NEW tag object even when it points at the
+#     same commit; the push is then rejected mid-run. Amending a pushed commit does
+#     the same thing to history. Both happened; both are caught here instead.
+TAGDRIFT=0
+for remote in origin public; do
+  git remote | grep -qx "$remote" || continue
+  while read -r sha ref; do
+    tag="${ref#refs/tags/}"; tag="${tag%^\{\}}"
+    case "$ref" in *'^{}') continue;; esac
+    LOCAL=$(git rev-parse "$tag" 2>/dev/null) || continue
+    if [ "$LOCAL" != "$sha" ]; then
+      [ "$TAGDRIFT" -eq 0 ] && echo "         tag objects differ from remote (do NOT force-push):"
+      echo "         $tag  local=${LOCAL:0:7}  $remote=${sha:0:7}"
+      TAGDRIFT=1
+    fi
+  done < <(git ls-remote --tags "$remote" 2>/dev/null | grep -v '\^{}$')
+done
+if [ "$TAGDRIFT" -eq 0 ]; then ok "local tags match published tags"
+else
+  bad "local tag objects diverge from a remote — the push will be rejected"
+  echo "         Fix: git tag -d <tag> && git fetch <remote> --tags   (adopt the published tag)"
+  echo "         Never force-push a tag that others may have pulled."
+fi
+
 echo
 echo "  $PASS passed, $WARN warning(s), $FAILED failure(s)"
 if [ "$FAILED" -gt 0 ]; then
