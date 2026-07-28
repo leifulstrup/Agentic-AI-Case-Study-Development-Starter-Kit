@@ -241,3 +241,19 @@ Stocktake rather than a change entry. Eight releases and 21 commits since v3.1.0
 **Placed near the top**, immediately after the examples link and before "Built for Verification" — per Leif, so a reader knows a map exists before they start scrolling. Reading order is now: what it produces → what you'll be doing → why you can trust it → how to start.
 
 **Three things the diagram makes visible that the prose buried**: the two gates carry the whole design (assess blocks writing, verify blocks publishing); the three loops are expected behavior rather than failure, which matters enormously for a first-time user hitting a YELLOW gate; and the destination is a verified body, not four files.
+
+---
+
+## 2026-07-28 — v3.7.0: the chat path had silently fallen four releases behind
+
+**Found by**: Leif asking where `STARTER_PROMPT.md` fits in the new workflow map. It didn't — and checking why surfaced the larger problem.
+
+**The finding**: `STARTER_PROMPT.md` had zero occurrences of scouting, coaching, source independence, processing status, verification debt, quote verdicts, or the go/no-go gate. Its last substantive edit predates v3.2. Every methodology improvement from the last four releases — the ones that came out of real failures on real material — reached the agentic paths and never reached the chat path.
+
+**Why that matters more than it first appears**: the chat path serves users who can't run slash commands, don't have Claude Code, and are least equipped to notice a missing guardrail. The kit's protections were weakest exactly where users depend on them most. Skills are visible artifacts that get updated when the workflow changes; a prose prompt is invisible infrastructure that silently rots.
+
+**Fixed**: `STARTER_PROMPT.md` now carries the current methodology conversationally — Step 0 scouting with the fatal-if-absent criteria, three separate source questions (tier/independence/processing) with the reminder that they're independent of each other, a Step 2b coaching loop including the honest helped/neutral/hurt judgment, voice-based perspective counting, verification-debt tracking during drafting, the full quoting rules, the five-verdict scale, and a pre-share checklist. Grew from ~1,000 to ~1,830 words.
+
+**Also**: the workflow map was silently agentic-only — eight slash commands an Option C user cannot run. Added a note under it pointing to the starter prompt, and a header in the starter prompt pointing back at the map.
+
+**Standing risk worth a future check**: nothing enforces parity between the skills and the starter prompt. A preflight check comparing key methodology terms across both would catch the next drift. Not built — noting it rather than reflexively adding an eleventh check.

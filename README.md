@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v3.6.0-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v3.7.0-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -54,6 +54,8 @@ flowchart TD
 **The loops are normal, not failure.** Coaching until the sources are strong enough, discovering a gap mid-draft and going back for a source, fixing what verification catches — all expected. Budget two to four research loops per document.
 
 **Commit as you go** (`/git-update`). The development history becomes evidence of how the case was built.
+
+**Using a chat tool instead?** The slash commands above belong to the agentic tools (Options A and B below), but the *shape* is the same. [`STARTER_PROMPT.md`](STARTER_PROMPT.md) walks you through this identical path conversationally — scouting, source integrity checks, the go/no-go gate, coaching through gaps, writing in order, quote verdicts, and a final checklist before you share. You'll paste and upload rather than let the tool read your folder, but you get the same discipline.
 
 ---
 
@@ -353,4 +355,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 3.6.0*
+*Template Version: 3.7.0*

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.7.0] - 2026-07-28
+
+### Changed
+- **`STARTER_PROMPT.md` brought current — the chat-tool path was four releases behind.** It carried v3.0-era methodology with no mention of scouting, coaching, source independence, processing status, verification debt, quote verdicts, or the go/no-go gate. The least technical users, least able to notice a missing guardrail, were running the weakest version of the workflow. Now included, in conversational form: pre-commitment scouting; the three separate source questions (tier = access, independence = whose thumb is on the scale, processing = can it support a quotation); a coaching step that names gaps, offers research, checks new material before it counts, and reports honestly whether an addition helped or hurt; voice-based rather than outlet-based perspective counting; verification-debt tracking during drafting; the full quoting rules; VERIFIED/MODIFIED/LIKELY/DISPUTED/APOCRYPHAL verdicts; and a pre-share checklist
+- **Workflow map now points chat-tool users somewhere.** The map is written in slash commands, which Option C users cannot run. A note under it explains the path is identical and sends them to `STARTER_PROMPT.md`, which now cross-links back
+
 ## [3.6.0] - 2026-07-27
 
 ### Added
