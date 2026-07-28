@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.8.0] - 2026-07-28
+
+### Fixed
+- **Release automation had been silently doing nothing since v3.5.1.** `release.yml` triggered on a change to `TEMPLATE_VERSION`, then skipped if tag `v{version}` already existed. Because releases are pushed as `git push main --tags`, the tag always arrived with the commit — so the check always found it and the workflow always stood down. Six versions were tagged with no GitHub Release created, and nothing surfaced the gap because a workflow that skips looks identical to one that had nothing to do
+
+### Changed
+- **`release.yml` now triggers on pushing a `v*` tag.** Publishing a version and publishing its release notes become the same action, so neither can be forgotten without the other. The tag-exists check — the actual bug — is deleted, since the tag's presence is now the precondition rather than a conflict. The workflow never creates tags, so tags remain authored locally: one authority, and `release-preflight.sh` check 10 stays meaningful
+- **The workflow fails loudly on a missing CHANGELOG section** rather than falling back to "see CHANGELOG for details." An empty release looks fine and tells a reader nothing; a red Actions run is visible and fixable. Preflight check 4 blocks this earlier — the workflow failure is the backstop
+- **`/release-kit` step 8 and `RELEASING.md`** rewritten accordingly: confirm the release published rather than remember to publish it, with the `gh release create` path retained as documented fallback
+
 ## [3.7.0] - 2026-07-28
 
 ### Changed

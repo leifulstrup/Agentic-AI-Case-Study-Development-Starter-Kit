@@ -257,3 +257,23 @@ Stocktake rather than a change entry. Eight releases and 21 commits since v3.1.0
 **Also**: the workflow map was silently agentic-only — eight slash commands an Option C user cannot run. Added a note under it pointing to the starter prompt, and a header in the starter prompt pointing back at the map.
 
 **Standing risk worth a future check**: nothing enforces parity between the skills and the starter prompt. A preflight check comparing key methodology terms across both would catch the next drift. Not built — noting it rather than reflexively adding an eleventh check.
+
+---
+
+## 2026-07-28 — v3.8.0: fixing release automation that had been silently absent
+
+**Found by**: Leif noticing the GitHub Releases sidebar still showed v3.5.0 while tags ran to v3.7.0.
+
+**Root cause**: `release.yml` triggered on `TEMPLATE_VERSION` changes, then checked whether `v{version}` already existed and skipped if so. That design assumes you push `main` alone and let the action create the tag. We push `main --tags` together, so the tag always arrived with the commit, the check always found it, and the workflow always stood down. Six releases, no output, no signal — a skipped workflow and a workflow with nothing to do look identical.
+
+**My first recommendation was wrong, and worth recording why.** I proposed removing the automation and making release creation manual, reasoning "explicit beats clever." Leif pushed back and asked whether that was really best. It wasn't. The failure mode here was *a forgotten step* — six releases went uncreated because nobody remembered. Responding to a forgotten-step failure by adding a manual step repeats the error, and contradicts the lesson behind the version-bumper and the preflight: memory is the unreliable component. I generalized from "clever automation no-opped" to "less automation," when the actual lesson was "*this* automation had the wrong trigger."
+
+**Fix**: trigger on `push: tags: ['v*']`. Pushing the tag *is* publishing the release. The tag-exists check is deleted — the tag's presence is now the precondition rather than a conflict. The workflow never creates tags, so tags stay locally authored: one authority, and preflight check 10 keeps working. Rejected alternative: pushing `main` first and letting the action create the tag would split tag authority between local git and CI, which is exactly what produced today's earlier tag-object mismatch.
+
+**Deliberate choice**: the workflow **fails** on a missing CHANGELOG section rather than emitting boilerplate. An empty release passes visual inspection and communicates nothing; a red Actions run is visible and fixable. Preflight check 4 already blocks this before tagging, so this is defense in depth.
+
+**Testing**: YAML validated after a real bug — a `---` inside a heredoc was parsed as a YAML document separator, splitting the file; replaced with `printf` lines. Then replayed the workflow's shell steps locally against v3.7.0, v3.6.0, and v3.2.0 (correct extraction, no next-heading bleed) and against a non-existent version (exits 1 as designed).
+
+**Live test**: pushing the v3.8.0 tag is itself the first real run of the new workflow. If the rewrite is wrong we get a red X rather than silence — which is the whole improvement.
+
+**Still manual, once**: the six already-pushed tags (v3.5.1 through v3.7.0) need releases created by hand. Re-pushing those tags to force a trigger would violate the published-refs-are-immutable rule.

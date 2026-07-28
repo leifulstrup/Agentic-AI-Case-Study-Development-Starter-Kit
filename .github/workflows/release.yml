@@ -1,10 +1,21 @@
 name: Create Release
 
+# Triggered by pushing a version tag — NOT by a change to TEMPLATE_VERSION.
+#
+# Why: the previous design fired on TEMPLATE_VERSION changes and then skipped if
+# the tag already existed. Because releases are pushed as `git push main --tags`,
+# the tag always arrived with the commit, so the workflow stood down every time.
+# It silently no-opped for six consecutive releases before anyone noticed.
+#
+# Triggering on the tag means publishing a version and publishing its release are
+# the same action — neither can be forgotten without the other. Tags stay authored
+# locally (this workflow never creates one), so there is a single authority for
+# tags and `scripts/release-preflight.sh` check 10 remains meaningful.
+
 on:
   push:
-    branches: [main]
-    paths:
-      - 'TEMPLATE_VERSION'
+    tags:
+      - 'v*'
 
 jobs:
   create-release:
@@ -15,62 +26,57 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Get version
+      - name: Derive version from tag
         id: version
         run: |
-          VERSION=$(cat TEMPLATE_VERSION | tr -d '[:space:]')
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Releasing v$VERSION"
 
-      - name: Check if tag exists
-        id: check-tag
-        run: |
-          if git rev-parse "v${{ steps.version.outputs.version }}" >/dev/null 2>&1; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Extract changelog section
-        if: steps.check-tag.outputs.exists == 'false'
-        id: changelog
+      - name: Extract release notes from CHANGELOG
+        id: notes
         run: |
           VERSION="${{ steps.version.outputs.version }}"
-          # Extract the section for this version from CHANGELOG.md
-          NOTES=$(awk "/## \[$VERSION\]/,/## \[/" CHANGELOG.md | sed '$d' | tail -n +2)
-          if [ -z "$NOTES" ]; then
-            NOTES="Release v$VERSION - see CHANGELOG.md for details."
+
+          # Fail loudly rather than shipping boilerplate. A release with no notes
+          # looks fine and tells a reader nothing; a red X is visible and fixable.
+          # scripts/release-preflight.sh check 4 blocks this earlier — this is the backstop.
+          if ! grep -q "^## \[$VERSION\]" CHANGELOG.md; then
+            echo "::error::No '## [$VERSION]' section in CHANGELOG.md. Add release notes, then re-run this workflow or create the release manually with scripts/release-notes.sh."
+            exit 1
           fi
-          # Use delimiter for multiline output
-          echo "notes<<EOF" >> $GITHUB_OUTPUT
-          echo "$NOTES" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+
+          awk -v v="$VERSION" '
+            $0 ~ "^## \\[" v "\\]" { inside=1; next }
+            inside && /^## \[/     { exit }
+            inside                 { print }
+          ' CHANGELOG.md | sed -e '/./,$!d' > /tmp/notes.md
+
+          if [ ! -s /tmp/notes.md ]; then
+            echo "::error::CHANGELOG section for $VERSION is empty."
+            exit 1
+          fi
+
+          echo "Extracted $(wc -l < /tmp/notes.md) lines of release notes"
+
+      - name: Append usage footer
+        run: |
+          {
+            printf '\n---\n\n'
+            printf '## How to Use This Release\n\n'
+            printf '**New projects** — click "Use this template" to create a case study repository.\n\n'
+            printf '**Existing projects** — review the changes above and incorporate what you need.\n'
+            printf 'Update your `TEMPLATE_VERSION` to track which version you are based on.\n\n'
+            printf 'See [CHANGELOG.md](CHANGELOG.md) for the full history.\n'
+          } >> /tmp/notes.md
 
       - name: Create Release
-        if: steps.check-tag.outputs.exists == 'false'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.version.outputs.version }}
-          name: v${{ steps.version.outputs.version }}
-          body: |
-            ${{ steps.changelog.outputs.notes }}
-
-            ---
-
-            ## How to Use This Release
-
-            **New Projects:**
-            Click "Use this template" to create a new case study repository.
-
-            **Existing Projects:**
-            Review the changes above and manually incorporate updates you need.
-            Update your `TEMPLATE_VERSION` file to track which version you're based on.
-
-            ---
-
-            *See [CHANGELOG.md](CHANGELOG.md) for full release history.*
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body_path: /tmp/notes.md
           draft: false
           prerelease: false
         env:

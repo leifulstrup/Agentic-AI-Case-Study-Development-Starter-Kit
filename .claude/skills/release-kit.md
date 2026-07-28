@@ -94,13 +94,20 @@ git push public main --tags           # semicolon: independent targets, don't ch
 
 Order matters: dev first, so a mistake is caught somewhere invisible.
 
-### 8. Publish the release notes
+### 8. Confirm the release published
 
-`.github/workflows/release.yml` creates a GitHub Release automatically when `TEMPLATE_VERSION` changes — *unless the tag already exists*, which it will if you pushed tags in step 7. Check whether the release appeared; if not, create it manually:
+Pushing the tag in step 7 triggers `.github/workflows/release.yml`, which reads the CHANGELOG section for that version and creates the GitHub Release. There is no separate publish step — the tag push *is* the publish.
+
+Check the Actions tab. Two outcomes:
+
+- **Green** — the release exists with the changelog as its body. Done.
+- **Red** — almost always a missing or empty `## [X.Y.Z]` section in CHANGELOG.md. The workflow fails deliberately rather than shipping "see CHANGELOG for details" boilerplate, because an empty release looks fine and tells a reader nothing. Fix the changelog, then re-run the job from the Actions tab.
+
+Manual fallback, if the workflow is broken or the tag was pushed before the workflow existed:
 
 ```bash
 scripts/release-notes.sh X.Y.Z > /tmp/notes-X.Y.Z.md
-gh release create vX.Y.Z --repo <public-repo> --title "vX.Y.Z — <name>" \
+gh release create vX.Y.Z --repo <public-repo> --title "vX.Y.Z" \
   --notes-file /tmp/notes-X.Y.Z.md --latest
 ```
 

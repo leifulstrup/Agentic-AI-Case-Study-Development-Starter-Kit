@@ -58,7 +58,13 @@ Only when a version is tested and stable:
 git push public main --tags
 ```
 
-Then on GitHub: create a Release from the new tag so the CHANGELOG entry is visible to adopters. Verify the repo's "Template repository" setting is still enabled.
+Pushing the tag publishes the GitHub Release automatically — `.github/workflows/release.yml` is triggered by the tag, extracts the matching CHANGELOG section, and creates the release. Publishing a version and publishing its notes are the same action, so neither can be forgotten without the other.
+
+If the Actions run goes red, it is almost certainly a missing `## [X.Y.Z]` CHANGELOG section. The workflow fails on purpose rather than shipping empty boilerplate; fix the changelog and re-run the job. `scripts/release-notes.sh` plus `gh release create` remains the manual fallback.
+
+Also verify the repo's "Template repository" setting is still enabled.
+
+> **Design note.** This workflow used to trigger on changes to `TEMPLATE_VERSION` and then skip if the tag already existed. Because releases are pushed as `git push main --tags`, the tag always arrived with the commit and the workflow stood down every time — silently, for six consecutive releases. Triggering on the tag removes the failure mode. It also keeps tags authored locally, so there is one authority for tags and preflight check 10 stays meaningful.
 
 **Pre-publish checks are executable.** Do not run this list by hand:
 
