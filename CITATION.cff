@@ -5,8 +5,8 @@ type: software
 authors:
   - family-names: "Ulstrup"
     given-names: "Leif"
-version: "3.5.4"
-date-released: "2026-07-27"
+version: "3.6.0"
+date-released: "2026-07-28"
 url: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit"
 repository-code: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit"
 license: MIT

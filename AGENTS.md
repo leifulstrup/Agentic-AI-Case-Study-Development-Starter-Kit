@@ -48,6 +48,7 @@ The workflow is **iterative**, not linear. Expect research loops:
 | `examples/` | Excerpts from a real generated case package (reference for output quality) |
 | `templates/` | Detailed prompts, QA workflows, source acquisition guide |
 | `.claude/skills/` | Skill definitions (Claude Code slash commands; other agents: perform the equivalent action described in each file) |
+| `docs/` | Presentation assets (workflow map for slides) — not needed to author a case |
 | `scripts/` | Maintainer tooling for releasing the kit itself (not used when authoring a case) |
 | `RELEASING.md` | Two-remote release workflow for maintainers |
 

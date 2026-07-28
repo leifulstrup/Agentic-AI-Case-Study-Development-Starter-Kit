@@ -229,3 +229,15 @@ Stocktake rather than a change entry. Eight releases and 21 commits since v3.1.0
 **Honest note on this session's back half**: four patch releases in a day, all correct, none advancing adoption. Release hygiene is legible and satisfying in a way that outreach is not, and that asymmetry pulled effort away from the stated Fall-semester goal. Recording it here because the pattern will recur.
 
 **Deferred and still deferred**: n=2 variance run; corpus v2 for teaching realism (v1 stays frozen as the fixture); SKILL.md directory migration; the three grading rubrics; verification-literacy guide; carrying the quoting rules into `write-document` so the author follows them at drafting time rather than verification catching them after.
+
+---
+
+## 2026-07-27 — v3.6.0: the workflow map
+
+**Why**: adoption work, not polish. A professor deciding whether to invest a weekend was being asked to assemble the mental model from six scrolling README sections. The map answers "what will I actually be doing?" in one screen.
+
+**Built as Mermaid, deliberately.** GitHub renders it natively, so no image pipeline; it stays diffable and versionable like everything else in the kit; and any AI tool can read and update it when a skill is renamed. An SVG would look marginally better and rot silently the first time the workflow changed. The SVG version exists too, at `docs/workflow-map.svg`, for slides and handouts — with a note in `docs/README.md` that the Mermaid is authoritative and this one needs syncing.
+
+**Placed near the top**, immediately after the examples link and before "Built for Verification" — per Leif, so a reader knows a map exists before they start scrolling. Reading order is now: what it produces → what you'll be doing → why you can trust it → how to start.
+
+**Three things the diagram makes visible that the prose buried**: the two gates carry the whole design (assess blocks writing, verify blocks publishing); the three loops are expected behavior rather than failure, which matters enormously for a first-time user hitting a YELLOW gate; and the destination is a verified body, not four files.

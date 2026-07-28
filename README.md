@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v3.5.4-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v3.6.0-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -21,6 +21,39 @@ This repository is a **GitHub template** that gives you everything you need to d
 | **Teaching Note** | Instructors only | Discussion guide, board plans, timing | 2,500-4,000 words |
 
 **→ [See what this actually produces](examples/)** — excerpts from a real case package: the main case opening, an 80-minute session plan, the source registry, and the verification report that caught two defects before publication.
+
+---
+
+## The Map — clone to classroom
+
+```mermaid
+flowchart TD
+    A["<b>1 · START</b><br/>Use this template → clone<br/><i>private repo on your computer</i>"]
+    B["<b>2 · SCOUT</b> (optional)<br/><code>/scout-case</code><br/><i>is this topic caseworthy at all?</i>"]
+    C["<b>3 · CONFIGURE</b><br/><code>/setup-case</code><br/><i>asks questions, writes config</i>"]
+    D["<b>4 · GATHER + REGISTER</b><br/><code>/add-sources</code><br/><i>tier T1/T2/T3 · independence · processing</i>"]
+    E{"<b>5 · GATE</b><br/><code>/assess-sources</code><br/>depth · breadth · reliability · completeness<br/><b>GREEN / YELLOW / RED</b>"}
+    F["<b>COACH LOOP</b><br/><code>/coach-case</code><br/>gap map → research offers → QA/QC gate<br/>→ re-score: helped / neutral / hurt"]
+    G["<b>6 · WRITE</b> (in order)<br/><code>/write-document</code> ×4<br/>Additional Sources → Main Case →<br/>Supplement → Teaching Note<br/><i>unsourced claims → verification debt</i>"]
+    H{"<b>7 · PUBLICATION GATE</b><br/><code>/verify-all</code><br/>quotes · consistency · financials · links<br/>· bias · cross-document<br/><b>blocks until debt = 0</b>"}
+    I["<b>8 · PUBLISH</b><br/><code>/add-disclaimers</code> · <code>/export-pdf</code><br/>sign <b>VERIFICATION_PLEDGE.md</b>"]
+    J["<b>THE VERIFIED CASE BODY</b><br/>Four documents you can defend sentence by sentence.<br/>Teach as written — or generate front-ends from it."]
+
+    A --> B --> C --> D --> E
+    E -->|"not GREEN"| F
+    F -->|"iterate"| E
+    E -->|"GREEN"| G
+    G -.->|"gap found while writing"| D
+    G --> H
+    H -.->|"issues found → fix"| G
+    H -->|"clean"| I --> J
+```
+
+**Two gates carry the whole design.** `/assess-sources` stops you writing on thin sources; `/verify-all` stops you publishing unverified claims. Everything else is workflow.
+
+**The loops are normal, not failure.** Coaching until the sources are strong enough, discovering a gap mid-draft and going back for a source, fixing what verification catches — all expected. Budget two to four research loops per document.
+
+**Commit as you go** (`/git-update`). The development history becomes evidence of how the case was built.
 
 ---
 
@@ -157,7 +190,7 @@ Running into issues with git, the terminal, or project setup? **Any AI tool can 
 
 **Manual setup**: Open `case-config.yaml` and replace the placeholder values.
 
-> **Tidying up (optional).** The template also ships the tooling used to maintain the kit itself. If you are writing a case rather than developing the template, you can delete `scripts/`, `evals/`, `RELEASING.md`, `.gitignore-private`, and the `release-kit` and `run-eval` skills from `.claude/skills/`. Nothing in the case workflow depends on them.
+> **Tidying up (optional).** The template also ships the tooling used to maintain the kit itself. If you are writing a case rather than developing the template, you can delete `scripts/`, `evals/`, `docs/`, `RELEASING.md`, `.gitignore-private`, and the `release-kit` and `run-eval` skills from `.claude/skills/`. Nothing in the case workflow depends on them.
 
 ### Step 5: Gather Sources and Write
 
@@ -223,6 +256,7 @@ Check your progress anytime: `/check-status`
 | `examples/` | Excerpts from a real generated case package — start here |
 | `evals/` | Regression-testing framework for kit versions (see `evals/EVALS.md`) |
 | `log.md`, `lessons_learned.md` | Development log and per-version lessons |
+| `docs/` | Workflow map as a standalone image for slides and handouts |
 | `scripts/` | Maintainer tooling: version bump, lint, release preflight, release notes |
 | `RELEASING.md` | Two-remote release workflow (maintainers) |
 
@@ -319,4 +353,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 3.5.4*
+*Template Version: 3.6.0*

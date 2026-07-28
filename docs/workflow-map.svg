@@ -1,0 +1,88 @@
+<svg viewBox="0 0 980 700" xmlns="http://www.w3.org/2000/svg" role="img" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+  <title>Agentic AI Case Study Starter Kit — author workflow, clone to classroom</title>
+  <desc>Linear flow from cloning the template through scouting, setup, sourcing, a go/no-go assessment gate, an optional coaching loop, writing four documents, a verification gate, and publication, with loops back from writing to sourcing and from verification to fixing.</desc>
+  <style>
+    .box   { fill: #f7f7f6; stroke: #8a8a86; stroke-width: 1; }
+    .gate  { fill: #fff; stroke: #b05730; stroke-width: 1.6; }
+    .core  { fill: #b05730; }
+    .lbl   { fill: #1a1a1a; font-size: 13px; font-weight: 600; }
+    .sub   { fill: #63625e; font-size: 11px; }
+    .cmd   { fill: #b05730; font-size: 11px; font-weight: 600; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .arrow { stroke: #77766f; stroke-width: 1.5; fill: none; marker-end: url(#a); }
+    .loop  { stroke: #b05730; stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; marker-end: url(#aa); }
+    .white { fill: #ffffff; }
+    .step  { fill: #99978f; font-size: 10px; font-weight: 700; letter-spacing: 1px; }
+  </style>
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#77766f"/></marker>
+    <marker id="aa" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#b05730"/></marker>
+  </defs>
+  <rect x="0" y="0" width="980" height="700" fill="#ffffff"/>
+  <rect x="40" y="40" width="230" height="58" rx="8" class="box"/>
+  <text x="56" y="56" class="step">1 · START</text>
+  <text x="56" y="76" class="lbl">Use this template → clone</text>
+  <text x="56" y="91" class="sub">private repo on your computer</text>
+  <rect x="330" y="40" width="230" height="58" rx="8" class="box"/>
+  <text x="346" y="56" class="step">2 · SCOUT (optional)</text>
+  <text x="346" y="76" class="cmd">/scout-case</text>
+  <text x="346" y="91" class="sub">is this topic caseworthy at all?</text>
+  <rect x="620" y="40" width="230" height="58" rx="8" class="box"/>
+  <text x="636" y="56" class="step">3 · CONFIGURE</text>
+  <text x="636" y="76" class="cmd">/setup-case</text>
+  <text x="636" y="91" class="sub">asks questions, writes config</text>
+  <path d="M270 69 L330 69" class="arrow"/>
+  <path d="M560 69 L620 69" class="arrow"/>
+  <rect x="620" y="150" width="230" height="72" rx="8" class="box"/>
+  <text x="636" y="166" class="step">4 · GATHER + REGISTER</text>
+  <text x="636" y="186" class="cmd">/add-sources</text>
+  <text x="636" y="201" class="sub">tier T1/T2/T3 · independence</text>
+  <text x="636" y="215" class="sub">· processing status</text>
+  <path d="M735 98 L735 150" class="arrow"/>
+  <rect x="620" y="270" width="230" height="76" rx="8" class="gate"/>
+  <text x="636" y="288" class="step">5 · GATE</text>
+  <text x="636" y="308" class="cmd">/assess-sources</text>
+  <text x="636" y="324" class="sub">depth · breadth · reliability</text>
+  <text x="636" y="338" class="sub">· completeness → GREEN / YELLOW / RED</text>
+  <path d="M735 222 L735 270" class="arrow"/>
+  <rect x="330" y="255" width="230" height="106" rx="8" class="box"/>
+  <text x="346" y="273" class="step">NOT GREEN? COACH LOOP</text>
+  <text x="346" y="293" class="cmd">/coach-case</text>
+  <text x="346" y="310" class="sub">1. gap map — what's missing &amp; why</text>
+  <text x="346" y="325" class="sub">2. research offers, bios, new sources</text>
+  <text x="346" y="340" class="sub">3. QA/QC gate before anything counts</text>
+  <text x="346" y="355" class="sub">4. re-score: helped / neutral / hurt</text>
+  <path d="M620 300 L560 300" class="loop"/>
+  <path d="M445 255 C 445 200, 700 205, 700 270" class="loop"/>
+  <text x="470" y="230" class="sub" fill="#b05730">iterate until GREEN</text>
+  <rect x="620" y="400" width="230" height="90" rx="8" class="box"/>
+  <text x="636" y="418" class="step">6 · WRITE (in order)</text>
+  <text x="636" y="438" class="cmd">/write-document ×4</text>
+  <text x="636" y="455" class="sub">Additional Sources → Main Case</text>
+  <text x="636" y="469" class="sub">→ Supplement → Teaching Note</text>
+  <text x="636" y="483" class="sub">unsourced claims → verification debt</text>
+  <path d="M735 346 L735 400" class="arrow"/>
+  <path d="M850 445 C 920 445, 920 186, 850 186" class="loop"/>
+  <text x="866" y="320" class="sub" fill="#b05730" transform="rotate(90 872 320)">gap found → back to sources</text>
+  <rect x="330" y="400" width="230" height="90" rx="8" class="gate"/>
+  <text x="346" y="418" class="step">7 · PUBLICATION GATE</text>
+  <text x="346" y="438" class="cmd">/verify-all</text>
+  <text x="346" y="455" class="sub">quotes · consistency · financials</text>
+  <text x="346" y="469" class="sub">· links · bias · cross-document</text>
+  <text x="346" y="483" class="sub">blocks until debt = 0</text>
+  <path d="M620 445 L560 445" class="arrow"/>
+  <path d="M445 490 C 445 530, 735 530, 735 490" class="loop"/>
+  <text x="530" y="524" class="sub" fill="#b05730">fix → re-verify</text>
+  <rect x="40" y="400" width="230" height="90" rx="8" class="box"/>
+  <text x="56" y="418" class="step">8 · PUBLISH</text>
+  <text x="56" y="438" class="cmd">/add-disclaimers · /export-pdf</text>
+  <text x="56" y="455" class="sub">sign VERIFICATION_PLEDGE.md</text>
+  <text x="56" y="469" class="sub">— the artifact you hand a</text>
+  <text x="56" y="483" class="sub">colleague or department chair</text>
+  <path d="M330 445 L270 445" class="arrow"/>
+  <rect x="40" y="560" width="900" height="72" rx="8" class="core"/>
+  <text x="60" y="586" class="lbl white" font-size="14">THE VERIFIED CASE BODY — four documents you can defend sentence by sentence</text>
+  <text x="60" y="606" class="sub white" opacity="0.92">Every quote traced to a dated source · every number attributed · verification debt at zero · bias measured and disclosed</text>
+  <text x="60" y="623" class="sub white" opacity="0.92">Teach it as written, or generate front-ends from it — slides, character interviews, decision games (v4.0)</text>
+  <path d="M155 490 L155 560" class="arrow"/>
+  <text x="40" y="668" class="sub">Commit after each step (/git-update) — the case's development history becomes evidence of how it was built.</text>
+</svg>

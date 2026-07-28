@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.6.0] - 2026-07-27
+
+### Added
+- **Workflow map in the README** — a Mermaid diagram near the top showing the whole path from cloning the template to teaching the case: scout, configure, gather and register sources, the go/no-go assessment gate, the coaching loop when sources are thin, writing the four documents, the publication gate, and publishing. Renders natively on GitHub and stays diffable like everything else here. Three things it makes visible that six sections of prose buried: the **two gates** that carry the design (`/assess-sources` blocks writing on thin sources; `/verify-all` blocks publishing unverified claims), the **three loops** that are normal rather than failure, and the verified case body as the destination
+- **`docs/workflow-map.svg`** — the same map as a standalone image for slides, handouts, and printing. The README's Mermaid version is authoritative
+
 ## [3.5.4] - 2026-07-27
 
 ### Added
