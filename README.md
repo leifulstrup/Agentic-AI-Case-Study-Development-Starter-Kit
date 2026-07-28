@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v3.5.1-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v3.5.2-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -44,7 +44,7 @@ The result: you can defend every sentence in your case, because the workflow mad
 
 ### Step 1: Create Your Repository
 
-Click the green **"Use this template"** button above, then **"Create a new repository"**. Name it something like `moderna-case-study` (you can rename this later). Set it to **Private**.
+Click the green **"Use this template"** button above, then **"Create a new repository"**. Name it something like `CompanyXYZ-case-study` (you can rename this later). Set it to **Private**.
 
 ### Step 2: Get the Files onto Your Computer
 
@@ -156,6 +156,8 @@ Running into issues with git, the terminal, or project setup? **Any AI tool can 
 **Chat tool users**: The starter prompt will ask you about your company, protagonist, and topic.
 
 **Manual setup**: Open `case-config.yaml` and replace the placeholder values.
+
+> **Tidying up (optional).** The template also ships the tooling used to maintain the kit itself. If you are writing a case rather than developing the template, you can delete `scripts/`, `evals/`, `RELEASING.md`, `.gitignore-private`, and the `release-kit` and `run-eval` skills from `.claude/skills/`. Nothing in the case workflow depends on them.
 
 ### Step 5: Gather Sources and Write
 
@@ -317,4 +319,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 3.5.1*
+*Template Version: 3.5.2*

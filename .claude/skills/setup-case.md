@@ -26,7 +26,7 @@ Conversational setup that configures the case study project by asking questions 
 
    **Question 1**: "What company or organization is this case study about? Give me the full legal name and a short name for file naming."
    - Extract: `company_name` (full) and `company_short` (short)
-   - Example: "Moderna, Inc." → full: "Moderna, Inc.", short: "Moderna"
+   - Example: "CompanyXYZ, Inc." → full: "CompanyXYZ, Inc.", short: "CompanyXYZ"
 
    **Question 2**: "In one sentence, what is the case study topic?"
    - Extract: `topic`
@@ -87,7 +87,7 @@ Conversational setup that configures the case study project by asking questions 
 
    # TEMPLATE METADATA (do not modify)
    template:
-     version: "3.5.1"
+     version: "3.5.2"
      source: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit"
    ```
 

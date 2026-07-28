@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.5.2] - 2026-07-27
+
+### Changed
+- **Generic placeholders in setup examples** — the repository-naming example in the README and the company-naming example in `/setup-case` used a real pharmaceutical company. Replaced with `CompanyXYZ`, so nobody reads a placeholder as a suggestion. (References to that company in the testing history, bias-skill provenance, and defect-set remain: those are factual records of real runs, not examples.)
+
+### Added
+- **README note on maintainer files** — the template ships the tooling used to develop the kit itself (`scripts/`, `evals/`, `RELEASING.md`, `.gitignore-private`, and the `release-kit` and `run-eval` skills). Case authors can delete all of it; nothing in the case workflow depends on it
+
 ## [3.5.1] - 2026-07-27
 
 ### Changed

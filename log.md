@@ -174,3 +174,15 @@ Leif surfaced Perplexity's Computer product page. Three refinements to the READM
 **Correction, same day**: Leif's read of the first draft — "not right, too wordy, and very negative." Accurate. 704 words for a tool note, framed around what Perplexity cannot do, with a moralizing aside about the product name being a "trap." Rewritten to ~260 words leading with genuine strengths (topic scouting, source hunting, Computer's recurring tasks for keeping a corpus current, Projects for student sharing) and stating the handoff to an agentic tool once, plainly, instead of as accumulated warnings. Lesson: a limitation worth one sentence does not become more useful at five, and framing a capable tool by its boundaries misrepresents it to the reader who needs to decide whether to use it.
 
 **Process note**: this was cut with `/release-kit` and the scripts — `bump-version.sh 3.5.1`, `lint.sh`, `release-preflight.sh`. Second dogfooding, and the first patch release. The preflight's tag check correctly flagged that v3.5.1 did not yet exist before tagging.
+
+---
+
+## 2026-07-27 (later) — v3.5.2: placeholder hygiene + maintainer-file note
+
+Two small corrections, both from Leif reviewing the published repo.
+
+**Placeholders should not name real companies.** The README's repo-naming example and `/setup-case`'s company-naming example both used a real pharmaceutical firm — a leftover from early testing. A professor skimming the quick start could reasonably read that as a suggested subject. Now `CompanyXYZ`. Deliberately *not* changed: the same company's name in PROJECT_CONTEXT testing history, the `assess-bias` provenance note, and `defect-set.yaml` — those are factual records of real test runs, and scrubbing them would erase the evidence trail the kit exists to preserve. Placeholders are examples; provenance is fact.
+
+**Maintainer files travel with the template.** Reviewing the published tree surfaced that "Use this template" hands every case author the kit's own release machinery — `scripts/`, `evals/`, `RELEASING.md`, `.gitignore-private`, and two maintainer skills. Harmless but confusing: release tooling for a kit they are not maintaining, sitting beside the files they need. Added a one-line README note that it can all be deleted. Considered and rejected: `.gitattributes export-ignore` (affects `git archive`, not template instantiation) and removing the files (a forker who wants to maintain their own variant needs them).
+
+**Flagged, not changed**: `case-config.yaml`'s protagonist example reads "Teresa Carlson Waldron," which appears to conflate two real executives' names. In a kit about attribution discipline, an invented-looking composite name is a poor example. Left for Leif's call.
