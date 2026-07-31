@@ -6,13 +6,13 @@ Quick reference for session continuity. Auto-maintained by skills — you do not
 
 **Repository**: Agentic AI Case Study Development Starter Kit
 **Type**: GitHub template repository
-**Version**: 3.8.0
+**Version**: 3.8.1
 **Course**: ITEC-617, American University Kogod School of Business, Spring 2026
 **Purpose**: Template for developing business school MBA case studies from digital sources using AI tools
 
 ## Current Status
 
-**Phase**: Template development (this is the starter kit, not an individual case study)
+**Phase**: Field testing (v3.8.x). The template is complete and released; it is now being exercised against independent case examples so that the next version is driven by observed use rather than by the author's roadmap.
 
 **Agentic Tool Paths**:
 - [x] Claude Code — 18 `/slash-commands` via `.claude/skills/`
@@ -54,6 +54,9 @@ See `verification-debt.yaml` for details.
 
 ## Next Steps
 
-1. Students create individual case study repos from this template
-2. Monitor Copilot Agent Mode usage for any instruction gaps
-3. Consider adding more skill equivalents examples if students need guidance
+1. Review field-test results and classify findings (defect / gap / friction / misfit)
+2. Convert every field-found defect into a permanent seeded regression test
+3. Size and ship the next version from the ranked findings
+4. Standing backlog: n=2 eval variance run; three grading rubrics; student-facing
+   verification-literacy guide; quoting rules carried into `/write-document`;
+   cross-path parity check; v4.0 front-end generators

@@ -109,3 +109,48 @@
 **45. Fail loudly over degrading gracefully — when the degraded output looks fine.** The old workflow's fallback was "see CHANGELOG for details," which would have produced releases that pass visual inspection and tell a reader nothing. The rewrite errors instead. Graceful degradation is right when partial output helps; it is wrong when the partial output is indistinguishable from real output to everyone except a careful reader.
 
 **46. "Are you sure?" is worth answering seriously.** Both of today's course corrections — the over-negative Perplexity section and this one — came from Leif questioning an answer rather than accepting it. Neither would have been caught by any check in the repo. The reviewer who asks why remains more valuable than the checks, and the right response to being asked is to re-derive the answer rather than restate it.
+
+## v3.8.1 — 2026-07-31
+
+**47. Every evaluation of this kit so far has been self-administered.** I wrote the
+skills, then the evals, then ran and graded them. The seeded-defect method exists
+specifically to escape that circularity and it works — but it only tests what I
+thought to plant. Field testing by someone using the kit to do the actual job, on
+cases I did not choose and sources I did not curate, is a different and better class
+of evidence. The corresponding risk is reading it as confirmation of the roadmap I
+already wrote; if the field test happens to endorse every existing priority, the
+right response is suspicion of my reading rather than satisfaction.
+
+**48. The kit was fitted to one case, and that boundary is invisible from inside.**
+Everything here was built and tuned against a large public company with a named
+executive protagonist, abundant press coverage, and a technology-adoption arc. Cases
+that are smaller, private, non-US, public-policy, or shaped around a different kind
+of decision will strain the kit in places that look like bugs and are actually the
+edge of what it was fitted to. Distinguishing "defect" from "misfit" is the most
+valuable classification in a field-test review and the one I am least equipped to
+make unaided.
+
+**49. Fix the method before you see the data.** The intake procedure for the field
+test — how to inventory, classify, weight, and size the resulting release — was
+written before any of the test material was read. Not out of ceremony: a
+prioritization scheme invented after seeing the findings will rank whatever is most
+interesting to build, and the front-end generators are the most interesting thing on
+this roadmap while also being the least urgent.
+
+**50. Publishing a repo with your home directory in it says you didn't read it.**
+Preflight check 11 costs nothing per release and prevents a small leak with an
+outsized signal. The general form: guards are cheapest to add when nothing is
+currently wrong, because that is exactly when you can verify they work in both
+directions — this one was tested by planting a path and watching it fail, then
+removing it and watching it pass. It also flagged its own changelog entry on the
+first run, which is the useful reminder that a checker matching *prose about* the
+thing is a checker that will be switched off — the fix was to require a trailing
+path segment, not to add an exemption.
+
+**51. The bug you just fixed is probably also somewhere else.** One version after
+correcting a workflow that silently skipped its own job, preflight check 10 was found
+doing the same thing: an unreachable remote hit a `continue` and the check reported
+green having compared nothing. Nothing connected the two except the shape — *a guard
+that cannot see reports success*. After fixing a class of bug, it is worth spending
+ten minutes grepping for the same shape elsewhere, because the habit that produced it
+was not confined to one file.

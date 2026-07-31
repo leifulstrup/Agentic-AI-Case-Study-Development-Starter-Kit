@@ -72,7 +72,7 @@ Also verify the repo's "Template repository" setting is still enabled.
 scripts/release-preflight.sh
 ```
 
-Nine checks, each corresponding to something that previously went wrong: uncommitted changes, version drift across the seven files that restate it, lint failures, a missing CHANGELOG section, **copyrighted eval material staged for publication** (the one unrecoverable error), misconfigured remotes, a release tag that lags HEAD, a public remote you are behind, and documentation referencing skills that do not exist.
+Eleven checks, each corresponding to something that previously went wrong: uncommitted changes, version drift across the seven files that restate it, lint failures, a missing CHANGELOG section, **copyrighted eval material staged for publication** (the one unrecoverable error), misconfigured remotes, a release tag that lags HEAD, a public remote you are behind, documentation referencing skills that do not exist, a local tag object that diverges from a published one, and **machine-specific paths in tracked files** — this is a public template, and a maintainer's home directory structure has no business in it.
 
 The one thing the script cannot judge: whether `evals/test-log.md` has a passing run for behavior changes. Documentation-only releases do not need one; anything touching a skill does.
 
@@ -82,7 +82,7 @@ The one thing the script cannot judge: whether `evals/test-log.md` has a passing
 |--------|---------|
 | `scripts/bump-version.sh X.Y.Z` | Propagate a version to all seven locations and verify; `--check` audits consistency without changing anything |
 | `scripts/lint.sh` | Lint tracked markdown exactly as CI does (`--fix` applies safe autofixes) |
-| `scripts/release-preflight.sh` | The nine checks above |
+| `scripts/release-preflight.sh` | The eleven checks above |
 | `scripts/release-notes.sh X.Y.Z` | Extract a CHANGELOG section for `gh release create --notes-file` |
 
 Claude Code users: `/release-kit` runs this whole workflow, making the judgment calls (version number, changelog prose) and delegating the deterministic parts to these scripts.

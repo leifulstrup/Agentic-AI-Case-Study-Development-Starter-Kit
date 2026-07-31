@@ -80,8 +80,16 @@ done
 #     same commit; the push is then rejected mid-run. Amending a pushed commit does
 #     the same thing to history. Both happened; both are caught here instead.
 TAGDRIFT=0
+UNREACHED=""
 for remote in origin public; do
   git remote | grep -qx "$remote" || continue
+  # A remote we cannot read is not a remote that agrees with us. Saying nothing here
+  # would make this check pass because it failed to look -- the exact failure class
+  # that let release.yml no-op for six versions.
+  if ! git ls-remote --tags "$remote" >/dev/null 2>&1; then
+    UNREACHED="$UNREACHED $remote"
+    continue
+  fi
   while read -r sha ref; do
     tag="${ref#refs/tags/}"; tag="${tag%^\{\}}"
     case "$ref" in *'^{}') continue;; esac
@@ -93,11 +101,31 @@ for remote in origin public; do
     fi
   done < <(git ls-remote --tags "$remote" 2>/dev/null | grep -v '\^{}$')
 done
-if [ "$TAGDRIFT" -eq 0 ]; then ok "local tags match published tags"
+if [ -n "$UNREACHED" ]; then
+  warn "could not reach:$UNREACHED — their tags were NOT checked (auth or network)"
+fi
+if [ "$TAGDRIFT" -eq 0 ]; then ok "local tags match reachable published tags"
 else
   bad "local tag objects diverge from a remote — the push will be rejected"
   echo "         Fix: git tag -d <tag> && git fetch <remote> --tags   (adopt the published tag)"
   echo "         Never force-push a tag that others may have pulled."
+fi
+
+# 11. No local-machine detail in tracked files.
+#     This is a public template. Absolute home paths, machine names, and session
+#     directories leak how the maintainer's laptop is organized, and they are also
+#     useless to anyone who clones the kit. Cheap to check, embarrassing to miss.
+#     A username segment must start with an alphanumeric and be followed by another
+#     path segment, so prose that writes the shape of a path -- /Users/... in a
+#     changelog entry, say -- is not mistaken for a real one.
+LEAKS=$(git grep -n -I -E '(/Users|/home)/[A-Za-z0-9][A-Za-z0-9._-]*/|C:\\Users\\[A-Za-z0-9]|Library/Application Support|local-agent-mode|\.local/share/Trash' -- . ':!*.gitignore*' ':!scripts/release-preflight.sh' 2>/dev/null | head -20)
+#     (this script is excluded because it necessarily contains the patterns it hunts)
+if [ -z "$LEAKS" ]; then
+  ok "no local machine paths in tracked files"
+else
+  echo "         local paths found in tracked files:"
+  echo "$LEAKS" | sed 's/^/         /'
+  bad "tracked files contain machine-specific paths — use relative paths or placeholders"
 fi
 
 echo

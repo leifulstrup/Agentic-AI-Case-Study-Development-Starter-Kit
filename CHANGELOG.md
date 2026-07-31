@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.8.1] - 2026-07-31
+
+### Added
+- **Release preflight check 11: no local machine paths in tracked files.** This is a public template — absolute home directories, machine names, and session paths leak how a maintainer's computer is organized and are useless to anyone who clones the kit. The check greps tracked files for `/Users/...`, `/home/...`, `C:\Users\`, and application-support and session directories, and fails the release if any appear. A username segment must start with an alphanumeric and be followed by another segment, so prose describing the *shape* of a path is not mistaken for a real one — the first version of the check flagged its own changelog entry. Verified in both directions: clean tree passes, planted paths fail
+
+- **Preflight check 10 now reports remotes it could not reach** instead of quietly skipping them. A remote that fails to respond is not a remote that agrees with you, and a check that passes because it failed to look is the same failure class that let `release.yml` no-op for six versions — found immediately, when an unauthenticated environment made the private remote unlistable and the check still went green
+
+### Changed
+- Preflight is now 11 checks, one of which can warn. `RELEASING.md` updated
+
+### Notes
+- Field testing of the kit against independent case examples is underway outside this repository. Findings will land in a subsequent release; the intake method is fixed in advance so that evidence drives the roadmap rather than confirming it
+
 ## [3.8.0] - 2026-07-28
 
 ### Fixed

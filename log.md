@@ -277,3 +277,45 @@ Stocktake rather than a change entry. Eight releases and 21 commits since v3.1.0
 **Live test**: pushing the v3.8.0 tag is itself the first real run of the new workflow. If the rewrite is wrong we get a red X rather than silence — which is the whole improvement.
 
 **Still manual, once**: the six already-pushed tags (v3.5.1 through v3.7.0) need releases created by hand. Re-pushing those tags to force a trigger would violate the published-refs-are-immutable rule.
+
+---
+
+## 2026-07-31 — v3.8.1: privacy guard + field-test intake
+
+**Context**: v3.8.0 shipped to both remotes. Leif is now testing the kit against
+independent case examples in a working area outside this repository, with the
+intent of using what that testing shows to design and prioritize the next version.
+
+**Changes**:
+
+1. `scripts/release-preflight.sh` — new check 11 scans tracked files for
+   machine-specific paths (`/Users/...`, `/home/...`, `C:\Users\`, application-support
+   and session directories) and fails the release if any are found. The script
+   excludes itself, since it necessarily contains the patterns it hunts. A full scan
+   of the current tree came back clean; a planted path was correctly caught and the
+   check returned to green once removed.
+2. Check 10 (published refs immutable) now warns when a remote cannot be listed
+   rather than skipping it silently. Found by accident: in an unauthenticated shell
+   the private remote was unreadable, the loop `continue`d over it, and the check
+   reported green having compared nothing. Same shape as the release.yml bug fixed
+   one version earlier — a guard that cannot see should say so, not pass.
+3. `RELEASING.md` — preflight is now described as 11 checks.
+4. `PROJECT_CONTEXT.md` — status updated to reflect the field-testing phase.
+
+**Why check 11 now**: the kit's whole posture is that it is safe to hand to other
+professors and to students. A public template carrying a maintainer's home directory
+structure is a small leak with an outsized signal — it says the repo was published
+without being read. Check 5 already blocks the unrecoverable mistake (copyrighted
+corpus). Check 11 blocks the merely embarrassing one, and costs nothing per release.
+
+**Field-test intake method** (design note kept outside this repo): inventory before
+interpreting; classify every observation as DEFECT / GAP / FRICTION / MISFIT / USER;
+weight by frequency x severity with blast radius as tiebreak; convert defects into
+permanent seeded tests before fixing them; size the release honestly, including the
+option of no release. The method was written **before** the test material was read,
+so it cannot be bent to fit a conclusion.
+
+**Not done**: the testing material had not been made available to the session when
+this was written, so no findings are recorded here yet.
+
+---
