@@ -7,6 +7,110 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.9.0] - 2026-08-26
+
+*First release driven by field evidence rather than by the author's roadmap. Two
+complete four-document case packages were built against v3.8.0 by an operator other
+than the author, on cases the author did not choose, against sources the author did
+not curate. The intake method was fixed in writing before the material was read.*
+
+### Fixed
+- **The verification pipeline reported verdicts it had not earned.** `/verify-all`
+  returned PASS on quotes for a document set in which a later span-by-span file trace
+  found five substantive defects: two misquotes, a comparison reversed, framing pulled
+  inside the quotation marks, dropped words, and constructed illustrations sitting in
+  quotes attributed to named sources. The quote check had reasoned about *source
+  categories* — "the essay quotations are quotable as written", "the ASR quotations use
+  the bracket convention" — and never enumerated individual quoted spans. `/verify-quotes`
+  already specified span-level tracing, requiring a source file and line number for a
+  VERIFIED verdict and carrying a five-way MODIFIED taxonomy that names four of the five
+  defects found. **The skill was not deficient; it was reported as passed without being
+  performed at the granularity it specifies, and nothing in the output could tell the
+  two apart.** `/verify-quotes` now requires mechanical enumeration of every quoted span
+  of four or more words as a numbered list before any verification, states that a fact
+  about a class of sources is not a verdict on any span, and requires spans-extracted
+  and spans-verdicted to be equal or the check reports INCOMPLETE
+
+- **`/verify-all` could launder a shallow sub-check into a pass.** Every sub-check must
+  now report the number of units it examined — spans traced, figures recomputed, links
+  requested, voices counted — in a new column of the summary table. **A check that
+  cannot state its unit count is reported as `NOT RUN`, which blocks publication exactly
+  as a failure does.** A verdict is earned by an amount of work and the report must show
+  the amount; "PASS" with no unit count is an opinion, not a result
+
+- **`scripts/lint.sh` aborted on macOS and preflight called it a lint failure.** The
+  script used `mapfile`, a bash 4+ builtin, while macOS ships bash 3.2 as `/bin/bash`.
+  It crashed at the file-collection line, and because preflight discarded stderr the
+  crash was reported as "lint violations" against a tree whose markdown was clean — a
+  substantive verdict the check never reached. Replaced with a `while read` loop;
+  verified under bash 3.2 (53 tracked files, 0 violations). CI never caught this because
+  GitHub runners have bash 5
+
+- **Preflight checks 2 and 3 could not distinguish a crash from a finding.** Both were
+  `if ./script >/dev/null 2>&1`, collapsing three outcomes into two. They now share a
+  `run_gate` helper with an explicit convention — 0 clean, 1 a real finding, anything
+  else means the check broke and its verdict means nothing — and a broken check reports
+  `COULD NOT RUN` with the captured stderr. Verified by sabotage in all three
+  directions: crash, real violations, and clean
+
+### Changed
+- **`/assess-sources` now computes an independence ratio and applies it as a cap on the
+  overall gate**, rather than testing only for the presence of one independent source.
+  A base of 33 sources that was ~82% the subject's own material scored YELLOW and
+  proceeded, because the gate averages four dimensions of which two — Depth and
+  Completeness — reward volume: a prolific self-publisher scores 5 and 4 there and pulls
+  the average up past a RED reliability score, while independence entered only as a
+  floor of one source. **The report named the imbalance accurately and then let it
+  through; describing a problem is not gating it.** `independent_share` below 20% now
+  caps the gate at RED, and between 20% and one third at YELLOW with the outcome layer
+  blocked. Replayed against the four gate decisions in field testing, the cap changes
+  exactly the one that was wrong and leaves the three that were right untouched.
+  The skill now also distinguishes the two failure modes explicitly — a *thin* base
+  fails for scarcity and is obvious, a *one-sided* base fails for concentration and
+  looks like progress — and separates claims about what a subject thinks (where self
+  sources are legitimate evidence) from claims about outcomes and firm scale (where
+  they are not)
+
+- **`/add-sources` now requires the raw capture of anything read live to be saved as a
+  source file before registration.** Research delegated to subagents or read through a
+  browser returns a dossier, and the dossier paraphrases; the verbatim wording stays in
+  the session and dies with it, so quotations drawn from it trace to nothing. The chain
+  of custody for a quotation runs page → committed file → document, and a hop that
+  exists only in a session breaks it
+
+- **Gate logs are no longer discarded by default.** `*.log` was added to `.gitignore`
+  specifically to exclude verification-skill output; field testing showed that to be
+  backwards, since the assessment and verification logs are the evidence that the gates
+  ran and what they concluded. Of two cases built the same week, one kept its gate logs
+  only because the operator noticed and forced the add, and the other kept none.
+  `assess-*`, `verify-*`, `coach-*` and `scout-*` logs are now negated back in; stray
+  logs stay ignored
+
+### Added
+- **Seeded defect set v3 — D17, D18, D19**, written before any of the above fixes, per
+  the standing rule that bugs are test cases wearing disguises. D17 corrupts four
+  quotations four different ways against untouched sources; D18 builds a deep base that
+  is 80% company/self while still satisfying the floor-of-one independence test; D19
+  registers a source whose only artifact is a summarizing dossier and quotes it. **This
+  is the first defect set drawn from cases the author did not choose** — the most
+  externally valid one in the project
+
+### Notes
+- **All four findings are the same shape**, and it is a shape this project has already
+  fixed twice in its release tooling: a workflow that silently did nothing for six
+  versions, and a preflight check that went green because it could not reach the remote
+  it was meant to compare against. Both were caught and hardened. The same sweep was
+  never run over the verification pipeline, which is the part users actually depend on
+- **Sized deliberately as a minor version.** Every fix makes the existing architecture
+  do what it already says — enumerate the spans, compute the ratio, keep the logs. No
+  new stage, no new document, no change to the workflow map. The counter-argument is
+  recorded rather than buried: if the two gates *are* the architecture, then "they
+  narrate rather than gate" is structural and v4.0 would be defensible
+- **What this field test did not cover**: both runs used the Claude Code path, so the
+  Copilot and chat paths still have no field evidence — and the chat path serves the
+  users least equipped to notice a missing guardrail. Neither case reached a classroom,
+  so teaching readiness remains unmeasured. Two cases, one operator, one week
+
 ## [3.8.1] - 2026-07-31
 
 ### Added

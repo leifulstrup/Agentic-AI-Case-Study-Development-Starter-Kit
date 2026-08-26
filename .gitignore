@@ -4,8 +4,20 @@
 .AppleDouble
 .LSOverride
 
-# Logs (from verification skills)
+# Logs — stray logs are noise, but the GATE logs are the audit trail.
+#
+# This pattern was originally added to exclude verification-skill output. Field
+# testing showed that to be backwards: the assessment and verification logs are
+# the evidence that the go/no-go gates ran and what they concluded. Of two cases
+# built the same week, one committed its gate logs only because the operator
+# noticed and forced the add; the other committed none and its audit trail is
+# gone. For a kit whose claim is that its output can be defended, the record of
+# the defence is the last thing to discard by default.
 *.log
+!assess-*.log
+!verify-*.log
+!coach-*.log
+!scout-*.log
 
 # Python (if using simulations)
 __pycache__/

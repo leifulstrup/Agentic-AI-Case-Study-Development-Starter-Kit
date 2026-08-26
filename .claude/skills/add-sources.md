@@ -122,6 +122,35 @@ After collecting metadata for all new sources:
 {If few sources}: You may want to add more sources before assessment. See `templates/SOURCE_ACQUISITION.md` for guidance on finding sources.
 ```
 
+## The raw capture is the source; a reading of it is not
+
+When a source is read live — a page fetched in a browser, a profile scrolled, a
+result set gathered by a delegated search — **save the captured text to a file in
+`sources/` before registering it, and register the file rather than the reading.**
+
+The failure this prevents: research delegated to subagents or read through a browser
+comes back as a *dossier* — an accurate, useful digest written by the agent that read
+the page. The digest paraphrases. The exact wording stays in the session transcript
+and is gone when the session ends. Quotations drawn from it then trace to nothing,
+not because anyone fabricated anything, but because **the only artifact that ever
+held the verbatim text was never a file.** This produced real quote defects in field
+testing, in a case whose verification had otherwise passed.
+
+So, when registering anything read live:
+
+1. Write the raw capture to `sources/reports/<slug>-capture-YYYY-MM-DD.md` (or the
+   fitting subdirectory) with a provenance header: URL, access date, how it was
+   retrieved, and whether the text is VERBATIM, EXTRACTED, or ASR.
+2. Register **that file**. The dossier or summary, if kept, is a working note — not
+   a registered source, and never the target of a citation.
+3. If only a summary exists and the original can no longer be reached, register it
+   as **T3 (referenced)** and record that no verbatim text is held. Nothing may be
+   quoted from it.
+
+A source you cannot re-read is a source you cannot verify. Chain of custody for a
+quotation runs page → committed file → document, and a hop that exists only in a
+session breaks it.
+
 ## Notes
 
 - This skill never asks the user to edit `Source_Registry.md` directly

@@ -22,7 +22,16 @@ else
 fi
 
 # .github is excluded in CI; match that.
-mapfile -t FILES < <(git ls-files '*.md' | grep -v '^\.github/')
+# Read into the array with a while-read loop rather than `mapfile`: mapfile is a
+# bash 4+ builtin, and macOS still ships bash 3.2 as /bin/bash. Under 3.2 the
+# script aborted here, and because release-preflight.sh discarded stderr it
+# reported the crash as "lint violations" — a substantive verdict it never
+# reached. Same shape as the release workflow that silently no-opped and the
+# preflight check that passed without reaching a remote. Keep this POSIX-ish.
+FILES=()
+while IFS= read -r f; do
+  [ -n "$f" ] && FILES+=("$f")
+done < <(git ls-files '*.md' | grep -v '^\.github/')
 [ "${#FILES[@]}" -gt 0 ] || { echo "no tracked markdown files"; exit 0; }
 
 echo "Linting ${#FILES[@]} tracked markdown files (gitignored content excluded, as in CI)"

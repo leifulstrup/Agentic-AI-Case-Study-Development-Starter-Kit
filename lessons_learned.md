@@ -154,3 +154,50 @@ green having compared nothing. Nothing connected the two except the shape — *a
 that cannot see reports success*. After fixing a class of bug, it is worth spending
 ten minutes grepping for the same shape elsewhere, because the habit that produced it
 was not confined to one file.
+
+## v3.9.0 — 2026-08-26 (field test)
+
+*First lessons drawn from someone else building real cases with the kit, rather than
+from the author testing his own work. Two complete four-document packages, both
+against v3.8.0, both on the Claude Code path.*
+
+**52. A threshold written in prose is not a threshold.** The skills state numeric
+rules — `assess-bias` says company-affiliated voices above 50% make bias "at least
+MEDIUM"; `verify-quotes` says a VERIFIED verdict requires a source file and line
+number for each quote. Nothing computes either one. A model reads the prose and forms
+a judgment, and across three separate gates in a single run every judgment drifted the
+same direction: toward passing. A base at 62% company-affiliated was reported
+"LOW–MEDIUM". A quote check that reasoned about source *categories* rather than
+individual spans reported PASS, and a later span-by-span trace of the same documents
+found five real defects — two misquotes, framing pulled inside the quotation marks,
+dropped words, and constructed illustrations sitting in quotes. The rule was right
+and present the whole time; nothing made it binding.
+
+**53. Describing a problem is not gating it.** Faced with a source base that was
+about 82% the subject's own material, `/assess-sources` diagnosed the situation
+accurately and at length — it called the base one-sided, named it the opposite
+failure mode from a thin base, and set bias to HIGH. Then it returned YELLOW and the
+writing proceeded. The gate averages four dimensions, two of which reward volume, so
+a prolific self-publisher scores high on Depth and Completeness and pulls the average
+up past a RED reliability score. Independence entered the calculation only as a floor
+of one source. The prose was excellent and load-bearing on nothing. **If a finding
+should stop work, it has to be an input to the arithmetic, not a paragraph beside
+it.**
+
+**54. A summarized source is an unsourced source.** When research is delegated to
+subagents or read live through a browser, what lands on disk is the agent's dossier,
+and the dossier paraphrases. The verbatim wording stays in the session transcript and
+dies with it. Quotations then trace to nothing — not because anyone fabricated them,
+but because the only artifact that ever held the exact words was never a file. This
+was the root cause of most of the quote defects above. **The raw capture is the
+source; the dossier is a reading of it.** Save the capture before anything quotes
+from it.
+
+**55. Ignoring logs by default throws away the proof you did the work.** `*.log` sat
+in `.gitignore` from the beginning, and the assessment and verification logs — the
+evidence that the go/no-go gates ran and what they concluded — are written as `.log`.
+Of the two field cases, one committed its gate logs only because the operator noticed
+and forced the add; the other committed none, and its audit trail is simply gone. For
+a kit whose entire claim is that its output can be defended, discarding the record of
+the defence by default is the wrong side to err on. Generic ignore patterns inherited
+from software projects do not know which of your files are the product.

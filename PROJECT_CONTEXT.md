@@ -6,13 +6,13 @@ Quick reference for session continuity. Auto-maintained by skills — you do not
 
 **Repository**: Agentic AI Case Study Development Starter Kit
 **Type**: GitHub template repository
-**Version**: 3.8.1
+**Version**: 3.9.0
 **Course**: ITEC-617, American University Kogod School of Business, Spring 2026
 **Purpose**: Template for developing business school MBA case studies from digital sources using AI tools
 
 ## Current Status
 
-**Phase**: Field testing (v3.8.x). The template is complete and released; it is now being exercised against independent case examples so that the next version is driven by observed use rather than by the author's roadmap.
+**Phase**: Field-test intake shipped (v3.9.0). The first field test — two complete case packages built by an operator other than the author — has been classified, converted into seeded regression tests (defect-set v3), and released as fixes. The verification gates now compute the thresholds they previously only described.
 
 **Agentic Tool Paths**:
 - [x] Claude Code — 18 `/slash-commands` via `.claude/skills/`
@@ -54,7 +54,7 @@ See `verification-debt.yaml` for details.
 
 ## Next Steps
 
-1. Review field-test results and classify findings (defect / gap / friction / misfit)
+1. Measure *compliance*, not just specification: v3.9.0's fixes were validated by executing the mandated procedure as a script (6/6 detection). Whether a model following the prose reliably executes it is unmeasured — and is the failure class that produced these defects
 2. Convert every field-found defect into a permanent seeded regression test
 3. Size and ship the next version from the ranked findings
 4. Standing backlog: n=2 eval variance run; three grading rubrics; student-facing

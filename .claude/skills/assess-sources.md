@@ -61,6 +61,42 @@ Evaluate the source materials in `sources/` and produce a Source Assessment Repo
    - **YELLOW** (score 3): Adequate but would benefit from more sources
    - **RED** (score 1-2): Insufficient, must improve before writing
 
+   **Then compute the independence ratio and apply it as a cap on the overall
+   gate.** Independence is not a fifth dimension to be averaged with the others —
+   it is a ceiling on what the average is allowed to conclude:
+
+   ```
+   independent_share = INDEPENDENT sources / total citable sources
+   ```
+
+   | independent_share | Overall gate may not exceed |
+   |-------------------|-----------------------------|
+   | 0 | **RED** — blocking, regardless of count |
+   | below 1/5 (20%) | **RED** |
+   | 1/5 to 1/3 | **YELLOW** — the outcome/impact layer stays blocked |
+   | above 1/3 | no cap; the dimension average stands |
+
+   State the computed share and the cap it triggers as a line in the report, even
+   when no cap binds. **A base can be deep and one-sided at the same time, and the
+   dimension average cannot see the difference.** Depth and Completeness both reward
+   volume, so a subject who publishes prolifically about themselves scores high on
+   two of four dimensions and pulls the average to YELLOW while Reliability is RED
+   and the base is four-fifths their own material. That case occurred: 33 sources,
+   about 82% self and company, correctly described in prose as one-sided — and it
+   passed, because describing is not gating.
+
+   **Two failure modes, not one.** A thin base fails for scarcity: few sources, RED
+   on Breadth and Completeness, obvious. A one-sided base fails for concentration:
+   many sources, high Depth, and no independent check on any factual claim. The
+   second looks like progress and is the harder one to catch, so it needs the
+   arithmetic rather than the judgment.
+
+   **Separate the two kinds of claim before deciding what the cap blocks.** Self and
+   company sources are legitimate evidence of *what the subject thinks* — the
+   narrative of reasoning, the decisions, the stated strategy. They are not evidence
+   of *outcomes, market facts, or firm scale*. A capped YELLOW may proceed with the
+   reasoning narrative while the outcome layer stays blocked; say which is which.
+
 7. **Check source integrity** (processing status and independence — do this before the gates):
 
    **Processing check.** For every T1 source, scan the document for evidence of how the text was produced:
@@ -83,6 +119,11 @@ Evaluate the source materials in `sources/` and produce a Source Assessment Repo
    | Source | Tier | Independence | Specific interest | Processing |
    ```
    If no source is INDEPENDENT, that is a blocking gap regardless of how many sources exist — say so.
+
+   **Presence is not proportion.** One independent source among forty clears a
+   floor-of-one test as easily as one among three, and the floor was the only
+   independence rule this gate applied for several versions. Report the computed
+   `independent_share` (step 6) alongside the raw count, and apply its cap.
 
 8. **Check minimum viable source gate**:
    - At least 1 T1 primary source with protagonist's voice (interview, podcast, keynote)
@@ -139,7 +180,7 @@ Case: [company_name] — [topic]
 | Source | Tier | Independence | Specific interest | Processing |
 |--------|------|--------------|-------------------|------------|
 
-- Independent sources: X of Y
+- Independent sources: X of Y — **independent_share = Z%**, cap: [RED / YELLOW / none]
 - Sources that cannot support verbatim quotation (EDITED/ASR): X — [list]
 - **Integrity flags**: [any source whose independence or processing was missed by earlier registration]
 

@@ -15,9 +15,15 @@
 #
 # Provenance note: defects D1, D2, D9 are modeled on real issues surfaced
 # in the v3.0 Moderna power-user test (financial errors, late-found bias).
+#
+# Version 3 adds D17-D19 from the first FIELD test — two complete case packages
+# built against v3.8.0 by an operator other than the author, on cases the author
+# did not choose. These are the first seeded defects drawn from outside the
+# author's own runs. Subjects are deliberately not named: the finding is the kit
+# behavior, not the case.
 
-version: 2
-date: "2026-07-27"
+version: 3
+date: "2026-08-26"
 defects:
   - id: D1
     layer: financial
@@ -165,3 +171,53 @@ defects:
       subject's own statement.
     expected_detector: "/verify-quotes (MODIFIED — assent converted to assertion)"
     provenance: "Real gap found 2026-07-27: the case's title number was asserted by the host, assented to by the subject"
+
+  # --- v3 — from the first field test (2026-08-26) ---
+
+  - id: D17
+    layer: quote_integrity
+    injection_target: main_case_draft
+    instruction: >-
+      Corrupt four quotations in four different ways against untouched source
+      files: (a) silently drop two or three words from the middle of a quote,
+      (b) reverse a comparison inside a quote so the source's "more X than Y"
+      becomes "X, not Y", (c) pull the sentence's framing clause inside the
+      quotation marks so words the author wrote appear as the speaker's, and
+      (d) place a constructed illustration the author invented inside quotation
+      marks and attribute it to a named source.
+    expected_detector: "/verify-all must report FAIL on quotes; /verify-quotes must return MODIFIED for (a)-(c) and APOCRYPHAL for (d)"
+    provenance: >-
+      Field test 2026-07/08: /verify-all reported PASS on quotes for a document
+      set containing all four of these; a later span-by-span file trace found
+      them. The quote check had reasoned about source categories rather than
+      enumerating individual quoted spans.
+
+  - id: D18
+    layer: source_independence
+    injection_target: source_registry
+    instruction: >-
+      Build a registry of 25 or more sources in which at least 80% are COMPANY
+      or INTERESTED/self, while leaving at least one INDEPENDENT source present
+      so the existing floor-of-one check is satisfied. Keep depth genuinely
+      high — abundant dated first-person material from the subject.
+    expected_detector: "/assess-sources must NOT return GREEN, and must not return an unqualified YELLOW; the independence proportion must appear as a gating input, not only as prose"
+    provenance: >-
+      Field test 2026-07/08: a base at ~82% self/company scored YELLOW and
+      writing proceeded, because Depth and Completeness reward volume and
+      independence entered the gate only as a floor of one source. The report
+      named the imbalance correctly and did not act on it.
+
+  - id: D19
+    layer: quote_integrity
+    injection_target: source_registry
+    instruction: >-
+      Register a source whose only on-disk artifact is a summarizing dossier —
+      an agent-written digest of a page read live in a browser — and quote it
+      verbatim in the Main Case. The exact wording must appear in no committed
+      file.
+    expected_detector: "/verify-quotes must flag the quotation as untraceable (APOCRYPHAL or equivalent), never VERIFIED"
+    provenance: >-
+      Field test 2026-07/08: quotations captured live via browser reads were
+      summarized into a bio dossier, so the verbatim text existed only in the
+      session and traced to no file. Fixed at the time by saving the raw
+      capture retroactively; /add-sources never prompted for it.

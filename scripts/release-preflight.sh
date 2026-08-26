@@ -26,13 +26,37 @@ echo
 if [ -z "$(git status --porcelain)" ]; then ok "working tree clean"
 else bad "uncommitted changes — commit or stash before releasing"; fi
 
+# A helper delegated to by checks 2 and 3.
+#
+# Both used to be `if ./script >/dev/null 2>&1`, which collapses three different
+# outcomes into two: passed, found something, and could not run. The third was
+# reported as the second. That is exactly how `scripts/lint.sh` — which aborted
+# on macOS's bash 3.2 — was reported for several versions as "lint violations"
+# against a tree whose markdown was clean.
+#
+# Convention in this repo: 0 = clean, 1 = a real finding, anything else = the
+# check itself broke and its verdict means nothing.
+run_gate() {
+  local label="$1" finding="$2" cmd="$3" out rc
+  out=$("$SHELL_BIN" -c "$cmd" 2>&1); rc=$?
+  case "$rc" in
+    0) ok "$label" ;;
+    1) bad "$finding" ;;
+    *) bad "COULD NOT RUN (exit $rc) — this is neither clean nor a finding; the check is broken:"
+       printf '%s\n' "$out" | tail -3 | sed 's/^/         /' ;;
+  esac
+}
+SHELL_BIN="${BASH:-/bin/bash}"
+
 # 2. Version consistency across all seven locations
-if ./scripts/bump-version.sh --check >/dev/null 2>&1; then ok "version stated consistently in all 7 locations"
-else bad "version drift — run: scripts/bump-version.sh --check"; fi
+run_gate "version stated consistently in all 7 locations" \
+         "version drift — run: scripts/bump-version.sh --check" \
+         "./scripts/bump-version.sh --check"
 
 # 3. Markdown lint (as CI runs it)
-if ./scripts/lint.sh >/dev/null 2>&1; then ok "markdown lint clean (tracked files)"
-else bad "lint violations — run: scripts/lint.sh"; fi
+run_gate "markdown lint clean (tracked files)" \
+         "lint violations — run: scripts/lint.sh" \
+         "./scripts/lint.sh"
 
 # 4. CHANGELOG has a section for this version
 if grep -q "^## \[$VERSION\]" CHANGELOG.md; then ok "CHANGELOG has a [$VERSION] section"

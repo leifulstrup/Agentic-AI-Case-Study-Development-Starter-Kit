@@ -319,3 +319,72 @@ so it cannot be bent to fit a conclusion.
 this was written, so no findings are recorded here yet.
 
 ---
+
+## 2026-08-26 — v3.9.0: making the gates compute
+
+**Context**: the first field test of the kit by someone other than the author is in.
+Two complete four-document packages were built against v3.8.0 on the Claude Code
+path, one from a single promotional seed and one from a subject who self-publishes
+prolifically. Both finished; both were graded honestly by their operator. The intake
+method was fixed in advance so the findings could not be bent toward the existing
+roadmap — and they were not. None of the nine standing backlog items names what the
+test found.
+
+**What the test found**, in behavior terms:
+
+1. **The verification pipeline reports verdicts it has not earned.** `/verify-all`
+   returned PASS on quotes for a document set in which a later span-by-span file trace
+   found five substantive quote defects. The quote check had reasoned at the level of
+   source categories — "essay quotations are quotable as written", "ASR quotations use
+   the bracket convention" — and never enumerated individual quoted spans. Notably,
+   `/verify-quotes` already *specifies* span-level tracing: it requires a source file
+   and line number for a VERIFIED verdict, and it carries a five-way MODIFIED taxonomy
+   that names four of the five defects found. The skill was not deficient. It was
+   reported as passed without being performed at the granularity it specifies, and
+   nothing in the output could distinguish the two.
+
+2. **The assessment gate cannot tell a thin base from a one-sided one.** A base of one
+   promotional source scored RED and blocked, correctly. A base of 33 sources that was
+   ~82% the subject's own material scored YELLOW and proceeded — because the overall
+   gate averages four dimensions, two of which reward volume, and because independence
+   enters the gate only as a floor of one source rather than as a proportion. The
+   report named the imbalance accurately in prose and then let it through.
+
+3. **Delegated research breaks the chain of custody for quotations.** Sources read
+   live in a browser or gathered by subagents arrive as summarizing dossiers. The
+   verbatim wording never reaches a file, so quotations drawn from it trace to
+   nothing. `/add-sources` does not prompt for the raw capture.
+
+4. **`*.log` is gitignored, so gate logs are discarded by default.** The assessment
+   and verification logs are the evidence that the gates ran. One field case kept them
+   only because its operator forced the add; the other kept none.
+
+**Why these are one finding as much as four**: items 1, 2 and 4 are all cases of a
+check that reports a verdict it did not earn — the same shape as the release workflow
+that silently no-opped for six versions and the preflight check that passed because it
+could not reach a remote. Both of those were found and fixed in the release tooling.
+The same class was never swept for in the verification pipeline, which is the part
+users actually depend on. A fifth instance was found in passing while running the
+release script on a different machine: `scripts/lint.sh` uses a bash 4+ builtin, so
+under macOS's bash 3.2 it aborts, and preflight reports "lint violations" — a
+substantive finding it never made. The markdown was clean.
+
+**Order of work**, per the standing rule that bugs are test cases wearing disguises:
+the three defects were written into the seeded defect set as D17–D19 (version 3)
+**before** any fix was drafted. This is the first defect set drawn from cases the
+author did not choose, against sources the author did not curate, which makes it the
+most externally valid one in the project.
+
+**Sizing**: v3.9.0. Every fix makes the existing architecture do what it already
+says — enumerate the spans, compute the ratio, keep the logs. No new stage, no new
+document, no change to the workflow map. The counter-argument is recorded rather than
+buried: if the two gates *are* the architecture, then "they narrate rather than gate"
+is a structural finding and v4.0 would be defensible. The v4.0 front-end generators
+remain parked; by the intake method's own instruction they lose to anything that puts
+a wrong quote in a classroom.
+
+**Not covered by this test, and worth saying plainly**: both runs used Claude Code, so
+the Copilot and chat paths still have no field evidence at all — and the chat path
+serves the users least equipped to notice a missing guardrail. Neither case reached a
+classroom, so teaching readiness remains unmeasured. Two cases, one operator, one
+week: still n=1 in every dimension that matters for variance.

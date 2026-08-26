@@ -185,3 +185,81 @@ This is not a regression in the case; it is the standard becoming accurate. v3.2
 1. The blessed golden (`golden/baseline-v3.2.0/`) predates these checks. It was fixed against v3.2.0's standard, not v3.3's — its McKinsey quotations would now be MODIFIED (edited source), and its integrity note needs the edited-source disclosure. **Do not re-bless retroactively**; instead record that golden is a v3.2.0-standard artifact and create a v3.3-standard golden at the next full authoring run.
 2. n=2 variance run still deferred.
 3. The kit's own guidance now demands more of the *writer* than the writer currently delivers (~40 unmarked smoothings). The next authoring-side change should carry the AGENTS.md quoting rules into `write-document.md` at drafting time, rather than leaving them to be caught in verification.
+
+---
+
+## v3.9.0 — 2026-08-26 — jpm-llm-suite — REGRESSION (field-test release, defect-set v3)
+
+- Kit version under test: v3.9.0 (unreleased; working tree)
+- Target: D17–D19, the three defect classes drawn from the first **field** test — the
+  first seeded defects taken from cases the author did not choose
+- Method: golden `baseline-v3.2.0` case-study output copied to a scratch run
+  directory; defects injected into the **copy** only. Fixture and golden untouched
+  (`git status` clean under `evals/` apart from `defect-set.yaml` itself)
+- Source corpus: the 5 frozen T1 sources, PDFs converted locally with markitdown
+
+### Design note — why this run is a paired comparison
+
+The operator injected the defects and therefore knew where they were, which makes a
+judgment-based "did I notice it?" run worthless as evidence. Instead the new
+`/verify-quotes` procedure was **operationalised as a script** — enumerate every
+attributed quoted span of ≥4 words, split on ellipsis, trace each fragment to a
+committed source file — and run twice over identical documents, once clean and once
+corrupted. Detection is then the *verdict change on a specific span*, which is
+objective and immune to the operator's knowledge. Baseline tracer noise is constant
+across both arms and cancels.
+
+### Layer 2 — defect-set v3
+
+| Defect | Injected as | Clean verdict | Corrupted verdict | Caught? |
+|--------|-------------|---------------|-------------------|---------|
+| D17a dropped words | removed "needed into an AI system" mid-quote | VERIFIED | **MODIFIED** | **YES** |
+| D17b comparison/polarity reversal | "won't come from more adoption" → "will come from" | VERIFIED | **MODIFIED** | **YES** |
+| D17c framing pulled inside the marks | prepended "The core problem is that " | VERIFIED | **MODIFIED** | **YES** |
+| D17d constructed illustration in quotes | new attributed sentence, in no source | (absent) | **APOCRYPHAL** | **YES** |
+| D18 deep-but-one-sided base | 30-source registry, 83% COMPANY/self, 5 INDEPENDENT | — | **RED** (was YELLOW) | **YES** |
+| D19 dossier-only provenance | quote whose only artifact is a summarising dossier | — | **APOCRYPHAL** | **YES** |
+
+**Detection recall: 6/6.** **False alarms: 0** — no span other than the four injected
+changed verdict between the clean and corrupted arms.
+
+### The old-vs-new contrast (what actually changed)
+
+- **D18** is the sharpest. Under v3.8.0's rule — *"if no source is INDEPENDENT, that is
+  a blocking gap"* — five independent sources satisfy a floor-of-one test, so the
+  dimension average governs: (5+3+2+4)/4 = 3.5 → **YELLOW, writing proceeds**. Under
+  v3.9.0, `independent_share` = 16.7% → below one fifth → **capped at RED**. Same
+  registry, opposite verdict. Replayed against the four real gate decisions in field
+  testing, the cap changes exactly the one that was wrong and leaves the three that
+  were right untouched.
+- **D19 was run in both directions.** With only the summarising dossier committed, the
+  quotation traces to nothing → APOCRYPHAL. With the raw capture saved as a source
+  file — the v3.9.0 `/add-sources` requirement — the identical quotation traces
+  → VERIFIED. The defect and its fix are the same experiment run twice.
+
+### Honest limits of this run
+
+1. **A script is a stricter reading of the skill than prose is.** This run shows the
+   mandated procedure is *sufficient* to catch these defects. It does **not** show
+   that a model following the prose will reliably execute it — which is precisely the
+   failure that produced these defects in the first place. The remaining risk is
+   compliance, not specification, and a script cannot measure compliance.
+2. **The tracer has a false-positive floor** on the clean baseline (≈37 of 134 spans
+   non-VERIFIED) driven mostly by PDF-extraction differences: the v3.2.0 baseline run
+   used a pre-extracted `McKinsey_Waldron_Interview.extracted.txt` that is not in the
+   repo, so local markitdown output differs in whitespace and hyphenation. The paired
+   design makes this irrelevant to recall, but the absolute numbers are not comparable
+   to the v3.2.0/v3.3.0 rows above.
+3. **Two extractor bugs were found and fixed mid-run**, both of which would have
+   produced silent misses: a line-based scan skipped every quotation wrapped across
+   lines (found by D19, whose quote wrapped), and flattening ellipses made legitimately
+   elided quotations look untraceable. D17 was re-run after both fixes with identical
+   results. Worth noting that the first bug is the same shape as the findings this
+   release is about — a checker that reports nothing wrong because it never looked.
+4. **n=1, single corpus, single operator.** The variance question is still open.
+
+### Verdict
+
+**PASS.** 6/6 on the new classes, 0 false alarms, and the old rule demonstrably fails
+D18 where the new rule catches it. The v3.9.0 changes do what the changelog claims at
+the level of specification; compliance remains unmeasured.
