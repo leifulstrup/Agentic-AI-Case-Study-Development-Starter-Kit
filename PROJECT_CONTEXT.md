@@ -6,13 +6,13 @@ Quick reference for session continuity. Auto-maintained by skills — you do not
 
 **Repository**: Agentic AI Case Study Development Starter Kit
 **Type**: GitHub template repository
-**Version**: 3.9.0
+**Version**: 3.9.1
 **Course**: ITEC-617, American University Kogod School of Business, Spring 2026
 **Purpose**: Template for developing business school MBA case studies from digital sources using AI tools
 
 ## Current Status
 
-**Phase**: Field-test intake shipped (v3.9.0). The first field test — two complete case packages built by an operator other than the author — has been classified, converted into seeded regression tests (defect-set v3), and released as fixes. The verification gates now compute the thresholds they previously only described.
+**Phase**: Field-test intake shipped and partially corrected (v3.9.1). The first field test was classified, converted into seeded regression tests (defect-set v3), and released as fixes. Blind compliance testing then showed that only one of the release's two quote fixes had any measurable effect; v3.9.1 withdraws the other claim. The `/verify-all` orchestration change is confirmed effective under the condition that matters. **The incident that motivated the release remains unexplained.**
 
 **Agentic Tool Paths**:
 - [x] Claude Code — 18 `/slash-commands` via `.claude/skills/`
@@ -54,7 +54,7 @@ See `verification-debt.yaml` for details.
 
 ## Next Steps
 
-1. Measure *compliance*, not just specification: v3.9.0's fixes were validated by executing the mandated procedure as a script (6/6 detection). Whether a model following the prose reliably executes it is unmeasured — and is the failure class that produced these defects
+1. **Explain the original incident.** Three hypotheses tested across four blind agent runs; none reproduces the field verification's PASS. Untested candidates: a long preceding authoring session, a verifier checking documents it authored itself, a real case with no planted defects to find
 2. Convert every field-found defect into a permanent seeded regression test
 3. Size and ship the next version from the ranked findings
 4. Standing backlog: n=2 eval variance run; three grading rubrics; student-facing

@@ -85,7 +85,7 @@ repository:
 # -----------------------------------------------------------------------------
 template:
   # Version of the template this project was created from
-  version: "3.9.0"
+  version: "3.9.1"
 
   # Source repository for updates
   source: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit"

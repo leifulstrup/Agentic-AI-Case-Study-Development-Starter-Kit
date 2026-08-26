@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v3.9.0-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v3.9.1-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -355,4 +355,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 3.9.0*
+*Template Version: 3.9.1*

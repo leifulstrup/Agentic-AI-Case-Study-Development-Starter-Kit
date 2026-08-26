@@ -201,3 +201,35 @@ and forced the add; the other committed none, and its audit trail is simply gone
 a kit whose entire claim is that its output can be defended, discarding the record of
 the defence by default is the wrong side to err on. Generic ignore patterns inherited
 from software projects do not know which of your files are the product.
+
+## v3.9.1 — 2026-08-26 (correction)
+
+**56. Running a fix's procedure yourself measures the specification, not the
+behaviour.** v3.9.0's validation executed the mandated quote-tracing procedure as a
+script, scored 6/6 with no false alarms, and was reported as evidence the change
+worked. It was evidence of something weaker and more specific: that the procedure is
+*sufficient if followed*. Whether a skill-following agent would follow it is a
+different question, it needs a different experiment, and when that experiment was
+finally run the answer split — one half of the release worked and the other half had
+no measurable effect. **A script cannot measure compliance, because a script is
+compliance.** If the failure being fixed was "the procedure was specified but not
+performed," then testing by performing the procedure tests the one thing that was
+never broken.
+
+**57. Two fixes shipped under one diagnosis need separating before either is
+credited.** v3.9.0 rewrote a skill *and* changed the orchestration that calls it, both
+justified by a single observed failure. The changelog claimed both. Controlled
+comparison showed the skill rewrite was inert and the orchestration change carried the
+whole result — the finer-grained enumeration, the recovered defect, and a check that
+examined nothing being blocked rather than warned. Bundling them meant the release
+could not tell which one had earned the credit, and the inert half was described in
+the changelog with as much confidence as the effective one.
+
+**58. Fixing a real weakness is not the same as explaining the incident.** Three
+hypotheses about why the original verification reported PASS have now been tested, and
+none of them reproduces it. The release still improved the kit — the orchestration
+change is measurably better under the condition that matters. But the specific failure
+that prompted all of it remains unexplained, and the temptation at this point is to let
+a good result stand in for an answer. It does not. **An unexplained incident is still
+live**, and the next occurrence will not care that something adjacent to it was
+improved.

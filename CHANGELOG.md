@@ -7,6 +7,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.9.1] - 2026-08-26
+
+*A correction. v3.9.0 claimed two quote fixes worked; controlled testing shows one of
+them did and one did not. No behaviour changes — the code stands, the claim does not.*
+
+### Fixed
+- **v3.9.0's claim about `/verify-quotes` was not supported by evidence, and is
+  withdrawn.** The release said the skill "was reported as passed without being
+  performed at the granularity it specifies" and rewrote its prose to force span-level
+  enumeration. That rewrite has since been tested against the v3.8.0 text in a
+  controlled comparison — two blind agents, identical corrupted documents, identical
+  source corpus, the skill file the only difference — and **the v3.8.0 text scored
+  identically: 5/5, including on a defect class named by neither skill text.** When
+  `/verify-quotes` is run as an agent's whole task, the old wording was already
+  sufficient. The rewrite is retained because it documents the failure classes more
+  clearly, but it should not be described as having fixed anything
+
+### Changed
+- **The `/verify-all` change is the one that carries the release.** Re-tested under the
+  condition the original failure actually occurred in — the quote check running as one
+  of eight sub-checks rather than as the whole job — the two versions separate clearly.
+  The v3.8.0 pipeline adjudicated 96 "distinct quotations" and missed one planted
+  defect; the v3.9.0 pipeline enumerated 355 individual spans, verdicted all 355, and
+  caught it. The missed defect — the author's framing pulled inside a quotation — is
+  exactly what disappears when spans are grouped before checking. Separately, with no
+  network access, the v3.8.0 pipeline recorded the link check as six warnings and did
+  not block on it; the v3.9.0 pipeline reported `0 of 4 URLs requested`, declared the
+  check **NOT RUN**, and blocked publication. **A check that examined nothing is not a
+  check that passed**, and only the newer pipeline says so
+
+### Notes
+- **The incident that motivated v3.9.0 is still not explained.** Three hypotheses have
+  now been tested and none reproduces it: the skill text was not inadequate, and
+  orchestration alone does not induce a PASS — the v3.8.0 pipeline reported a quote
+  failure and blocked distribution. What differed about the original run remains
+  unknown; the untested candidates are a long preceding authoring session, a verifier
+  checking documents it had itself written, and a real case with no planted defects to
+  find. **A real weakness has been fixed without the incident having been explained,
+  and those are not the same accomplishment**
+- **Validating a fix by executing its procedure yourself measures the specification,
+  not the behaviour.** v3.9.0's own validation ran the mandated procedure as a script
+  and scored 6/6, which was reported at the time as evidence the change worked. It was
+  evidence the change was *sufficient if followed*. Whether it would be followed took
+  four blind agent runs to answer, and the answer was different for the two halves of
+  the release
+- Both probe runs, including the falsified prediction, are recorded in
+  `evals/test-log.md`
+
 ## [3.9.0] - 2026-08-26
 
 *First release driven by field evidence rather than by the author's roadmap. Two

@@ -388,3 +388,41 @@ the Copilot and chat paths still have no field evidence at all — and the chat 
 serves the users least equipped to notice a missing guardrail. Neither case reached a
 classroom, so teaching readiness remains unmeasured. Two cases, one operator, one
 week: still n=1 in every dimension that matters for variance.
+
+## 2026-08-26 — v3.9.1: withdrawing a claim v3.9.0 could not support
+
+**Context**: v3.9.0 shipped two quote-related fixes under one diagnosis — a rewrite of
+`/verify-quotes` and a unit-count requirement in `/verify-all` — and the changelog
+credited both. Neither had been tested for compliance; the release's own validation had
+executed the procedure as a script, which measures whether the procedure works, not
+whether an agent following the prose performs it.
+
+**What was run**: four blind agent runs across two probes. Each pair received identical
+corrupted documents and an identical source corpus, with the skill files the only
+difference between arms. Five defects were planted, one of them deliberately of a class
+named by neither version's text, so that a clean sweep could not be the skill listing
+being read back.
+
+**Probe 1 — `/verify-quotes` standalone.** Both arms 5/5, both enumerated spans, both
+returned FAIL, both caught the unprimed defect. On the one unplanted defect either arm
+found — an assent converted to assertion — the **older** text did better. The prose
+rewrite has no measured effect.
+
+**Probe 2 — `/verify-all`, the condition the field failure occurred in.** The arms
+separate. The v3.8.0 pipeline adjudicated 96 "distinct quotations" and missed the
+planted framing-inside-the-marks defect; the v3.9.0 pipeline enumerated 355 spans,
+verdicted all 355, and caught it. Offline, the v3.8.0 pipeline logged the link check as
+six warnings and did not block; the v3.9.0 pipeline reported `0 of 4 URLs requested`,
+declared it NOT RUN, and blocked. 4/5 versus 5/5.
+
+**Conclusion**: the orchestration change carries the release. The skill rewrite does
+not, and v3.9.1 withdraws that claim while keeping the text, which documents the
+failure classes better than what it replaced.
+
+**What is still wrong**: a prediction recorded before probe 2 — that the v3.8.0
+pipeline would report quotes PASS, reproducing the field failure — was **falsified**.
+It reported a quote failure and blocked distribution. Three hypotheses tested, none
+reproduces the original incident. The remaining untested candidates are a long
+preceding authoring session, a verifier checking documents it had itself authored, and
+a real case with no planted defects to find. **The kit is better and the incident is
+unexplained**, and this entry exists so the second half does not get quietly dropped.

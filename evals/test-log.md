@@ -263,3 +263,193 @@ changed verdict between the clean and corrupted arms.
 **PASS.** 6/6 on the new classes, 0 false alarms, and the old rule demonstrably fails
 D18 where the new rule catches it. The v3.9.0 changes do what the changelog claims at
 the level of specification; compliance remains unmeasured.
+
+---
+
+## v3.9.0 — 2026-08-26 — jpm-llm-suite — COMPLIANCE PROBE (negative result)
+
+- Question: v3.9.0's validation ran the mandated procedure **as a script** and scored
+  6/6. That proves the procedure is sufficient. This probe asks the different and
+  harder question: **does an agent reading the new prose actually execute it?**
+- Design: two blind agents, neither of which wrote the fix, given identical corrupted
+  documents and an identical source corpus. The **only** difference between arms was
+  `verify-quotes.md` — v3.8.0 text in arm A, v3.9.0 text in arm B (`diff -rq`
+  confirmed one differing file). Neither was told defects had been planted.
+- Five corruptions, all in `JPMorgan_Additional_Sources_And_Data.md`, verified present
+  in both arms and verified as genuine alterations of text that exists in the corpus.
+
+**Anti-priming control.** The v3.9.0 skill text names, verbatim, the four defect
+classes used in the v3.9.0 validation — "words dropped from the middle, a comparison
+reversed, the sentence's framing pulled inside the marks, or an illustration the
+author constructed". A clean sweep on those four would therefore be unfalsifiable: it
+could be the list being read back rather than the procedure working. A fifth defect
+was added of a class **named by neither skill text** — a figure altered inside a
+quotation ("About half" → "About two thirds").
+
+### Result
+
+| Defect | Arm A (v3.8.0) | Arm B (v3.9.0) |
+|--------|----------------|----------------|
+| (a) words dropped mid-quote | CAUGHT | CAUGHT |
+| (b) negation deleted | CAUGHT | CAUGHT |
+| (c) framing pulled inside marks | CAUGHT | CAUGHT |
+| (d) fabricated quote + fabricated interview turn | CAUGHT (APOCRYPHAL) | CAUGHT (APOCRYPHAL) |
+| **(e) figure altered — unprimed class** | **CAUGHT** | **CAUGHT** |
+| **Recall** | **5/5** | **5/5** |
+| Spans enumerated and counted | yes (330 / 369) | yes (359 / 359, reconciled) |
+| Overall verdict | FAIL | FAIL |
+| False alarms on the injected set | 0 | 0 |
+
+### Conclusion: the prose rewrite had no measurable effect
+
+**The v3.8.0 text was already sufficient.** Both arms enumerated spans, both reported
+counts, both returned FAIL, both caught the unprimed defect. On this evidence the
+rewrite of `verify-quotes.md` in v3.9.0 changed nothing about detection.
+
+Worse for the v3.9.0 arm: on a defect that was **not** planted — the 30,000-assistants
+figure, spoken by the interviewer and merely assented to by the subject, then carried
+as established fact in three of the four documents — **arm A flagged it and arm B
+called it "handled correctly."** Adjudicated against the corpus, arm A is right: the
+figure appears once in the transcript and it is the host's. The older text
+outperformed the newer one on the one item neither was primed for.
+
+### What this actually implicates — and what it does not
+
+The probe tested `/verify-quotes` **run standalone as the agent's only task**. The
+field failure that motivated all of this was `/verify-all` reporting quotes PASS —
+the quote check running as **one of eight sub-checks** inside a larger orchestration.
+**The probe did not reproduce that condition, and therefore did not test it.**
+
+The most likely reading is that the defect was never in `verify-quotes.md` at all. The
+specification was adequate; what failed was attention under orchestration. If that is
+right, then:
+
+- **F1a** (the `verify-quotes.md` prose rewrite) treated a symptom that did not exist.
+  Harmless, better-documented, but not load-bearing.
+- **F1b** (the `verify-all` unit-count requirement and `NOT RUN` verdict) is the fix
+  that actually addresses the observed failure — **and it remains untested.**
+
+### Next probe, which is now the priority
+
+Run the same corrupted corpus through **`/verify-all`**, not `/verify-quotes`, in both
+arms. That reproduces the field condition. The prediction worth falsifying: v3.8.0's
+`/verify-all` reports quotes PASS on a package containing five plantable defects,
+while v3.9.0's refuses to report PASS without a span count.
+
+### Limits
+
+1. **n=1 per arm.** A single agent per condition. The 5/5 tie could be two competent
+   runs where a third would differ.
+2. **Maximum attention condition.** Each arm had one task and nothing else to do.
+   That is the opposite of the orchestration condition where the failure occurred, and
+   probably explains the tie.
+3. `Source_Registry.md` was omitted from both arms by staging error, so each had to
+   infer processing status from source files directly. Affects both arms equally; the
+   comparison holds, but each faced a slightly harder task than a real run.
+4. Both arms independently reported large systemic findings beyond the planted set —
+   ~105/106 edited-source spans from the McKinsey interview, 160 vs 17 smoothed ASR
+   spans, and false verbatim-integrity claims in all four documents. These corroborate
+   the v3.3.0 entry above rather than being new.
+
+### Verdict
+
+**Negative result, recorded as such.** v3.9.0's quote-skill prose change is not shown
+to improve anything, and the release's central claim remains unverified at the point
+where it actually failed. This is the outcome the probe was designed to be able to
+reach, and it should not be talked out of.
+
+---
+
+## v3.9.0 — 2026-08-26 — jpm-llm-suite — COMPLIANCE PROBE 2, under orchestration
+
+The probe above tested `/verify-quotes` **standalone** and found no difference between
+v3.8.0 and v3.9.0. But the field failure occurred with the quote check running as one
+of eight sub-checks inside `/verify-all`, and that condition was never reproduced.
+This probe reproduces it: same five corruptions, same corpus, two blind agents, each
+given the **complete 20-skill set** at its version and told to run `/verify-all`.
+`Source_Registry.md`, `verification-debt.yaml` and `case-config.yaml` were included
+this time, fixing the previous run's staging gap. Only `.claude/skills/` differed
+between arms.
+
+### Result — the difference that was absent standalone appears under orchestration
+
+| | Arm A (v3.8.0) | Arm B (v3.9.0) |
+|---|---|---|
+| (a) words dropped mid-quote | CAUGHT (demoted to Warning) | CAUGHT (Critical C4) |
+| (b) negation deleted | CAUGHT (Critical) | CAUGHT (Critical C2) |
+| **(c) framing pulled inside marks** | **MISSED** | **CAUGHT (Critical C3)** |
+| (d) fabricated quote | CAUGHT (Critical) | CAUGHT (Critical C1) |
+| (e) figure altered | CAUGHT (Critical) | CAUGHT (Critical C2) |
+| **Recall** | **4/5** | **5/5** |
+| Quote units enumerated | **96 "distinct quotations"** | **355 spans, 355 verdicted** |
+| Links check | `0 \| 6 \| 0` — warnings, not blocking | **NOT RUN** → Critical C7 |
+| Overall status | Significant Issues | **Blocked** |
+
+**Three effects, all attributable to the v3.9.0 skill text:**
+
+1. **Span enumeration is real, and it is 3.7× finer.** Arm A adjudicated 96 "distinct
+   quotations"; arm B enumerated 355 individual spans and verdicted all 355. The one
+   defect arm A missed — the author's framing pulled inside a CNBC quotation — is
+   exactly the kind of defect that disappears when spans are grouped into
+   "quotations" before checking. The phrase "core problem" appears **0 times** across
+   arm A's eight logs and 3 times in arm B's.
+
+2. **`NOT RUN` fired and blocked.** Offline, neither arm could request the 4 external
+   URLs. Arm A reported Links as `0 pass / 6 warn / 0 fail`, put it in
+   Recommendations, and did not block on it — a check that examined nothing, recorded
+   as warnings. Arm B stated `0 of 4 external URLs requested`, declared the check
+   **NOT RUN**, listed it as a Critical Issue, and set overall status to **Blocked** —
+   a status value that did not exist before v3.9.0. Arm A's only occurrence of the
+   phrase "not run" is prose about a skipped sub-step, not a verdict.
+
+3. **Severity assignment improved.** Arm A demoted the dropped-words defect to a
+   Warning; arm B carried all four planted quote defects as Critical.
+
+### Conclusion — F1b is load-bearing, F1a is not
+
+Taken with the standalone probe, the two runs separate the release's two quote fixes
+cleanly:
+
+- **F1a — the `verify-quotes.md` prose rewrite: no measured effect.** Standalone, the
+  v3.8.0 text scored 5/5, matching v3.9.0. Rewriting the prose did not change what a
+  skill-following agent detects when the quote check is its whole job.
+- **F1b — the `verify-all` unit-count requirement and `NOT RUN` verdict: effective.**
+  It is what produces the 355-vs-96 enumeration gap, the recovered defect (c), and a
+  check that cannot examine anything being blocked rather than warned.
+
+The changelog claimed both. Only the second is supported by evidence.
+
+### A prediction recorded before this run, and falsified by it
+
+The previous entry predicted that v3.8.0's `/verify-all` would **report quotes PASS**
+on a package containing five plantable defects, reproducing the field failure. **It
+did not.** Arm A reported Quotes as `15 pass / 80 warn / 1 fail` and Overall
+"Significant Issues — not ready for distribution." It blocked publication.
+
+**So the field run's PASS remains unexplained.** Three hypotheses have now been tested
+and none accounts for it: the skill text was not inadequate (probe 1), and
+orchestration alone does not induce a PASS (this probe). What differs about the field
+run is still unknown — candidates include a much longer preceding authoring session,
+the verifier having authored the documents it was checking, and a real case where no
+defects had been planted to find. **Anyone reading this entry should treat the
+original diagnosis as still open.**
+
+### Limits
+
+1. n=1 per arm; four agent runs total across both probes.
+2. Both arms were told `/verify-all` was their entire task. The field run reached it at
+   the end of a long authoring session — the single most likely relevant difference,
+   and still untested.
+3. Both arms flagged all 10 local source paths as broken. That is a staging artifact
+   (flat `sources/` vs the registry's recorded subdirectories), not a package defect —
+   it cost both arms real attention and inflated both Critical lists.
+4. Neither arm was the model that wrote the fixes, but both are the same model family
+   as the author of the v3.9.0 text.
+
+### Verdict
+
+**PASS for F1b, negative for F1a.** The release's `verify-all` change measurably
+improves detection, granularity and blocking behaviour under the condition that
+matters. Its `verify-quotes` change does not. The field failure that motivated the
+release is still not reproduced, and the honest statement is that we have fixed a real
+weakness without yet having explained the incident.
