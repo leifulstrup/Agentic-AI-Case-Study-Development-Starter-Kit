@@ -67,16 +67,25 @@ documents:
     - supplement
     - teaching_note
 
-  # Target word counts. Defaults are sized for a working professional writing alongside
-  # a full-time job; a full-length teaching case runs roughly double. Raise them if your
-  # authors have more time than a typical MBA cohort.
-  #   Lighter (default):  Main 2,500-3,500 | Supplement 1,000-1,500
-  #   Full length:        Main 4,000-6,000 | Supplement 2,500-4,000
+  # Target word counts, in words. At roughly 250 words per page:
+  #   main_case          2,000-3,000  ( 8-12 pp.)   default 2,500 (10 pp.)
+  #   supplement         1,200-2,000  ( 5- 8 pp.)   default 1,500 ( 6 pp.)
+  #   teaching_note      1,500-2,000  ( 6- 8 pp.)   default 1,500 ( 6 pp.)
+  #   additional_sources 1,500-2,500  ( 6-10 pp.)   default 2,000 ( 8 pp.)
+  #
+  # These are deliberately modest — about half a full-length published teaching case,
+  # which runs 4,000-6,000 words for the main case alone. The reasoning is practical
+  # rather than stylistic: the author is usually writing alongside a full-time job, and
+  # the reviewer is a professor working through a stack of these. A case nobody finishes
+  # reading teaches nothing, and a case too long to revise does not get revised.
+  #
+  # Raise them if your authors have the time and the case genuinely needs the room --
+  # /setup-case asks, and you can edit these at any point without redoing anything.
   target_word_counts:
-    main_case: 3000
-    supplement: 1200
-    teaching_note: 2000
-    additional_sources: 2500
+    main_case: 2500
+    supplement: 1500
+    teaching_note: 1500
+    additional_sources: 2000
 
   # Classroom session length in minutes (typical: 75-90)
   session_length_minutes: 80
@@ -99,7 +108,7 @@ repository:
 # -----------------------------------------------------------------------------
 template:
   # Version of the template this project was created from
-  version: "4.1.0"
+  version: "4.2.0"
 
   # Source repository for updates
   source: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit"

@@ -48,6 +48,38 @@ Conversational setup that configures the case study project by asking questions 
    - Extract: `session_length_minutes`
    - Default: 80
 
+   **Question 7**: "For length, I'd suggest a Main Case of about **2,500 words — roughly
+   10 pages** — with the other documents scaled to match, so the whole package lands near
+   7,500 words. That is about half a published teaching case: long enough to carry a real
+   decision, short enough that students finish it and you can revise it without losing a
+   weekend. **Does that work, or would you like it longer or shorter?**"
+
+   - Extract: `main_case_words`, `supplement_words`, `teaching_note_words`,
+     `additional_sources_words`
+   - **Ask only this.** Do not present the table below to the user, do not ask them to
+     name a word count, and do not ask them to choose per document. One recommendation,
+     one answer.
+   - **Default is the recommendation.** Anything agreeable — "that's fine", "sure",
+     silence on the point — takes it. Only "longer" or "shorter" moves off it.
+
+   Map their answer:
+
+   | Their answer | main_case | supplement | teaching_note | additional_sources | Package |
+   |--------------|-----------|------------|---------------|--------------------|---------|
+   | shorter | 2000 | 1200 | 1200 | 1500 | ~5,900 words |
+   | **(recommended)** | **2500** | **1500** | **1500** | **2000** | **~7,500 words** |
+   | longer | 3000 | 2000 | 2000 | 2500 | ~9,500 words |
+
+   If they ask for something substantially bigger than "longer" — a full published-length
+   case — use 5000 / 3000 / 3000 / 4000, and tell them plainly that it is roughly double
+   the writing and double the reviewing. Do not offer that tier unprompted.
+
+   If they volunteer a specific number or page count, honor it (pages x 250 = words).
+   **Do not ask for one.**
+
+   **Do not talk them up or down from their answer.** They know their students, their
+   term, and their own available time.
+
 ### Write Files
 
 3. **Write `case-config.yaml`** with the collected values:
@@ -74,10 +106,10 @@ Conversational setup that configures the case study project by asking questions 
    # DOCUMENT SETTINGS
    documents:
      target_word_counts:
-       main_case: 5000
-       supplement: 3000
-       teaching_note: 3000
-       additional_sources: 4000
+       main_case: {main_case_words}
+       supplement: {supplement_words}
+       teaching_note: {teaching_note_words}
+       additional_sources: {additional_sources_words}
      session_length_minutes: {session_length_minutes}
 
    # REPOSITORY SETTINGS
@@ -87,7 +119,7 @@ Conversational setup that configures the case study project by asking questions 
 
    # TEMPLATE METADATA (do not modify)
    template:
-     version: "4.1.0"
+     version: "4.2.0"
      source: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit"
    ```
 

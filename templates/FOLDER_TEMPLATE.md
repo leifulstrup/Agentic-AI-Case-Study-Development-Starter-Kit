@@ -22,7 +22,7 @@ Quick-start template for organizing a new case study project.
 │   └── copilot-instructions.md        # VS Code Copilot custom instructions
 │
 ├── case-study/                        # Core case documents (edit these)
-│   ├── [Company]_Case.md              # Main narrative (~5,000 words)
+│   ├── [Company]_Case.md              # Main narrative (~2,500 words)
 │   ├── [Company]_Supplement.md        # Technical/industry context
 │   ├── [Company]_Teaching_Note.md     # Instructor guide
 │   └── [Company]_Additional_Sources.md # Compiled research

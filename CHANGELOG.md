@@ -7,6 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.2.0] - 2026-08-27
+
+*Document lengths cut to roughly half, and `/setup-case` now recommends rather than
+assumes. Prompted by a teaching colleague's observation that the kit's targets overwhelm
+both the student writing the case and the professor revising it.*
+
+### Changed
+- **Target lengths halved.** The Main Case drops from 4,000-6,000 words to **2,000-3,000
+  (about 8-12 pages at 250 words per page)**, and the other three scale to match. A
+  complete package now lands near **7,500 words rather than 15,000** — exactly half a
+  published teaching case. The reasoning is practical rather than stylistic: the author
+  is usually writing alongside a full-time job, and the reviewer is a professor working
+  through a stack of these. **A case nobody finishes reading teaches nothing, and a case
+  too long to revise does not get revised**
+
+- **`/setup-case` now asks about length — as a recommendation, not a specification.** It
+  states one suggested size in plain terms ("about 2,500 words, roughly 10 pages… does
+  that work, or would you like it longer or shorter?") and takes agreement as the answer.
+  It does not present a menu, does not ask the author to name a word count, and does not
+  ask them to size each document separately. Longer and shorter map to defined tiers;
+  full published length exists but is never offered unprompted. The skill is explicitly
+  told not to argue the author up or down from their answer
+
+### Fixed
+- **Three locations disagreed about document length, all introduced in v4.0.0.**
+  `case-config.yaml` carried the lightened values, while the README table still
+  advertised the original 4,000-6,000 word Main Case and — worse — **`setup-case.md`
+  still wrote the heavy values into every newly generated config**, so running
+  `/setup-case` silently overwrote the lighter defaults. The kit's own guidance was
+  inconsistent with the kit's own behaviour. All four surfaces now agree, and the
+  skill's config template reads the answered values instead of hardcoding any
+- **`templates/PROMPTS.md` and `templates/FOLDER_TEMPLATE.md` restated word counts
+  inline**, which is how the previous drift started. They now point at
+  `documents.target_word_counts` rather than repeating a number that will age
+
 ## [4.1.0] - 2026-08-27
 
 *The kit was overclaiming what its own checks establish — in a repository whose whole

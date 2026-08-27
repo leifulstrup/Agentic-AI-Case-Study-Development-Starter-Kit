@@ -310,3 +310,22 @@ let an agent settle ambiguous questions by choosing whatever allowed work to con
 Accountability language on the author's side has to be matched by behavioural
 instruction on the agent's side, or it describes a division of labour that never
 happens.
+
+## v4.2.0 — 2026-08-27 (length)
+
+**67. A number restated in four files will disagree with itself within one release.**
+v4.0.0 lightened the word-count defaults in `case-config.yaml` and missed the README
+table, the `setup-case` config template, and two files under `templates/`. The template
+was the damaging one: `/setup-case` kept writing the *old heavy values* into every new
+project, so the documented default and the generated default were different numbers, and
+the generator won. **A value that belongs to configuration should appear in
+configuration once and be referenced everywhere else** — the fix was not to update four
+copies but to delete three of them.
+
+**68. Ask for a decision, not a specification.** The first version of the length question
+offered a four-tier menu and invited the author to name their own word count. That is a
+worse question: it asks someone to have a considered opinion about something they have no
+basis to judge yet, on their first interaction with the kit. Recommending one size and
+asking only *"does that work, or would you like it longer or shorter?"* gets a real
+answer from someone who has not thought about it, and still gets out of the way of
+someone who has. **Defaults are advice; menus are homework.**

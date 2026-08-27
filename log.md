@@ -531,3 +531,24 @@ their own failures as material worth recording rather than smoothing over.
 **No logic changed.** Every check does what it did in v4.0.0. What changed is what the
 kit claims those checks mean — which had drifted from what the evidence supports, in a
 repository whose entire subject is that kind of drift.
+
+## 2026-08-27 — v4.2.0: half the length, and a recommendation instead of an assumption
+
+**Context**: a teaching colleague's central observation about the kit was that its
+documents are too long for the people who actually have to write and review them. His
+targets run about half of what the kit specified.
+
+**What changed**: the Main Case target drops to 2,000-3,000 words — roughly 8-12 pages at
+250 words per page — with the other three documents scaled to match, putting a complete
+package near 7,500 words rather than 15,000. `/setup-case` now states that recommendation
+in plain language and asks only whether the author wants it longer or shorter. It does
+not present a menu or ask for a number: on a first interaction, asking someone to specify
+a length is asking them to have an opinion they have no basis for yet.
+
+**A defect found while doing it**: v4.0.0 lightened the word counts in `case-config.yaml`
+and left the same numbers heavy in three other places — the README's package table, two
+files under `templates/`, and most damagingly the config template inside
+`setup-case.md`, which meant every newly generated project silently got the old heavy
+values back. The documented default and the generated default were different numbers and
+the generator won. Fixed by removing the duplicates rather than syncing them: the
+templates now reference `documents.target_word_counts` instead of restating it.

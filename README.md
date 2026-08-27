@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v4.1.0-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v4.2.0-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -15,10 +15,18 @@ This repository is a **GitHub template** that gives you everything you need to d
 
 | Document | Audience | Purpose | Length |
 |----------|----------|---------|--------|
-| **Additional Sources** | Researchers | Raw materials, bibliography, exhibits | 3,000-5,000 words |
-| **Main Case** | Students | Protagonist-centered narrative with strategic tension | 4,000-6,000 words |
-| **Technical Supplement** | Students, Instructors | Industry context, frameworks, glossary | 2,500-4,000 words |
-| **Teaching Note** | Instructors only | Discussion guide, board plans, timing | 2,500-4,000 words |
+| **Additional Sources** | Researchers | Raw materials, bibliography, exhibits | 1,500-2,500 words (6-10 pp.) |
+| **Main Case** | Students | Protagonist-centered narrative with strategic tension | 2,000-3,000 words (8-12 pp.) |
+| **Technical Supplement** | Students, Instructors | Industry context, frameworks, glossary | 1,200-2,000 words (5-8 pp.) |
+| **Teaching Note** | Instructors only | Discussion guide, board plans, timing | 1,500-2,000 words (6-8 pp.) |
+
+*Page counts assume roughly 250 words per page.* These targets are deliberately modest —
+a complete package lands near 7,500 words rather than the 15,000 a full-length published
+teaching case runs to. **A case that is too long does not get read, and does not get
+revised**: the author is usually a student writing alongside a full-time job, and the
+reviewer is usually a professor with a stack of them. If your situation genuinely calls
+for more, `/setup-case` asks, and `documents.target_word_counts` in `case-config.yaml`
+can be changed at any time.
 
 **→ [See what this actually produces](examples/)** — excerpts from a real case package: the main case opening, an 80-minute session plan, the source registry, and the verification report that caught two defects before publication.
 
@@ -453,4 +461,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 4.1.0*
+*Template Version: 4.2.0*

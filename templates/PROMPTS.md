@@ -225,7 +225,7 @@ Based on the source analysis, write the opening section of the case study (500-8
 ### Prompt: Write Case Body
 
 ```
-Continue the case study narrative (2,500-4,000 words).
+Continue the case study narrative. Use the target from `documents.target_word_counts` in `case-config.yaml` (default: a Main Case near 2,500 words in total).
 
 **The opening established:** [SUMMARY OF OPENING]
 
@@ -241,7 +241,7 @@ Continue the case study narrative (2,500-4,000 words).
    - Why traditional approaches wouldn't work
    - The protagonist's initial thinking
 
-3. **Strategic Decisions** (800-1,200 words)
+3. **Strategic Decisions** (roughly a third of the Main Case target)
    - Key decision #1: What, why, how
    - Key decision #2: What, why, how
    - [Additional decisions as needed]
@@ -375,7 +375,7 @@ Full citations for all data in this supplement.
 - Support the case, don't duplicate it
 - Provide tools for analysis, not answers
 - All data must be sourced
-- Target length: 2,500-4,000 words
+- Target length: read `documents.target_word_counts` in `case-config.yaml` (defaults: supplement 1,500 words, teaching note 1,500)
 ```
 
 ---
@@ -492,7 +492,7 @@ Visual layout of what the board should look like by end of class:
 - Show multiple valid positions
 - Include specific timing
 - Enable Socratic discussion
-- Target length: 2,500-4,000 words
+- Target length: read `documents.target_word_counts` in `case-config.yaml` (defaults: supplement 1,500 words, teaching note 1,500)
 ```
 
 ---
