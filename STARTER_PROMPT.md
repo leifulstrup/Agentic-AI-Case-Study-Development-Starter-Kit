@@ -133,6 +133,14 @@ Quotation marks promise these are the speaker's exact words. Honor that:
 
 ## Verification (After Each Document)
 
+**First, a warning about who is checking.** If you wrote these documents, you are the
+worst available reader of them — you know what you meant, so you read your intent
+rather than the words on the page, and you already decided each quotation was fine
+once. **Start a new chat for verification** and paste in the documents and the sources
+cold. If that is not practical, do the check here but say plainly at the top of your
+report: *"I wrote these documents, so this is a self-review."* A self-review is a draft
+check, not a final one — and an undisclosed one looks exactly like an independent one.
+
 After completing each document, check every quote and every number, and give each quote a verdict:
 
 - **VERIFIED** — exact wording found in a verbatim source, correct speaker

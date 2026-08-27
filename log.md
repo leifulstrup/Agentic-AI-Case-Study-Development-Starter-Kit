@@ -426,3 +426,41 @@ reproduces the original incident. The remaining untested candidates are a long
 preceding authoring session, a verifier checking documents it had itself authored, and
 a real case with no planted defects to find. **The kit is better and the incident is
 unexplained**, and this entry exists so the second half does not get quietly dropped.
+
+## 2026-08-26 — v3.10.0: three gaps in the instructions, not the logic
+
+**Context**: v3.9.x fixed what the field test found and then tested those fixes,
+correcting one claim that did not survive. What remained were three gaps that no skill
+logic could close because they were absent from the guidance itself.
+
+**1. Nobody was told who should verify.** `AGENTS.md` had no rule about it. Both field
+cases and the run that produced the unexplained pass authored and verified in one
+session. Meanwhile the project's one independent verification run had recorded *"fresh
+eyes; did not author the documents"* in its own log and had found a spliced quote the
+authoring session missed. A condition that was met, noted, and never required. The new
+*Who Verifies* section states the preference, requires disclosure when author and
+verifier are the same, and demotes a clean self-review to a draft check. `/verify-all`
+now carries a `Verifier:` field that must say `SAME SESSION AS AUTHOR` when that is
+true.
+
+**2. The most recurrent bug in the project had never been written down.** Six instances
+of a check reporting a verdict it had not earned, six local fixes, zero statements of
+the principle in the file the next author reads. Now a section of its own, with all six
+instances as evidence and the question that would have caught every one of them.
+
+**3. The quoting rules were in the wrong file.** Canonical, good, and invisible to the
+writer, whose only guidance was to attach a speaker and a date. The writer therefore
+produced what the verifier was built to catch — unmarked smoothing counted in the dozens
+on three separate occasions over four months. `write-document.md` gains a drafting gate
+that references the canonical rules rather than copying them, and adds the drafting-time
+practices: paste and trim rather than retype, never quote from a dossier, keep your
+framing outside the marks.
+
+**Propagated to all three tool paths**, since the kit's premise is that they read one
+canonical file: the Copilot pointer's summary was stale, and the chat path — least
+technical users, least able to spot a missing guardrail — got the independence rule in
+plain language with a concrete instruction to start a new chat for verification.
+
+**Still open, and stated so it is not lost**: the incident that prompted v3.9.0 is not
+explained. The independence rule is the leading hypothesis and shipping it is not the
+same as confirming it.

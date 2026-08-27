@@ -233,3 +233,25 @@ that prompted all of it remains unexplained, and the temptation at this point is
 a good result stand in for an answer. It does not. **An unexplained incident is still
 live**, and the next occurrence will not care that something adjacent to it was
 improved.
+
+## v3.10.0 — 2026-08-26 (instructions)
+
+**59. A condition you met and recorded is not a requirement until you write it down as
+one.** The first full verification run against the frozen fixture was performed by an
+independent agent, and its log says so in its own header: *"fresh eyes; did not author
+the documents."* Someone knew it mattered enough to record it. It never became a rule,
+so every run afterwards was free to skip it — and the runs that skipped it are the ones
+that produced a verification pass over real quote defects. **The gap between "we did the
+right thing and noted it" and "the kit requires the right thing" is invisible until
+someone does it differently**, and by then the omission looks like a choice nobody made.
+When a run records a condition it was careful about, that is a draft of a requirement:
+promote it or lose it.
+
+**60. Rules that live only in the checking path teach nothing to the writing path.**
+The quoting rules were canonical, correct, and detailed from v3.2.0 onward, and sat
+entirely in the verification skills. The writer's guidance asked one question — does
+this quote have a speaker and a date? — so the writer kept producing exactly the defects
+the verifier was built to catch, dozens at a time, across three separate measurements
+spanning four months. Nothing was wrong with the rules. They were in the wrong file.
+**Ask of any standard: who reads this, and at what moment?** A rule that arrives after
+the work is prevention that has been converted into rework.

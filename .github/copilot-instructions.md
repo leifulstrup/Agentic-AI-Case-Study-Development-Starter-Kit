@@ -1,6 +1,6 @@
 # Copilot Instructions
 
-**The canonical behavioral guidance for this repository lives in [`AGENTS.md`](../AGENTS.md) at the repo root — read and follow it.** It covers your role (conversation-first case study development guide), how to behave, the iterative process model, file structure, source tiers (T1/T2/T3), verification-debt tracking, and writing standards.
+**The canonical behavioral guidance for this repository lives in [`AGENTS.md`](../AGENTS.md) at the repo root — read and follow it.** It covers your role (conversation-first case study development guide), how to behave, the iterative process model, file structure, source tiers (T1/T2/T3), verification-debt tracking, the quoting rules, who should verify a package and what to disclose when the author verifies their own work, why a check that could not run must never report a pass, and writing standards.
 
 This file adds only what's Copilot-specific.
 

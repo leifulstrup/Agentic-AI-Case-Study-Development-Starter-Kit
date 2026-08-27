@@ -13,6 +13,11 @@ Run comprehensive quality checks on all case study documents, including data con
 Execute all verification skills in sequence:
 
 1. **Pre-flight check**:
+   - **State who is verifying.** If this session also wrote the documents, say so in the
+     report header and in the Executive Summary — see *Who Verifies* in `AGENTS.md`. A
+     self-review is a draft check, not a publication gate, and an undisclosed one is
+     indistinguishable from an independent review. This does not block the run; it
+     labels it.
    - List `.md` files in `case-study/` (excluding `.gitkeep`)
    - If none found, generate a "No Documents Found" report with next steps and stop:
      ```
@@ -67,6 +72,7 @@ Execute all verification skills in sequence:
 Generated: [date]
 Case: [company_name] — [topic]
 Documents checked: [count]
+Verifier: [independent — did not author these documents | SAME SESSION AS AUTHOR]
 
 ## Executive Summary
 

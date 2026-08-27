@@ -86,6 +86,40 @@ Before writing, ask document-specific questions:
 - Ask about analytical frameworks to include
 - Confirm session length from config
 
+### 3b. Before You Type a Quotation Mark
+
+**Read the Quoting Rules in `AGENTS.md` before drafting any section that quotes a
+source.** They are canonical and live in one place; do not work from memory and do not
+restate them here.
+
+What matters at *drafting* time — the rules exist to be applied now, not to be
+discovered later by the verifier:
+
+1. **Check the source's processing status before you quote it, not after.**
+   `sources/Source_Registry.md` records whether each source is VERBATIM, EDITED, ASR or
+   EXTRACTED. An EDITED source ("edited for clarity and length") and an uncorrected ASR
+   transcript **cannot** support a plain verbatim quotation. If the source you are about
+   to quote is either, use indirect speech or the bracket convention *as you write it*.
+2. **Paste, then trim — never retype.** Copy the exact span from the source file and
+   remove what you do not need with an ellipsis. Retyping from memory or from a research
+   summary is how words go missing from the middle of a quotation.
+3. **Never quote from a summary, dossier, or research note.** Those paraphrase. Quote
+   only from a committed source file; if the verbatim wording is not in `sources/`, it is
+   not quotable yet.
+4. **Keep your own framing outside the marks.** If the sentence needs "the core problem
+   is that" or "a fixed fee is" to read well, those are your words — they go before the
+   opening quotation mark.
+5. **Resist smoothing.** Spoken sources stutter and repeat. Removing a disfluency inside
+   quotation marks without an ellipsis is a silent edit, and dozens of them across a
+   package turn a quotation into a reconstruction.
+
+**Why this is a drafting step and not a verification step.** Every one of these defects
+has been found repeatedly by verification and could have been prevented here at no cost:
+unmarked smoothing has been counted in the dozens on three separate occasions, and a
+single package has carried dropped words, a reversed comparison, framing pulled inside
+the marks, and a constructed illustration presented as a quotation. The verifier
+catching them is the expensive path. **You are the cheap one.**
+
 ### 4. Write in Sections
 
 **Do NOT write the entire document at once.** Write section by section:
@@ -98,7 +132,10 @@ Before writing, ask document-specific questions:
 
 After writing each section, perform lightweight checks:
 
-- **Quote check**: Does every quote have a named speaker and dated source?
+- **Quote check**: Does every quote have a named speaker and dated source — *and* does
+  its wording match the source file exactly? Attribution and fidelity are separate
+  questions; a correctly attributed quotation can still be misquoted. If the source is
+  EDITED or ASR, is the convention applied here rather than deferred?
 - **Number check**: Does every statistic or financial figure cite its source?
 - **Claim check**: Are there any claims that came from AI knowledge rather than source documents?
 

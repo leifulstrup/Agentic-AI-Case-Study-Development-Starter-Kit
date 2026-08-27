@@ -7,6 +7,72 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.10.0] - 2026-08-26
+
+*Instruction release. Three gaps that the field test and the compliance probes exposed
+in the guidance itself rather than in any skill's logic. No behaviour changes to
+tooling; `AGENTS.md` grows three sections and the writer's path gains a gate.*
+
+### Added
+- **`AGENTS.md` — "Who Verifies".** The kit had no rule about who runs verification.
+  The agent that wrote a document is the worst available reader of it: it knows what it
+  meant, so it reads intent rather than text; it has already judged each quotation once;
+  and it has a stake in the work being finished. The rule is to prefer a verifier that
+  did not author the documents, and — when that is not practical — to **say so in the
+  report**, because an undisclosed self-review is indistinguishable from an independent
+  one. A clean self-review is now explicitly a draft check rather than the publication
+  gate. Wired into `verify-all.md` as a `Verifier:` header field with an explicit
+  `SAME SESSION AS AUTHOR` value and a pre-flight step that labels the run without
+  blocking it. **The evidence for this is uncomfortable**: the single verification run
+  in this project's history performed by an independent agent recorded the condition in
+  its own log — *"fresh eyes; did not author the documents"* — and found a spliced
+  composite quote the authoring session had missed. The condition was met, noted, and
+  never written down as a requirement, so every run since has been free to skip it
+
+- **`AGENTS.md` — "A Check That Cannot Run Must Say So".** A check has three outcomes,
+  not two: it passed, it found something, or it could not run. The third is never
+  reported as either of the other two. This is the most recurrent bug in the project's
+  history and it had been fixed six times without once being stated as a rule: a release
+  workflow that silently did nothing for six versions; a preflight check that went green
+  because it could not list a remote; a lint script that aborted on an old shell and was
+  reported as lint violations against a clean tree; a quote tracer that extracted zero
+  spans from wrapped quotations and called the document clean; an eval harness that
+  handed its agents an empty source directory; and a link check that examined no URLs and
+  was recorded as warnings. Each fix was local; the principle never reached the file the
+  next author would read. The section carries the diagnostic that would have caught all
+  six — *if this check were completely broken right now, what would it print?*
+
+- **`write-document.md` — a quoting gate at drafting time (step 3b).** `AGENTS.md` has
+  carried good quoting rules since v3.2.0, and the writer never saw them: the skill's
+  only quote guidance was whether a quote had a named speaker and a dated source. So the
+  rules lived entirely in the verification path and the writer kept creating exactly what
+  the verifier then caught — unmarked smoothing has been counted in the dozens on three
+  separate occasions. The new step **references the canonical rules rather than
+  duplicating them** (two copies drift) and adds what belongs at drafting time: check a
+  source's processing status *before* quoting it, **paste and trim rather than retype**,
+  never quote from a summary or dossier, keep your own framing outside the marks, and do
+  not smooth disfluencies inside quotation marks
+
+### Changed
+- **`/verify-all`'s inline quote check now asks about fidelity, not only attribution.**
+  It previously asked whether every quote had a named speaker and a dated source. A
+  correctly attributed quotation can still be misquoted, and the check was testing one
+  of the two questions
+- **`STARTER_PROMPT.md`** — the chat path carries the independence rule in plain
+  language with a concrete instruction (*start a new chat for verification*). This path
+  serves the least technical users, who are least able to notice a missing guardrail
+- **`.github/copilot-instructions.md`** — its summary of what `AGENTS.md` covers was
+  incomplete and now names the quoting rules, the verification-independence rule, and
+  the check-integrity rule
+
+### Notes
+- All three changes are guidance, not logic. They are cheap, they are correct
+  independently of the open question below, and none of them required new tooling
+- **The field incident that prompted v3.9.0 is still unexplained.** The independence
+  rule is the leading hypothesis for it and shipping the rule is not the same as
+  confirming the diagnosis. See the v3.9.0 and v3.9.1 entries in `evals/test-log.md` for
+  the three hypotheses already tested and falsified
+
 ## [3.9.1] - 2026-08-26
 
 *A correction. v3.9.0 claimed two quote fixes worked; controlled testing shows one of
