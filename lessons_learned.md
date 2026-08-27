@@ -347,3 +347,28 @@ by the README's own second step, and unenforced length targets. None was subtle.
 had been read past repeatedly by people who had a terminal open, a current config, and no
 reason to notice. **Comfort is the thing that hides the defect**; the way to find it is to
 take the comfort away.
+
+## v4.3.0 — 2026-08-27 (freeze)
+
+**71. A report about a moving target is false the moment it is read.** A `/verify-all` log
+was written, the documents changed fourteen minutes later, and four of the log's statements
+were untrue by the time a second pass read it. Nothing in the log was careless; nothing in
+it was wrong when written. The failure is structural — **a snapshot with no way to tell
+whether the snapshot still applies is worse than no snapshot**, because it is read as
+current. Freeze what you check, fingerprint it, and declare the report void if the
+fingerprint moves. The corollary caught us too: a verifier that repairs what it finds is
+checking a moving target of its own making.
+
+**72. Fixing is editing, and editing introduces defects.** Correcting 25 verification
+findings produced 11 new ones — about two new problems for every five fixed. This is not a
+failure of care; it is what happens when someone makes twenty-five changes to four
+interlocking documents in one pass, and it would happen to a human editor too. **The
+workflow ended at "fix the findings", which quietly assumed repair is free.** It is not,
+and it now gets its own verification pass.
+
+**73. "All fixed" is a claim, and it is wrong more often than anyone expects.** An agent
+reported fifteen corrections complete when eight were still sitting in the documents. It
+was not being evasive — it had lost track across a long round of edits, which is exactly
+what a person does. **Completion reports are the least reliable artifact in any workflow**,
+because the person writing one has the least fresh view of the work and the most reason to
+believe it is done. Check them against the source, never against the report.

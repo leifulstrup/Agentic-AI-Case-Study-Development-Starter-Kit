@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v4.2.1-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v4.3.0-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -141,8 +141,19 @@ exist.
 Used well, the workflow surfaces that contrast repeatedly: the draft that reads
 beautifully and cites a source that says something else; the source base that looks
 abundant and turns out to be the subject talking about themselves; the check that
-returns green because it never actually looked. **Notice those moments and write them
-down** — the reflection is a large part of the learning, arguably larger than the
+returns green because it never actually looked.
+
+**Two of these are worth knowing in advance, because they are the ones that surprise
+people.** First, **fixing problems creates problems** — in this project's own testing,
+correcting 25 verification findings introduced 11 new ones, and the same pattern shows up
+every time anyone measures it. Budget a re-check after every correction round; treat a
+repair like any other edit, because it is one. Second, **"I fixed everything" is
+frequently wrong, said in complete good faith** — in the same test an AI reported fifteen
+corrections complete when eight were still sitting in the documents. It was not being
+evasive; it had genuinely lost track. Neither of those is a reason to distrust the tool.
+They are reasons to check its work, which is your job anyway.
+
+**Notice those moments and write them down** — the reflection is a large part of the learning, arguably larger than the
 finished document. `lessons_learned.md` exists for exactly that, and this project's own
 entries are a record of the maintainers getting these things wrong and catching them
 later.
@@ -471,4 +482,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 4.2.1*
+*Template Version: 4.3.0*

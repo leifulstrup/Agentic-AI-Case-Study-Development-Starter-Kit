@@ -12,6 +12,35 @@ Run comprehensive quality checks on all case study documents, including data con
 
 Execute all verification skills in sequence:
 
+0. **Freeze the tree before you look at anything.**
+
+   A verification report describes the package *as it was at one moment*. If the
+   documents change while you are checking them — or while the author is reading your
+   findings and fixing them — the report describes a version that no longer exists, and
+   every line in it becomes a claim about a vanished tree.
+
+   This is not hypothetical. In testing, a `/verify-all` log was written at 10:51, the
+   documents it described were edited at 11:05, and by the time a second pass read that
+   log four of its statements were false about the files on disk. The log was not wrong
+   when written. It was wrong when read, which is worse, because nothing in it said so.
+
+   Before the first check:
+
+   - **Record the frozen state** in the report header: every file in `case-study/`, with
+     its **word count**. Word count is the fingerprint — it needs no terminal, and any
+     edit that matters will move it. Add file sizes or modification times too if you can
+     read them.
+   - **Tell the author the tree is frozen**: *"I'm checking the package as it stands now.
+     Please don't edit the documents until I report — if they change under me, I'll have
+     to start again."* Say it once, plainly, before starting.
+   - **Do not fix anything you find.** You are reading, not writing. A verifier who
+     repairs as it goes is checking a moving target and cannot report what it examined.
+
+   At the end of the run, **re-read the word counts and compare**. If any changed:
+   **the report is void.** Say so at the top in those words, name which files moved, and
+   re-run against the new state. Do not publish findings against a tree that moved under
+   you, and do not quietly patch the report to match.
+
 1. **Pre-flight check**:
    - **State who is verifying.** If this session also wrote the documents, say so in the
      report header and in the Executive Summary — see *Who Verifies* in `AGENTS.md`. A
@@ -131,6 +160,36 @@ as **NOT RUN** and listed under Critical Issues.
 - [ ] Cross-document alignment confirmed
 - [ ] PDF exports generated (/export-pdf)
 ```
+
+## After the Author Fixes What You Found
+
+**A correction round is a change round, and it carries the same defect risk as writing
+did.** This is the step the workflow used to be missing, and it is not optional.
+
+Measured, not supposed: in testing, fixing 25 findings introduced **11 new defects** —
+stale counts copied from an interim draft, a footer contradicting the header in its own
+file, speaker miscounts, a quotation breaking a convention the same round had just added.
+Roughly two new problems for every five fixed. And the author's own report of the round
+said *"Fixed. All 15 converted"* when **eight were still live**.
+
+So, after corrections:
+
+1. **Freeze again.** Same procedure as step 0. The state you verified is gone; this is a
+   different package.
+2. **Re-verify with someone who did not make the fixes.** A fresh session, per
+   *Who Verifies* in `AGENTS.md`. **The person who made a correction is the worst
+   available judge of whether it worked** — they know what they intended to change, so
+   they read the intention rather than the text.
+3. **Check two things, not one.** Whether each reported fix actually landed — verified
+   against the source, not against the author's account of it — **and** whether the
+   correction round introduced anything new. The second is where the defects are.
+4. **Never accept "all fixed" as evidence.** It is a claim to be checked like any other.
+   Verify each one against the source. In the case above, ten of fifteen were fixed and
+   the summary said fifteen.
+
+Repeat until a pass returns clean **against a tree nobody edited during it**. Until that
+happens, the honest status is that no one has read the package end to end without also
+changing it.
 
 ## Output
 

@@ -152,6 +152,13 @@ judgment calls to me. Specifically:
 - If something you produced turns out to be wrong, say so plainly. **I am using this
   process to learn where AI helps and where it fails**, so those moments are useful to
   me rather than embarrassing.
+- **Don't check the documents while we're still editing them.** A check describes the
+  package at one moment; if we change it as you go, your report is about a version that
+  no longer exists. Check a settled draft, report, then we fix.
+- **After you fix things I've flagged, we check again.** Fixing introduces new problems
+  more often than anyone expects, and "I fixed everything" turns out to be wrong often
+  enough that I want it confirmed against the sources rather than taken on trust. That is
+  not distrust of you; I would say the same to a co-author.
 
 ## Verification (After Each Document)
 

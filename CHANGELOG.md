@@ -7,6 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.3.0] - 2026-08-27
+
+*Verification gains a freeze protocol and a mandatory second pass after corrections. Both
+come from watching a full authoring run verify itself, then fixing what it found, then
+discovering what the fixing had done.*
+
+### Added
+- **`/verify-all` step 0: freeze the tree.** A verification report describes the package
+  at one moment, and the workflow never said so. In testing, a `/verify-all` log was
+  written at 10:51, the documents it described were edited at 11:05, and by the time a
+  second pass read that log **four of its statements were false about the files on disk**.
+  The log was not wrong when written — it was wrong when read, which is worse, because
+  nothing in it said so. The skill now records every document's **word count** in the
+  report header before checking (a fingerprint that needs no terminal, so the Cowork path
+  can do it), tells the author the tree is frozen, forbids the verifier from repairing as
+  it goes, and re-reads the counts at the end. **If anything moved, the report is void and
+  says so in those words** rather than being quietly patched to match
+
+- **`/verify-all`: a required re-verification pass after corrections.** The workflow used
+  to end at "fix the findings", and that is where the defects were hiding. Measured in the
+  same run: fixing 25 findings **introduced 11 new ones** — stale counts copied from an
+  interim draft, a footer contradicting the header in its own file, speaker miscounts, a
+  quotation breaking a convention the same round had just added. Roughly two new problems
+  for every five fixed. The new section requires freezing again, re-verifying with someone
+  who did not make the fixes, and checking **both** that each fix landed and that the round
+  introduced nothing new
+
+- **"All fixed" is now explicitly a claim to be checked.** In the same test the authoring
+  agent reported *"Fixed. All 15 converted to indirect speech or unquoted"* when **eight
+  were still live** across all four documents. Not evasion — it had lost track. The skills
+  now say to verify each reported fix against the source rather than against whoever
+  reports it, and `AGENTS.md` carries the rule where every agent reads it
+
+- **The two surprises are stated for authors in the README**, in the teaching section:
+  fixing problems creates problems, and "I fixed everything" is frequently wrong in
+  complete good faith. For a kit whose purpose includes showing where AI fails, these are
+  among the most useful things it can hand someone in advance — they are currently learned
+  by accident, late, and usually after publication
+
+### Changed
+- **`VERIFICATION_PLEDGE.md`** gains two header checkboxes — whether the last clean run was
+  against a frozen package, and whether corrections since were re-verified by someone who
+  did not make them — plus an eighth affirmation that corrections were confirmed against
+  sources rather than assumed
+- **`STARTER_PROMPT.md`** carries both rules in the author's own voice, so the chat path
+  is not the one that quietly omits them
+
+### Notes
+- The honest status line this release adds: until a pass comes back clean **against a tree
+  nobody edited during it**, nobody has read the package end to end without also changing
+  it. That was true of the test package and went unnoticed until a second verifier said so
+
 ## [4.2.1] - 2026-08-27
 
 *Three defects found by running the workflow with no slash-commands, as a Cowork user

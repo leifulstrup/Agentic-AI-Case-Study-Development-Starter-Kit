@@ -5,7 +5,9 @@
 **Case**: ______________________________________
 **Author(s)**: ______________________________________
 **Date of last clean `/verify-all` run**: ______________
-**Template version**: 4.2.1
+**That run was against a frozen package** (no edits during the check): ☐ yes
+**Corrections since that run were re-verified by someone who did not make them**: ☐ yes ☐ none made
+**Template version**: 4.3.0
 
 ## The pledge
 
@@ -48,6 +50,11 @@ which tools were used and how their output was checked.
 7. **A human made every judgment call.** AI drafted and cross-checked. I decided what
 matters, what is true, what is fair, and what ships. Where my experience disagreed with
 the tool, I followed my experience.
+
+8. **Corrections were re-checked, not assumed.** Where verification findings were fixed,
+the fixes were confirmed against the sources rather than taken on the word of whoever
+made them, and the package was re-read afterwards for problems the corrections themselves
+introduced. I know that "all fixed" is a claim and not a result.
 
 **What this pledge does not claim:** that every sentence has been independently
 confirmed, that the automated checks caught everything they could have, or that no error

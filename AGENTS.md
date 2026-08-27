@@ -196,6 +196,25 @@ and verifier were the same session in that run. **That incident is not yet expla
 and this rule may not be the whole answer, but a verifier reading its own output is a
 weakness whether or not it turns out to be that one.
 
+### Verify a frozen tree, and re-verify after fixing
+
+Two rules that follow from the same idea, both learned by watching them fail:
+
+**Nothing may change while a check runs.** A report describes the package at one moment.
+If the documents move while you are reading them — or while the author is acting on your
+findings as you write them — the report becomes a claim about a version that no longer
+exists. Record the word count of every document before you start, compare at the end, and
+if anything moved, **say the report is void and run again**. Do not patch the report to
+match the new state; that produces a document that was never true of anything. And do not
+repair defects as you find them: a verifier that edits is checking a moving target.
+
+**A correction round is a change round.** Fixing findings introduces new defects at a rate
+nobody expects — in testing, repairing 25 findings produced 11 new ones. So corrections
+get their own verification pass, run by someone who did not make them, checking both that
+each fix landed *and* that the round introduced nothing. **"All fixed" is a claim, not
+evidence**: in the same test the author reported fifteen corrections complete when eight
+were still live. Verify each against the source.
+
 ## A Check That Cannot Run Must Say So
 
 **A check has three outcomes, not two: it passed, it found something, or it could not

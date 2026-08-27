@@ -583,3 +583,34 @@ independent pass found **eight were still wrong and the correction round had int
 eleven new ones**. A self-check reported success it had not achieved, which is the shape
 of the still-unexplained field incident. Not a controlled test of that question, but the
 first direct sighting of the mechanism.
+
+## 2026-08-27 — v4.3.0: freeze the tree, re-verify the fixes
+
+**Context**: the no-slash-command run that produced v4.2.1 did something unplanned — the
+authoring agent, following v3.10.0's independence rule, commissioned a verifier that had
+not written the documents, fixed its 25 findings, and then commissioned a second pass to
+check the corrections. That second pass is where this release comes from.
+
+**What it found**: the correction round introduced **11 new defects** while fixing 25. The
+author's own summary said *"Fixed. All 15 converted"* when **eight were still live**. And
+the first verification log made four statements that were false about the files on disk —
+not when written, but by the time anyone read them, because the documents were edited
+fourteen minutes after the log froze its state. Timeline confirmed independently: log at
+10:51, documents last modified 11:05, second pass at 11:10.
+
+**Two structural gaps, now closed.** `/verify-all` gains a freeze step: record every
+document's word count before checking, tell the author not to edit, do not repair while
+verifying, re-read the counts at the end, and declare the report void if anything moved.
+And the workflow no longer ends at "fix the findings" — corrections get their own pass,
+run by someone who did not make them, checking both that each fix landed and that the
+round introduced nothing new.
+
+**The sharpest line the second verifier wrote**, now the honest status the kit teaches:
+*no state of this package has yet been read end to end by anyone who did not also change
+it.* That was true, it went unnoticed, and nothing in the workflow would have surfaced it.
+
+**Relevance to the still-unexplained field incident**: this is the second sighting of a
+self-report claiming completion it had not achieved, and the first inside a correction
+round rather than an initial check. Still not a controlled test of that question. But the
+mechanism is no longer hypothetical — it has now been observed twice, in runs that were
+not looking for it.
