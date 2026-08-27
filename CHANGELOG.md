@@ -7,6 +7,64 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.0] - 2026-08-27
+
+*The kit was overclaiming what its own checks establish — in a repository whose whole
+subject is AI overclaiming. This release corrects the claims and makes the human's
+accountability explicit everywhere an agent or an author will read it.*
+
+### Changed
+- **"Why You Can Trust What This Produces" is gone.** That heading promised something no
+  workflow can deliver, and the section under it kept the promise up: *"every claim is
+  tracked, tiered, and traced"*, *"you always know exactly what is sourced and what is
+  not"*, *"`/verify-all` traces every quote to a dated source"*, and *"you can defend
+  every sentence in your case."* **This project's own field testing falsified the third
+  one** — a `/verify-all` run reported quotes passing on a package a later line-by-line
+  trace showed carried five real quote defects. The section is now *"Built for
+  Verification — and for Your Judgment"*, it says the kit surfaces issues rather than
+  certifies output, and it cites that failure by name with a pointer to
+  `evals/test-log.md`. A kit that asks authors not to overstate what their sources
+  support should not overstate what its checks establish
+
+- **The organizing metaphor is now explicit: the author is a manager delegating to a
+  capable assistant.** The AI does real work and the author remains accountable for what
+  ships under their name. The README carries a table splitting what the AI is good at
+  from what only the author can decide, and states plainly that *"the AI generated it"*
+  is not a defense a colleague, chair, or student should accept
+
+- **`AGENTS.md` gains "Who Is Responsible"** — the behavioural half of the same idea,
+  which matters more than the marketing half because every agent reads it. Never imply
+  work is verified because a check passed; hand judgment calls back rather than settling
+  them by picking whatever lets the work proceed; volunteer doubts at the time rather
+  than burying them in a log; expect to be overruled by someone who knows their field.
+  Plus a reporting rule: *"Traced 340 quoted spans; 12 could not be matched"* is useful
+  to someone exercising judgment, *"Quotes: PASS"* is not
+
+- **`VERIFICATION_PLEDGE.md` now claims work done rather than outcomes achieved.** It
+  read as a certificate — *"Every quotation is traced"* — which is a claim about the
+  package. Each item is now a claim about what the author personally did and judged, it
+  opens with an explicit statement of accountability, and it closes by naming what the
+  pledge does **not** claim: that every sentence was independently confirmed, that the
+  checks caught everything, or that no error remains. It claims a named person looked
+  and is accountable
+
+- **The teaching purpose is stated as a purpose.** The kit is a tool for learning where
+  current AI genuinely helps and where it fails — the fluent paragraph resting on a
+  quotation that does not exist, the abundant source base that turns out to be the
+  subject talking about themselves, the check that returned green without looking.
+  Authors are told to notice those moments and write them down, and agents are told to
+  name their own failures as material worth recording rather than smoothing over
+
+- **Propagated to every author-facing surface** — README, `AGENTS.md`,
+  `VERIFICATION_PLEDGE.md`, `STARTER_PROMPT.md`, `.github/copilot-instructions.md` — so
+  the framing reaches all three tool paths rather than only the front page
+
+### Notes
+- No logic changed. Every check does exactly what it did in v4.0.0; what changed is what
+  the kit says those checks mean
+- The Cowork path added in v4.0.0 is still not field-tested, and its README callout
+  stands
+
 ## [4.0.0] - 2026-08-26
 
 *Repositioning release. Two defaults change: the recommended tool path, and how much

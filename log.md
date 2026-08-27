@@ -499,3 +499,35 @@ untested path in front of exactly those people. The README carries an explicit
 "not yet field-tested" callout asking for issues. **That is honest labelling, not
 evidence.** One full run through Cowork on the fixture is the first thing the next
 release should do — before anything else on the backlog.
+
+## 2026-08-27 — v4.1.0: correcting the kit's claims about itself
+
+**Context**: the README's verification section promised more than any workflow can
+deliver — "you can defend every sentence in your case", "you always know exactly what is
+sourced and what is not", "traces every quote to a dated source". The third is
+contradicted by this project's own `evals/test-log.md`, which records `/verify-all`
+reporting quotes as passing on a package that a later line-by-line trace showed carried
+five genuine quote defects.
+
+**What changed**: the section is now "Built for Verification — and for Your Judgment".
+It says the kit surfaces issues for the author to weigh rather than certifying output,
+describes each mechanism with its actual limits, and cites the kit's own verification
+failure by name. The organizing metaphor is stated: the author is a manager delegating
+to a capable assistant who is occasionally, confidently wrong, and remains accountable
+for everything published under their name.
+
+**Where it was embedded**: `AGENTS.md` gains "Who Is Responsible" — never imply work is
+verified because a check passed, hand judgment calls back rather than settling them in
+whichever direction lets work proceed, volunteer doubts at the time, expect to be
+overruled by someone who knows their field. `VERIFICATION_PLEDGE.md` now claims work
+done rather than outcomes achieved, and closes by naming what it does not claim.
+`STARTER_PROMPT.md` and the Copilot pointer carry the same framing, so no tool path
+receives a weaker version of it.
+
+**Teaching purpose stated as a purpose**: the kit exists partly so authors and students
+see directly where current AI helps and where it fails. Agents are now told to name
+their own failures as material worth recording rather than smoothing over.
+
+**No logic changed.** Every check does what it did in v4.0.0. What changed is what the
+kit claims those checks mean — which had drifted from what the evidence supports, in a
+repository whose entire subject is that kind of drift.

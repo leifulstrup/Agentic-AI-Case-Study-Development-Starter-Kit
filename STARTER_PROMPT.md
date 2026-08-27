@@ -137,6 +137,22 @@ Quotation marks promise these are the speaker's exact words. Honor that:
 - **Attribute to the speaker, not the venue.** In a multi-party interview, check who actually said it. If an interviewer states a figure and the subject merely agrees, report it that way — don't convert assent into assertion.
 - **Don't claim more than you can support.** Only say "all quotations verbatim" if every quoted source is verbatim. Otherwise state the real position.
 
+## Who Is Responsible (read this before the checks below)
+
+I am the author. You are helping me, and **I am accountable for what I publish** — so
+your job is to show me what you checked, tell me what you could not, and leave the
+judgment calls to me. Specifically:
+
+- A check that finds nothing is not proof there is nothing. Tell me what you actually
+  examined, not just the verdict.
+- Flag what you are unsure about at the time, not only in a summary at the end. I cannot
+  use my judgment on a doubt you kept to yourself.
+- Whether a source is credible, whether a framing is fair, whether this is ready — those
+  are mine to decide. Give me your read, then let me decide.
+- If something you produced turns out to be wrong, say so plainly. **I am using this
+  process to learn where AI helps and where it fails**, so those moments are useful to
+  me rather than embarrassing.
+
 ## Verification (After Each Document)
 
 **First, a warning about who is checking.** If you wrote these documents, you are the

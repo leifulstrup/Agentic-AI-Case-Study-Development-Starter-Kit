@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v4.0.0-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v4.1.0-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -59,19 +59,85 @@ flowchart TD
 
 ---
 
-## Built for Verification — Why You Can Trust What This Produces
+## Built for Verification — and for Your Judgment
 
-AI writes fluently and fabricates confidently. Published studies have found leading chatbots inventing anywhere from roughly a fifth to half of the citations they produce, and Ivey Publishing judged a raw ChatGPT-drafted case unpublishable. This kit exists because the answer isn't "don't use AI" — it's a workflow where every claim is tracked, tiered, and traced before anything ships.
+AI writes fluently and fabricates confidently. Published studies have found leading
+chatbots inventing anywhere from roughly a fifth to half of the citations they produce,
+and Ivey Publishing judged a raw ChatGPT-drafted case unpublishable. The answer is not
+"don't use AI." It is to **work the way a manager works with a capable new hire**:
+delegate real work, expect competent output, and check it before it goes out — because
+the result carries your name, not the assistant's.
 
-Three mechanisms run through every phase:
+**This kit gives you tools to check the work. It does not give you a guarantee, and it
+cannot take responsibility off your shoulders.** What the verification workflow does is
+*surface things for you to look at*: which claims trace to a source document and which
+do not, where the source base leans in one direction, where two documents disagree,
+where a quotation does not match the text it came from. What it cannot do is decide
+whether a case is accurate, fair, or worth teaching. **That judgment is yours, it stays
+yours, and no report this kit produces transfers it to a machine.**
 
-**Verification debt is tracked like technical debt.** Whenever the AI writes something from its own knowledge rather than your sources, the claim is logged to `verification-debt.yaml` with the source type needed to resolve it. You always know exactly what is sourced and what is not — and publication expects the debt at zero.
+Three mechanisms, and what each is honestly good for:
 
-**Sources are tiered and gated.** Every source is classified T1 (full text in repo), T2 (partial/excerpted), or T3 (referenced only). Before writing begins, `/assess-sources` applies a go/no-go gate: minimum one T1 source with the protagonist's own voice, one T1 financial source, two independent publications — plus an early bias check that flags when more than half your material comes from one perspective.
+**Verification debt tracking.** When the AI writes something from its own knowledge
+rather than from your sources, it is instructed to log that claim to
+`verification-debt.yaml` with the kind of source needed to settle it. This is genuinely
+useful — but it records what the AI *notices about itself*, so treat it as a working
+list to reduce, not a complete inventory of everything unsourced. Publication expects
+the debt at zero **or explicitly acknowledged**.
 
-**Seven verification checks run before publication.** `/verify-all` traces every quote to a dated source, matches data points across documents, validates arithmetic, checks links, assesses perspective balance, and confirms structural alignment — producing a quality report you can hand to a colleague, a department chair, or an editor. See `VERIFICATION_PLEDGE.md` for the sign-off checklist.
+**Source tiering and a go/no-go gate.** Every source is classified T1 (full text in the
+repo), T2 (partial or excerpted), or T3 (referenced only). Before writing begins,
+`/assess-sources` checks a minimum: a primary source carrying the protagonist's own
+voice, a primary financial source, independent coverage from more than one publication,
+and an independence ratio that flags a base leaning heavily on the subject's own
+material. The gate is a floor, not a verdict on quality — clearing it means you have
+enough to start, not that your sourcing is good.
 
-The result: you can defend every sentence in your case, because the workflow made you earn it.
+**Seven verification checks before publication.** `/verify-all` attempts to trace quotes
+to dated sources, match figures across documents, recompute arithmetic, test links,
+weigh perspective balance, and check structural alignment, producing a report you can
+read and act on. **These checks find real problems and they also miss things.** In this
+project's own field testing, a run of `/verify-all` reported quotes as passing on a
+package that a later line-by-line trace showed carried five genuine quote defects — two
+misquotes, dropped words, framing pulled inside quotation marks, and an illustration the
+author had invented sitting in quotes. The checks have been strengthened since, and they
+still are not a substitute for you reading your own case against your own sources. The
+full record, including the failures, is in `evals/test-log.md`.
+
+### Your job, and the AI's
+
+Think of yourself as the manager and the AI as a fast, well-read assistant who is
+occasionally, confidently wrong.
+
+| The AI is good at | Only you can |
+|---|---|
+| Reading a large corpus quickly and pulling out candidate material | Decide what the case is actually *about* |
+| Drafting structure and prose at speed | Judge whether the tension is real and teachable |
+| Mechanical checks — does this string appear in that file, does this arithmetic hold | Judge whether a source is credible and a framing is fair |
+| Flagging what it could not verify | Decide what to do about it, and whether to ship |
+
+**You are accountable for what you publish**, including the parts you did not write. If a
+number is wrong, "the AI generated it" is not a defense a colleague, a department chair,
+or a student will accept — nor should it be. Read the case. Check the quotes that matter
+against the sources yourself. Disagree with the tool when your experience says it is
+wrong; it is a tool, and you know things it does not.
+
+### Why this is a teaching tool
+
+The point of building a case this way is not only to end up with a case. It is to give
+you and your students direct experience of **what current AI is genuinely good at and
+where it fails** — which is difficult to teach in the abstract and obvious after you
+have watched a model produce a fluent paragraph resting on a quotation that does not
+exist.
+
+Used well, the workflow surfaces that contrast repeatedly: the draft that reads
+beautifully and cites a source that says something else; the source base that looks
+abundant and turns out to be the subject talking about themselves; the check that
+returns green because it never actually looked. **Notice those moments and write them
+down** — the reflection is a large part of the learning, arguably larger than the
+finished document. `lessons_learned.md` exists for exactly that, and this project's own
+entries are a record of the maintainers getting these things wrong and catching them
+later.
 
 ---
 
@@ -387,4 +453,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 4.0.0*
+*Template Version: 4.1.0*

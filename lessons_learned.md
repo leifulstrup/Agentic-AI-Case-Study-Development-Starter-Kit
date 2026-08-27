@@ -281,3 +281,32 @@ the users the kit's own findings identify as least able to notice a missing guar
 The choice was made deliberately and the README carries a status callout saying so, which
 is the honest handling but not a substitute for the test. **Recording this here so that
 the next person to read these lessons finds the promise before they find the results.**
+
+## v4.1.0 — 2026-08-27 (claims)
+
+**64. The kit was overclaiming in exactly the way it warns authors not to.** The README
+said *"you can defend every sentence in your case"* and *"`/verify-all` traces every
+quote to a dated source"* — in a repository built around the observation that AI writes
+fluently and fabricates confidently, and whose own test log records a verification run
+passing a package that carried five real quote defects. Nobody wrote those sentences
+dishonestly; they were written when the checks were new and they simply were never
+revisited as evidence accumulated against them. **Marketing copy ages differently from
+code: a failing test announces itself, an overstated claim just sits there getting less
+true.** Any document that asserts what your tooling guarantees needs re-reading every
+time the tooling is measured.
+
+**65. Where a rule lives determines whether it changes behaviour.** The same principle —
+the human is accountable, the tool assists — needed to be in four places to actually
+operate: the README so the author absorbs it, `AGENTS.md` so every agent acts on it, the
+pledge so it survives contact with a department chair, and `STARTER_PROMPT.md` so the
+least-technical path is not the one that quietly drops it. A philosophy stated only in
+the introduction is a preference. Stated in the file the agent reads before every
+action, it is a constraint. **This is the same lesson as 60 arriving from a different
+direction**, which is usually a sign it is the real one.
+
+**66. "A human made the judgment calls" is worth nothing if the tool never hands one
+back.** The pledge already carried that line before this release, and the workflow still
+let an agent settle ambiguous questions by choosing whatever allowed work to continue.
+Accountability language on the author's side has to be matched by behavioural
+instruction on the agent's side, or it describes a division of labour that never
+happens.
