@@ -55,6 +55,22 @@ are writing them. So:
 - **Cut by deleting, not by compressing.** Remove the weakest example, the third
   supporting quotation, the paragraph restating the previous one. Squeezing prose to hit
   a number makes it worse; dropping the least load-bearing material makes it better.
+- **Never cut evidence to hit a number.** This rule applies to *prose* — the Main Case,
+  the Supplement, the Teaching Note's discussion. **The Additional Sources document is
+  not prose; it is the evidence file**, and every quotation the other documents rely on
+  has to be traceable through it. Deleting an entry there does not shorten an argument,
+  it severs a chain of custody — and it does so silently, because the quotation still
+  reads fine in the Main Case with nothing left behind it.
+
+  This is measured, not cautionary. In testing, an agent hit the Additional Sources
+  target exactly as instructed and **broke traceability for four quotations the Main
+  Case went on to use**. Asked to do it again, it refused and overran the target instead.
+  That was the right call.
+
+  So when the evidence file runs long: **let it.** Report the overage and why, and put
+  the reduction into the prose documents where cutting removes words rather than proof.
+  If it is very long, the honest fix is usually fewer sources or a narrower case, which
+  is the author's decision and not one to make silently by deleting rows.
 - **Report the number.** End with the actual word count against the target, so the author
   can see the constraint was honoured rather than take it on trust.
 

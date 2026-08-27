@@ -7,6 +7,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.3.1] - 2026-08-27
+
+*Five defects found by running a full authoring pass against the fixture — the first run
+that tested shipped instructions rather than shipping new ones. Scorecard in
+`evals/test-log.md`.*
+
+### Fixed
+- **`add-disclaimers` handed authors an overclaim to paste into finished cases.** Its
+  publication-ready boilerplate asserted *"All factual claims, quotes, and data points
+  have been verified against primary source documents"* — unconditional, in text the kit
+  tells you to put in a document, and **the exact sentence v4.1.0 tells authors to hunt
+  down and delete**. Replaced with wording that says what was actually done: quotations
+  traced to dated sources, checks recorded in the quality report, remaining unverified
+  claims disclosed there. The skill now opens by stating that a disclaimer describes what
+  happened and must be edited when a check did not run — **a disclaimer asserting
+  verification that did not occur converts a gap into a false statement over the author's
+  name**
+
+- **The same file hardcoded "v3.0" into that pasted text**, and had done for fourteen
+  releases, so every case using it told readers something false about which methodology
+  produced it. Now `[template_version]`, read from `TEMPLATE_VERSION`
+
+- **`examples/` advertised pre-v4.2.0 lengths as the standard** — a ~5,800-word Main Case
+  against a 2,500-word target. The excerpts are kept at original size because they record
+  a real run, with a note saying so: **read them for what a finished document looks like,
+  not for a length to hit**
+
+- **Zero verification debt is unreachable offline and nothing admitted it.** A claim
+  needing a reference work, a filing, or a paywalled article cannot be settled without a
+  network, and the publication bar is zero open debt. In testing a package sat with five
+  such passages against that bar. `/verify-all` now explains that *acknowledged* is a real
+  option — the author names what would settle the item, why it cannot be settled now, and
+  labels the claim as a claim. It also draws the line that matters: **a check that could
+  not run is still `NOT RUN` and still blocks**, which is a different thing from evidence
+  that cannot currently be obtained
+
+- **The length rule did not distinguish prose from evidence, and following it broke a
+  chain of custody.** v4.2.1 said to cut by deleting the weakest material. Applied to the
+  Additional Sources document — which is not prose but the evidence file every quotation
+  is traced through — an agent hit the target exactly as instructed and **severed
+  traceability for four quotations the Main Case went on to use**. It refused to repeat
+  the cut and overran the target instead, which was correct. `write-document` now exempts
+  the evidence file: let it run long, take the reduction out of the prose documents, and
+  treat a very long evidence file as a signal to narrow the case rather than to delete
+  rows. `case-config.yaml` marks `additional_sources` a guide rather than a ceiling
+
+### Notes
+- The run confirmed three of four claims under test — the freeze protocol, the
+  post-correction re-verification pass, and the independence rule — and returned a partial
+  on word budgeting: package overshoot fell from +41% to +27%, with the Main Case landing
+  inside tolerance at +9% for the first time
+- All five defects above were found by an agent following the kit's own instructions and
+  reporting where they contradicted themselves. **Four of them had been read past
+  repeatedly by maintainers**
+
 ## [4.3.0] - 2026-08-27
 
 *Verification gains a freeze protocol and a mandatory second pass after corrections. Both

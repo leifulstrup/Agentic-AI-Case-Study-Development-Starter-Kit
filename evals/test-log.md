@@ -453,3 +453,82 @@ improves detection, granularity and blocking behaviour under the condition that
 matters. Its `verify-quotes` change does not. The field failure that motivated the
 release is still not reproduced, and the honest statement is that we have fixed a real
 weakness without yet having explained the incident.
+
+---
+
+## v4.3.0 — 2026-08-27 — jpm-llm-suite — FULL AUTHORING PASS (four shipped claims tested)
+
+Four of the last five releases shipped instructions whose effect on behaviour had never
+been observed. This run tests four at once: one agent, the complete kit at v4.3.0, the
+frozen five-source corpus, a config carrying the current 2,500-word targets and
+`documents.required`. It was told nothing about what was being measured. Output kept at
+`eval-runs/authoring-2026-08-27/` outside any repository — the package derives from the
+copyrighted corpus and must never be tracked.
+
+### Scorecard
+
+| Claim | Shipped | Result |
+|---|---|---|
+| Word budgeting stops overshoot | v4.2.1 | **PARTIAL** |
+| Freeze protocol | v4.3.0 | **CONFIRMED** |
+| Second pass after corrections | v4.3.0 | **CONFIRMED** |
+| Independence rule changes behaviour | v3.10.0 | **CONFIRMED** |
+
+### Claim 1 — word budgeting: partial
+
+| Document | Target | Actual | Delta | Prior run |
+|---|---|---|---|---|
+| Main Case | 2,500 | 2,727 | **+9%** | +37% |
+| Teaching Note | 1,500 | 1,854 | +24% | +23% |
+| Supplement | 1,500 | 1,971 | +31% | +49% |
+| Additional Sources | 2,000 | 2,951 | +48% | +55% |
+| **Package** | 7,500 | 9,503 | **+27%** | **+41%** |
+
+Package overshoot fell by a third and the Main Case — the document students read — landed
+inside tolerance for the first time. Three of four still miss.
+
+**The worst miss was correct behaviour.** The agent hit the Additional Sources target once
+and doing so **broke traceability for four quotations the Main Case later used**. It
+refused to repeat that and overran instead. The instruction was wrong, not the agent:
+`write-document` said "cut by deleting the weakest material" without distinguishing prose
+from the evidence file. Fixed in v4.3.1.
+
+### Claims 2 and 3 — freeze and re-verification: confirmed
+
+`verify-all-2026-08-27.log` opens with a `## Frozen-tree record`, states "Nothing moved.
+This report is not void", and confirms at line 578 that the table was re-read at the end.
+It also worked in anger: four checks were flagged **stale** against a 7,859-word tree that
+had grown to 9,503 during corrections — the exact failure that produced v4.3.0.
+
+A dedicated post-correction re-verification ran, by an agent that "did not author the
+documents and did not make the corrections". It found the correction round had rewritten
+three integrity claims **wrongly**, and caught a span the first independent trace had
+**mis-filed** — a defect in the verification rather than in the case. The run then stopped
+and declared correction round 2 unverified as the blocking gap rather than shipping.
+
+### Claim 4 — independence: confirmed, strongest result
+
+Seven `SAME SESSION AS AUTHOR` labels, four `did not author`, two independent passes. The
+v4.3.0 verifier-identity field is in live use and self-run checks are labelled as such.
+The authoring agent's own account: the independent agents found "a word I had invented
+inside quotation marks, an ellipsis claiming an omission that never happened, and three
+integrity claims I 'fixed' into being more precisely false. I would not have caught any of
+them."
+
+### Five kit defects found, all fixed in v4.3.1
+
+1. `add-disclaimers` boilerplate asserted "All factual claims, quotes, and data points
+   have been verified against primary source documents" — the exact unconditional claim
+   v4.1.0 tells authors to hunt down and delete, sitting in text the kit hands them to
+   paste into finished cases.
+2. The same file hardcoded "v3.0" into that pasted text — wrong for fourteen releases.
+3. `examples/` advertised ~5,800-word documents as the standard, contradicting v4.2.0's
+   2,500 target.
+4. Zero verification debt is unreachable offline and nothing said so.
+5. The length rule did not distinguish prose from the evidence file (above).
+
+### Limits
+
+n=1. One corpus, one agent, one tool path. The partial result on claim 1 is a single
+observation, and the three CONFIRMED results say the instructions were *followed once* —
+not that they will be reliably.

@@ -614,3 +614,41 @@ self-report claiming completion it had not achieved, and the first inside a corr
 round rather than an initial check. Still not a controlled test of that question. But the
 mechanism is no longer hypothetical — it has now been observed twice, in runs that were
 not looking for it.
+
+## 2026-08-27 — v4.3.1: what happened when we ran what we shipped
+
+**Context**: four of the last five releases shipped instructions whose effect on
+behaviour had never been observed. One full authoring pass against the fixture tested
+four claims at once, with the agent told nothing about what was being measured.
+
+**Three claims confirmed.** The freeze protocol recorded a frozen-tree table, re-read it
+at the end, and correctly flagged four checks stale against a package that had grown from
+7,859 to 9,503 words during corrections — the exact failure that produced v4.3.0. The
+post-correction pass ran, by an agent that had neither written the documents nor made the
+fixes, and found that the correction round had rewritten three integrity claims *wrongly*
+and that the first independent trace had mis-filed a span. The independence rule is in
+live use: seven checks labelled SAME SESSION AS AUTHOR, two independent passes
+commissioned unprompted.
+
+**One partial.** Word budgeting cut package overshoot from +41% to +27%, and the Main Case
+landed at +9% — inside tolerance for the first time. Three of four documents still miss.
+
+**The most useful finding is that the worst miss was correct behaviour.** The agent hit
+the Additional Sources target exactly as instructed and broke traceability for four
+quotations the Main Case later used. It refused to do it again. The rule said "cut the
+weakest material", which is right for prose and wrong for an evidence file, where the
+weakest material is still evidence. The instruction was defective and obedience exposed it.
+
+**Five defects fixed**, four of which maintainers had read past repeatedly: an
+unconditional verification claim sitting in boilerplate the kit hands authors to paste —
+one release after the README was rewritten to remove exactly that sentence; a hardcoded
+"v3.0" fourteen releases stale in the same pasted text; `examples/` advertising a length
+the kit no longer targets; a zero-debt publication bar unreachable without a network; and
+the evidence-file rule above.
+
+**The pattern worth keeping**: reading your own instructions does not find these, because
+you read what you meant. Running them does, because an agent has only what you wrote.
+
+**Kept**: the case package at `eval-runs/authoring-2026-08-27/`, outside any repository —
+four documents, four exports, nine logs, a full defect history, and an honest status of
+not fit to publish.

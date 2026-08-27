@@ -372,3 +372,28 @@ was not being evasive — it had lost track across a long round of edits, which 
 what a person does. **Completion reports are the least reliable artifact in any workflow**,
 because the person writing one has the least fresh view of the work and the most reason to
 believe it is done. Check them against the source, never against the report.
+
+## v4.3.1 — 2026-08-27 (running what we shipped)
+
+**74. The instruction that breaks something is usually the one that was followed
+exactly.** An agent hit the Additional Sources word target as told, and severed the chain
+of custody for four quotations by doing it. Nothing malfunctioned: the rule said cut the
+weakest material, and in an evidence file the weakest material is still evidence.
+**Rules written for one kind of document get applied to every kind**, and the failure
+surfaces as obedience rather than as error — which is why it is invisible in review and
+obvious in a run.
+
+**75. A kit that tells authors not to overclaim was handing them an overclaim to paste.**
+`add-disclaimers` carried "all factual claims, quotes, and data points have been verified
+against primary source documents" as boilerplate, one release after the README was
+rewritten to remove exactly that class of sentence. The fix went where the claim was
+advertised and missed where it was *generated*. **When you correct a claim, grep for the
+claim** — the copy that matters most is the one a tool pastes into someone's document
+without anyone rereading it.
+
+**76. Four of five defects in this release had been read past by maintainers, and were
+found in one run by an agent following the instructions literally.** Not one was subtle:
+a hardcoded version fourteen releases stale, examples advertising a length the kit no
+longer targets, a publication bar that cannot be met offline. Reading your own
+instructions does not find these, because you read what you meant. **Running them does**,
+because an agent has only what you wrote.

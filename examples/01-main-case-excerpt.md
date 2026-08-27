@@ -20,7 +20,7 @@ How should the chief analytics officer of America's largest bank allocate the ne
 
 ---
 
-*[Sections II–XI omitted. The full case runs ~5,800 words: the firm, the protagonist, the three founding principles, how the platform was built and went viral, the assistant economy, the ceiling of bottom-up adoption, the "makers to checkers" workforce shift, the stakes, and the decision.]*
+*[Sections II–XI omitted. This case was written before v4.2.0 halved the kit's default lengths; it runs ~5,800 words where the current target is ~2,500. Read it for shape, not for length: the firm, the protagonist, the three founding principles, how the platform was built and went viral, the assistant economy, the ceiling of bottom-up adoption, the "makers to checkers" workforce shift, the stakes, and the decision.]*
 
 ---
 

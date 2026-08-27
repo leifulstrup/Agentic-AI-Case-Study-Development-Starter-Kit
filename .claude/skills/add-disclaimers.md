@@ -8,6 +8,25 @@ Add standardized AI-generated content disclaimers and methodology notes to case 
 /add-disclaimers
 ```
 
+## Before you paste any of this
+
+**Read `[template_version]` from `TEMPLATE_VERSION`** (or `case.template.version` in
+`case-config.yaml`) and substitute it. Never leave a hardcoded version in a disclaimer —
+one sat in this file reading "v3.0" through fourteen releases, and every case that used
+it told its readers something false about which methodology produced it.
+
+**A disclaimer states what was actually done, never what was supposed to be done.** The
+boilerplate below is a starting point, not a claim you may make unexamined. If the
+package's checks did not all run — an offline link check, a verification pass the author
+skipped, debt still open — **edit the wording to match reality before it goes in**. A
+disclaimer asserting verification that did not happen is worse than no disclaimer: it
+converts a gap into a false statement, over the author's name.
+
+This matters here more than most places, because a boilerplate line in this very file
+once asserted that *"all factual claims, quotes, and data points have been verified
+against primary source documents"* — an unconditional claim, pasted into finished cases,
+in a kit whose own guidance tells you to hunt down exactly that sentence and delete it.
+
 ## Instructions
 
 ### 1. Check Context
@@ -52,10 +71,12 @@ For each document in `case-study/`:
 **Publication-ready**:
 ```markdown
 > **AI-Assisted Case Study**: This case study was developed using AI-assisted research
-> and writing tools as part of the Agentic AI Case Study Development methodology
-> (v3.0). All factual claims, quotes, and data points have been verified against
-> primary source documents. The case is intended for educational discussion purposes.
-> It does not represent the views of [company_name] or any individuals mentioned herein.
+> and writing tools, following the Agentic AI Case Study Development methodology
+> ([template_version]). Quotations and data points were traced to the dated sources
+> listed in the bibliography, and the verification checks run on this package are
+> recorded in its quality report; any claims that remain unverified are disclosed there.
+> The case is intended for educational discussion purposes. It does not represent the
+> views of [company_name] or any individuals mentioned herein.
 ```
 
 #### Footer Disclaimer (end of document, before bibliography if present)
@@ -66,9 +87,9 @@ For each document in `case-study/`:
 ### About This Case
 
 **Prepared for**: [course_name] at [institution], [semester]
-**Development methodology**: Agentic AI Case Study Development Starter Kit v3.0
+**Development methodology**: Agentic AI Case Study Development Starter Kit [template_version]
 **AI tools used**: [Claude Code / ChatGPT / etc. — ask user]
-**Source verification**: All quotes and data points traced to dated, publicly available sources
+**Source verification**: Quotes and data points traced to dated sources; see the quality report for what was checked and what remains open
 **Date completed**: [today's date]
 ```
 

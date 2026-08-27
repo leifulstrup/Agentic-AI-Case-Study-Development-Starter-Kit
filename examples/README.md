@@ -20,6 +20,14 @@ These are excerpts from a real case package built with this kit: **JPMorgan Chas
 
 **What came out.** Four documents, roughly 16,900 words — Main Case (5,800), Additional Sources and Data (5,000), Technical Supplement (3,000), Teaching Note (3,050) — plus a source registry, a verification-debt ledger, and a quality report.
 
+> **These excerpts are longer than the kit now targets.** This package was built before
+> v4.2.0 halved the default lengths, and it is kept at its original size because it is a
+> record of a real run rather than a model to match. The current defaults are a Main Case
+> near 2,500 words with a package near 7,500 — see `documents.target_word_counts` in
+> `case-config.yaml`. **Read these for what a finished document looks like: how a
+> protagonist is introduced, how a quotation is attributed, how a session plan is timed.
+> Do not read them as a length to hit.**
+
 **What the verification found.** Across ~230 attributed claims and 87 financial figures with arithmetic independently recomputed: **zero fabricated quotes, zero invented numbers, zero arithmetic errors.** It did find one spliced composite quotation and one cross-document title mismatch, and it blocked publication until both were fixed. That is the system working as designed — the writing pass erred, the verification pass caught it.
 
 **What an independent quality judge said.** Scored against a seven-dimension case rubric by a different model than the one that wrote it: 31/35, "would teach with minor edits." Strongest on evidence discipline, teachability, and balance. Weakest on data sufficiency — the case gives students figures to argue about but no quantitative exhibit to compute with, which is exactly the kind of gap the kit's coaching workflow is designed to surface.

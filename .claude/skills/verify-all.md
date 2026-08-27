@@ -153,7 +153,8 @@ as **NOT RUN** and listed under Critical Issues.
 ## Pre-Publication Checklist
 
 - [ ] All critical issues resolved
-- [ ] Verification debt at zero (or acknowledged)
+- [ ] Verification debt at zero (or acknowledged) — **see the note below before treating
+      this as a blocker**
 - [ ] Financial figures verified against sources
 - [ ] Bias acknowledged in teaching materials
 - [ ] Disclaimers added (/add-disclaimers)
@@ -190,6 +191,26 @@ So, after corrections:
 Repeat until a pass returns clean **against a tree nobody edited during it**. Until that
 happens, the honest status is that no one has read the package end to end without also
 changing it.
+
+## When zero debt is not reachable
+
+**Some debt cannot be closed from inside the workflow, and the kit should say so rather
+than let an author grind against it.** Working offline, a claim needing a reference work,
+a filing, or a paywalled article cannot be settled — no amount of re-running checks will
+move it. In testing, a package sat with five definitional passages needing a source that
+could not be fetched, against a publication bar of zero open debt. Those two facts are
+incompatible, and nothing in the kit admitted it.
+
+So: **"zero or acknowledged" means acknowledged is a real option**, not a euphemism for
+failure. An item is legitimately acknowledged when the author can say what would settle
+it, why it cannot be settled now, and what the document does in the meantime — normally
+labelling the claim as a claim rather than asserting it as fact.
+
+What acknowledgement does **not** cover: debt the author simply did not work through, or a
+check that was never run. **A check that could not run is `NOT RUN` and still blocks** —
+that is a different thing from a claim that cannot currently be sourced, and the
+distinction is the whole point. One is unfinished work; the other is a limit of the
+available evidence, disclosed.
 
 ## Output
 
