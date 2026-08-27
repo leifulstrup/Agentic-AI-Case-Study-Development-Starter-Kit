@@ -1,6 +1,9 @@
 # Verify Cross-Document
 
-Check structural alignment and content references across the four case study documents.
+Check structural alignment and content references across the case study documents this
+course requires — read `documents.required` in `case-config.yaml` rather than assuming
+four. Checks that reference a document the course does not require are skipped, and the
+report says they were skipped and why. A skipped check is never reported as a pass.
 
 ## Usage
 

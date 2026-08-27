@@ -7,6 +7,66 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-08-26
+
+*Repositioning release. Two defaults change: the recommended tool path, and how much
+writing the kit asks of an author. Both come from a teaching colleague who forked v3.1.2,
+rebuilt the onboarding around non-technical students, and reported back what worked. No
+skill logic changed — the kit does the same things, and asks less of the person starting
+out.*
+
+### Changed
+- **Claude Cowork is now the recommended path.** The kit previously offered three tools
+  as a flat comparison table and asked a new author to choose between them before doing
+  anything. That is a poor first question for someone who has never used a terminal.
+  Cowork works on the project folder directly, needs no install, no editor and no command
+  line, and reads `AGENTS.md` like every other agent. Step 3 now recommends it with a
+  full inline quickstart, and the other three tools follow as *alternate paths, if you
+  prefer one*, with the comparison table moved below the recommendation rather than in
+  front of it
+
+- **The slash-command fallback is now stated as the normal case rather than a
+  degradation.** `/slash-commands` are Claude Code's format. `AGENTS.md` has always told
+  other agents to read the skill file and follow its procedure, but buried it in a
+  sentence; an agent could reasonably have told a Cowork user that a capability was
+  unavailable. It now says explicitly: **the skill file is the specification and the
+  slash-command is only a shortcut to it**, and never report a capability as unavailable
+  for want of a command
+
+- **Document scope is configurable, and the defaults are lighter.** `case-config.yaml`
+  gains `documents.required` — the list of documents a course expects, in order — and
+  `/write-document`, `/verify-all` and `/verify-cross-document` now read it instead of
+  assuming four. **A document a course does not require is not a missing document**, and
+  reporting it as one teaches authors to ignore the check. Word-count targets drop to a
+  range sized for someone writing alongside a full-time job (Main Case 3,000 rather than
+  5,000; Supplement 1,200 rather than 3,000), with the full-length figures kept in the
+  file as a documented alternative
+  - **The Teaching Note is unaffected as an artifact.** The skill that writes it is
+    unchanged and it remains in `documents.required` by default. Removing it from that
+    list is how a course expresses "the instructor writes this, not the student" —
+    the capability does not go away
+
+- **`STARTER_PROMPT.md` now opens by pointing chat users at Cowork.** The chat path
+  exists for tools that cannot read local files, which means copying content back and
+  forth. Anyone who can avoid that should
+
+### Notes
+- **The Cowork path has not been field-tested and the README says so in a status
+  callout.** This is uncomfortable and deliberate. The kit's own evidence says the
+  least-technical path is the one whose users are least able to notice a missing
+  guardrail, and this release promotes an untested path to the front door. The callout
+  states it plainly and asks for issues. **Running one case end-to-end through Cowork is
+  the first thing the next release should do**
+- Designed from the colleague's stated principles rather than from a diff of his fork,
+  which was not available. Two claims in the third-hand summary of his changes were
+  checked against this repository and found wrong — verification debt is gated at "zero
+  **or acknowledged**", not at zero; and the kit's MIT relicensing at v3.2.0 left
+  produced cases defaulting to CC BY-NC, so educational-content protection was never
+  lost. Neither error changed the design, but both would have if taken on trust
+- Major version because two defaults change, not because anything broke. Existing clones
+  are unaffected; adopters who pull will find a different recommendation and lighter
+  targets, both overridable in `case-config.yaml`
+
 ## [3.10.0] - 2026-08-26
 
 *Instruction release. Three gaps that the field test and the compliance probes exposed

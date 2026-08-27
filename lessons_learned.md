@@ -255,3 +255,29 @@ the verifier was built to catch, dozens at a time, across three separate measure
 spanning four months. Nothing was wrong with the rules. They were in the wrong file.
 **Ask of any standard: who reads this, and at what moment?** A rule that arrives after
 the work is prevention that has been converted into rework.
+
+## v4.0.0 — 2026-08-26 (adoption)
+
+**61. The first question a kit asks a beginner should not be a choice between tools.**
+Step 3 opened with a comparison table across three options and asked the author to pick
+before they had done anything. For someone who has never used a terminal, that is a
+decision with no basis — every column is unfamiliar. The fix was not more explanation,
+it was **removing the question**: recommend one path, give it a complete quickstart, and
+move the comparison below for the minority who want it. The feedback came from a
+colleague who forked the kit for non-technical students and rebuilt the onboarding
+before using it, which is the kind of evidence you only get by letting someone else
+teach with your work.
+
+**62. A shortcut that only one tool has should never be described as the capability.**
+The kit's abilities live in the skill files; `/slash-commands` are Claude Code's way of
+reaching them. Because the docs led with commands, an agent on another path could
+reasonably conclude a capability was missing when only its shortcut was. **The
+specification and the interface to it are different things**, and conflating them makes
+every non-default path look degraded when it is merely different.
+
+**63. "Recommended" is a claim about evidence, and this release does not have it.**
+v4.0.0 promotes Cowork to the front door without a single end-to-end run behind it — for
+the users the kit's own findings identify as least able to notice a missing guardrail.
+The choice was made deliberately and the README carries a status callout saying so, which
+is the honest handling but not a substitute for the test. **Recording this here so that
+the next person to read these lessons finds the promise before they find the results.**

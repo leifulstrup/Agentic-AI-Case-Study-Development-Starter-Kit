@@ -1,5 +1,11 @@
 # Starter Prompt
 
+> **Before you start:** this prompt exists for chat tools that cannot read files on your
+> computer, which means you will be pasting content back and forth. If you can use
+> **Claude Cowork** instead, do — it works on your project folder directly and skips all
+> of that. See the README's Step 3. Everything below still works if you would rather
+> not.
+
 **This prompt is for chat tools** (ChatGPT, Claude.ai, Gemini). If you're using **Claude Code** or **VS Code with GitHub Copilot**, you don't need this file — those tools can read your files directly. Just say *"Help me develop my case study"*.
 
 ---

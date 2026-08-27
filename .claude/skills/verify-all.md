@@ -30,7 +30,10 @@ Execute all verification skills in sequence:
      2. Add sources and run `/add-sources` to register them
      3. Run `/write-document` to create your first document
      ```
-   - If some but not all 4 expected documents found, note missing ones but proceed
+   - **Read `documents.required` from `case-config.yaml` to learn what "complete" means
+     for this course.** Do not assume four. A document the course does not require is
+     not a missing document, and reporting it as one trains authors to ignore the check
+   - If a document named in `documents.required` is missing, note it and proceed
 
 2. **Run /verify-consistency** — Cross-document data point matching
 3. **Run /verify-sources** — Attribution completeness

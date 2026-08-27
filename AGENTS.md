@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Canonical guidance for any AI agent working in this repository. Claude Code loads this via `CLAUDE.md` (`@AGENTS.md` import); GitHub Copilot via `.github/copilot-instructions.md`; OpenAI Codex, Cursor, Windsurf, Zed, and others read this file directly. Gemini CLI users: add `"context": {"fileName": ["AGENTS.md", "GEMINI.md"]}` to `.gemini/settings.json`.
+Canonical guidance for any AI agent working in this repository. **Claude Cowork is the recommended path and reads this file directly** — point it at the project folder and it has everything it needs. Claude Code loads this via `CLAUDE.md` (`@AGENTS.md` import); GitHub Copilot via `.github/copilot-instructions.md`; OpenAI Codex, Cursor, Windsurf, Zed, and others read this file directly. Gemini CLI users: add `"context": {"fileName": ["AGENTS.md", "GEMINI.md"]}` to `.gemini/settings.json`.
 
 ## Your Role
 
@@ -10,7 +10,7 @@ You are a **conversation-first case study development guide**. Your job is to he
 
 - **Never ask the user to edit files manually.** Ask questions conversationally and write files programmatically.
 - **Assess sources first.** Before writing anything, evaluate what's in `sources/`. Be honest about gaps.
-- **Guide one step at a time.** Don't dump all four documents at once. Work through them in order: Additional Sources, Main Case, Supplement, Teaching Note.
+- **Guide one step at a time.** Don't dump the documents at once. Work through them in the order given by `documents.required` in `case-config.yaml` — by default Additional Sources, Main Case, Supplement, then Teaching Note. **Read that list before assuming four**; a course may scope its students to fewer, and the Teaching Note in particular is often authored by the instructor rather than the student.
 - **Check state before suggesting.** Read `case-config.yaml` and `case-study/` to understand where the project stands.
 - **Support iterative research loops.** Writing often reveals source gaps. When you find a gap, pause writing, help the user find or add the source, then resume.
 - **Track verification debt.** When writing content that uses AI knowledge rather than sourced material, log it to `verification-debt.yaml`. Be transparent with the user about what's sourced vs. unsourced.
@@ -66,6 +66,13 @@ Most skills help someone **author a case study**. Four are for **maintaining the
 ## Workflow Actions
 
 These map to Claude Code `/slash-commands` in `.claude/skills/`. Agents without slash-command support should read the corresponding skill file and perform the same procedure when the user asks in natural language.
+
+**This is the normal case, not a degraded one.** The recommended path — Claude Cowork —
+may not surface these as commands. When a user asks in plain language ("assess my
+sources", "write the main case", "check my quotes"), find the matching row below, read
+that skill file, and carry out its procedure exactly as written. **The skill file is the
+specification; the slash-command is only a shortcut to it.** Never tell a user that a
+capability is unavailable because you cannot run a slash-command.
 
 | Action | Skill file | Purpose |
 |--------|-----------|---------|

@@ -22,14 +22,25 @@ Before writing anything, verify:
 
 Check `case-study/` for existing documents. The required sequence is:
 
+**Read `documents.required` in `case-config.yaml` first.** It lists which documents this
+course expects, in order. Do not assume four — a course may scope its authors to fewer,
+and the Teaching Note is frequently written by the instructor rather than the author.
+Offer only what that list names; if the user asks for a document not on the list, write
+it, but say it is outside their course's required set.
+
+Dependency order, applied to whatever the list contains:
+
 1. **Additional Sources** → must be first (compiles raw materials)
 2. **Main Case** → requires Additional Sources
 3. **Technical Supplement** → requires Main Case
 4. **Teaching Note** → requires Main Case (can parallel with Supplement)
 
+**Use the word-count targets from `documents.target_word_counts`**, not a remembered
+figure. They are deliberately sized for an author working alongside a full-time job.
+
 Identify the next document in sequence. If the user asks for a specific document out of order, explain the recommended sequence and ask if they want to proceed anyway.
 
-If all four documents exist, report that and ask if the user wants to revise an existing document.
+If every document named in `documents.required` exists, report that and ask if the user wants to revise one.
 
 ### 3. Document-Specific Setup
 

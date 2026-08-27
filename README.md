@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v3.10.0-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v4.0.0-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -117,17 +117,49 @@ Note: The ZIP option won't have git features (version history, pushing changes).
 
 ### Step 3: Choose Your AI Tool
 
-Pick the option that fits your setup. **Options A and B are agentic** — they can read and edit your files directly. Option C works but requires more manual effort.
+**If you are not sure, use Claude Cowork.** It is the shortest path from a cloned
+folder to a finished case, and it does not require a terminal, an editor, or any
+developer setup. The rest of this section is optional reading — skip to Step 4 unless
+you specifically want a different tool.
 
-| Feature | Claude Code | VS Code + Copilot | Chat Tools |
-|---------|-------------|-------------------|------------|
-| Reads local files | Yes | Yes (Agent Mode) | No |
-| Writes/edits files | Yes | Yes (Agent Mode) | No |
-| Runs terminal commands | Yes | Yes | No |
-| `/slash-commands` | Yes (18 skills) | No (use natural language) | No |
-| Custom instructions | CLAUDE.md | .github/copilot-instructions.md + CLAUDE.md | N/A |
-| Cost | Subscription | Free (GitHub Education) | Free tier varies |
-| Best for | Full automation | Students with VS Code | Quick start, no setup |
+#### Recommended: Claude Cowork
+
+Cowork works on your project folder directly — it reads your sources, writes the case
+documents, and keeps the tracking files current, the same as the developer tools below.
+What it does not require is that you be comfortable with a command line.
+
+1. Open Cowork and point it at the folder you created in Step 2.
+2. Say: **"Read AGENTS.md and help me develop my case study."**
+3. Follow what it asks. It will configure the project, help you gather and assess
+   sources, and write the documents in order.
+
+That is the whole setup. Everything the kit knows how to do lives in `AGENTS.md` and
+the skill files in `.claude/skills/`, and Cowork reads both.
+
+**One thing to know.** The `/slash-commands` listed later in this README are Claude
+Code's command format. If Cowork does not offer them, nothing is lost — ask in plain
+language instead ("assess my sources", "write the main case"), and the agent will read
+the matching skill file and follow the same procedure. `AGENTS.md` instructs it to.
+Every capability is reachable either way; only the shortcut differs.
+
+> **Status: newly added and not yet field-tested.** The Cowork path is documented here
+> because it is the best fit for non-technical authors, but it has not yet been run
+> end-to-end on a real case the way the Claude Code path has. If something in it does
+> not match what you see, please open an issue — that feedback is actively wanted.
+
+#### Alternate paths, if you prefer one
+
+You do not need these. They exist because some authors already work in these tools.
+
+| | Cowork | Claude Code | VS Code + Copilot | Chat Tools |
+|---|---|---|---|---|
+| Reads local files | Yes | Yes | Yes (Agent Mode) | No |
+| Writes/edits files | Yes | Yes | Yes (Agent Mode) | No |
+| Runs terminal commands | No | Yes | Yes | No |
+| `/slash-commands` | Ask in plain language | Yes (20 skills) | No (use natural language) | No |
+| Custom instructions | AGENTS.md | CLAUDE.md | .github/copilot-instructions.md | STARTER_PROMPT.md |
+| Setup required | None | Install + subscription | Install VS Code | None |
+| Best for | **Most authors** | Full automation, developers | Students already in VS Code | Any assistant, most manual |
 
 #### Option A: Claude Code
 
@@ -355,4 +387,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 3.10.0*
+*Template Version: 4.0.0*

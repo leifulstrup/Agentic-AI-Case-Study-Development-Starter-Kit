@@ -464,3 +464,38 @@ plain language with a concrete instruction to start a new chat for verification.
 **Still open, and stated so it is not lost**: the incident that prompted v3.9.0 is not
 explained. The independence rule is the leading hypothesis and shipping it is not the
 same as confirming it.
+
+## 2026-08-26 — v4.0.0: adopting a colleague's onboarding, and lightening the ask
+
+**Context**: a teaching colleague forked v3.1.2, rebuilt the onboarding around Claude
+Cowork for non-technical students, segmented the instructions into a single "happy
+path", and shortened the writing load for MBA students holding full-time jobs. He
+reported that he changed no skill logic — only packaging. His fork was not available, so
+this release was designed from his stated principles rather than from a diff.
+
+**What changed**: Cowork becomes the recommended path with a full inline quickstart and
+the other three tools demoted to documented alternates; the slash-command fallback is
+restated as the normal case rather than a degradation; and `documents.required` in
+`case-config.yaml` now drives which documents `/write-document`, `/verify-all` and
+`/verify-cross-document` expect, with word-count defaults sized for a working
+professional.
+
+**On the Teaching Note**: it stays. Removing it from `documents.required` is how a
+course says "the instructor writes this", and the skill that produces it is untouched.
+Dropping the artifact would have orphaned `/verify-cross-document`, whose main job is
+checking Teaching Note against Main Case.
+
+**Two errors caught in the third-hand summary of the colleague's analysis**, both
+checked against this repository before designing anything: verification debt is gated at
+"zero *or acknowledged*", not blocked at zero; and the v3.2.0 MIT relicensing left
+produced cases defaulting to CC BY-NC, so the educational-content protection he was
+worried about losing was never lost. Neither changed the design. Both would have been
+carried forward as fact if the summary had been trusted.
+
+**The uncomfortable part, recorded rather than smoothed over**: the Cowork path has
+never been run end-to-end. This kit's own field evidence says the least technical path
+serves the users least equipped to notice a missing guardrail, and this release puts an
+untested path in front of exactly those people. The README carries an explicit
+"not yet field-tested" callout asking for issues. **That is honest labelling, not
+evidence.** One full run through Cowork on the fixture is the first thing the next
+release should do — before anything else on the backlog.

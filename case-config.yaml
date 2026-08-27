@@ -55,14 +55,28 @@ course:
 # DOCUMENT SETTINGS
 # -----------------------------------------------------------------------------
 documents:
-  # Target word counts (ranges from methodology)
-  # Main Case: 4,000-6,000 | Supplement: 2,500-4,000
-  # Teaching Note: 2,500-4,000 | Additional Sources: 3,000-5,000
+  # Which documents this course expects the AUTHOR to produce, in order.
+  # Skills read this list — /write-document sequences from it, and /verify-all and
+  # /verify-cross-document only require what it names. Remove a document here and the
+  # kit stops asking for it; the skill that writes it still exists and can be run on
+  # request. Teaching Notes are commonly authored by the instructor rather than the
+  # student, which is what dropping "teaching_note" from this list expresses.
+  required:
+    - additional_sources
+    - main_case
+    - supplement
+    - teaching_note
+
+  # Target word counts. Defaults are sized for a working professional writing alongside
+  # a full-time job; a full-length teaching case runs roughly double. Raise them if your
+  # authors have more time than a typical MBA cohort.
+  #   Lighter (default):  Main 2,500-3,500 | Supplement 1,000-1,500
+  #   Full length:        Main 4,000-6,000 | Supplement 2,500-4,000
   target_word_counts:
-    main_case: 5000
-    supplement: 3000
-    teaching_note: 3000
-    additional_sources: 4000
+    main_case: 3000
+    supplement: 1200
+    teaching_note: 2000
+    additional_sources: 2500
 
   # Classroom session length in minutes (typical: 75-90)
   session_length_minutes: 80
@@ -85,7 +99,7 @@ repository:
 # -----------------------------------------------------------------------------
 template:
   # Version of the template this project was created from
-  version: "3.10.0"
+  version: "4.0.0"
 
   # Source repository for updates
   source: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit"

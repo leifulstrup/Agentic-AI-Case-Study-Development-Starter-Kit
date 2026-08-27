@@ -6,16 +6,17 @@ Quick reference for session continuity. Auto-maintained by skills — you do not
 
 **Repository**: Agentic AI Case Study Development Starter Kit
 **Type**: GitHub template repository
-**Version**: 3.10.0
+**Version**: 4.0.0
 **Course**: ITEC-617, American University Kogod School of Business, Spring 2026
 **Purpose**: Template for developing business school MBA case studies from digital sources using AI tools
 
 ## Current Status
 
-**Phase**: Field-test intake shipped, corrected, and extended into the instructions (v3.10.0). The first field test was classified, converted into seeded regression tests (defect-set v3), and released as fixes. Blind compliance testing then showed that only one of the release's two quote fixes had any measurable effect; v3.9.1 withdraws the other claim. The `/verify-all` orchestration change is confirmed effective under the condition that matters. **The incident that motivated the release remains unexplained.**
+**Phase**: Adoption (v4.0.0). Claude Cowork is now the recommended path and document scope is course-configurable, both adopted from a teaching colleague's fork for non-technical students. **The Cowork path has not been field-tested** — one end-to-end run is the next release's first job. The first field test was classified, converted into seeded regression tests (defect-set v3), and released as fixes. Blind compliance testing then showed that only one of the release's two quote fixes had any measurable effect; v3.9.1 withdraws the other claim. The `/verify-all` orchestration change is confirmed effective under the condition that matters. **The incident that motivated the release remains unexplained.**
 
 **Agentic Tool Paths**:
-- [x] Claude Code — 18 `/slash-commands` via `.claude/skills/`
+- [x] Claude Cowork — **recommended**; reads `AGENTS.md` directly, no setup (untested end-to-end)
+- [x] Claude Code — 20 `/slash-commands` via `.claude/skills/`
 - [x] VS Code + GitHub Copilot — Agent Mode via `.github/copilot-instructions.md`
 - [x] Chat Tools — Starter prompt via `STARTER_PROMPT.md`
 
