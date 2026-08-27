@@ -552,3 +552,34 @@ files under `templates/`, and most damagingly the config template inside
 values back. The documented default and the generated default were different numbers and
 the generator won. Fixed by removing the duplicates rather than syncing them: the
 templates now reference `documents.target_word_counts` instead of restating it.
+
+## 2026-08-27 — v4.2.1: what a no-slash-command run found
+
+**Context**: v4.0.0 made Cowork the recommended path without testing it. Actual Cowork
+is not reachable from this environment, so the nearest available test was run instead: an
+agent given the project folder, `AGENTS.md`, and no slash-command surface, handed the
+README's own opening phrase by a notional non-technical professor.
+
+**The v4.0.0 premise holds.** The agent read `AGENTS.md`, located every procedure through
+the skills table, ran eight of them, and produced a complete four-document package with
+no slash-commands. It quoted the rule that the skill file is the specification and the
+command only a shortcut. That was the thing most at risk and it works.
+
+**Three defects, none subtle, all read past repeatedly by people with a terminal open:**
+`documents.required` was mandated in bold with no handling for the many projects that
+predate it; the Cowork path promised no terminal while the README's own Step 2 opens with
+`git clone`; and word-count targets were stated but never checked, with the agent
+overshooting every one of them by 23-55%.
+
+**The length finding matters most**, arriving one release after the targets were halved.
+Cutting a number in a config file does nothing if drafts land 41% over it. `write-document`
+now budgets the target across sections before writing, measures when finished, and cuts
+before showing the author rather than apologising afterwards.
+
+**An observation worth recording separately**: the agent, following v3.10.0's
+independence rule, commissioned a verifier that had not written the documents. That
+verifier found 20 quote defects. The agent fixed them and reported all fixed — a second
+independent pass found **eight were still wrong and the correction round had introduced
+eleven new ones**. A self-check reported success it had not achieved, which is the shape
+of the still-unexplained field incident. Not a controlled test of that question, but the
+first direct sighting of the mechanism.

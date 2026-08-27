@@ -26,7 +26,10 @@ Check `case-study/` for existing documents. The required sequence is:
 course expects, in order. Do not assume four — a course may scope its authors to fewer,
 and the Teaching Note is frequently written by the instructor rather than the author.
 Offer only what that list names; if the user asks for a document not on the list, write
-it, but say it is outside their course's required set.
+it, but say it is outside their course's required set. **If `documents.required` is not
+in the file at all**, the project predates the setting: fall back to all four, mention
+once that the setting exists and can scope the set, and continue. Never treat the absent
+key as a problem to stop on.
 
 Dependency order, applied to whatever the list contains:
 
@@ -37,6 +40,27 @@ Dependency order, applied to whatever the list contains:
 
 **Use the word-count targets from `documents.target_word_counts`**, not a remembered
 figure. They are deliberately sized for an author working alongside a full-time job.
+
+**Then hold yourself to them.** Measured behaviour, not a hypothetical: in testing, an
+agent following this skill overshot every target it was given by 23-55%, averaging 41%
+over on the package. Nobody intended that — long drafts simply feel thorough while you
+are writing them. So:
+
+- **Budget before you write.** Divide the target across the planned sections and note
+  each section's share. A 2,500-word Main Case is roughly 250 words per section across
+  ten sections; that is a short section, and knowing it in advance changes what you draft.
+- **Count when each document is finished** and compare against the target. Over by more
+  than 10%, cut before showing the author — do not hand them an over-length draft and an
+  apology.
+- **Cut by deleting, not by compressing.** Remove the weakest example, the third
+  supporting quotation, the paragraph restating the previous one. Squeezing prose to hit
+  a number makes it worse; dropping the least load-bearing material makes it better.
+- **Report the number.** End with the actual word count against the target, so the author
+  can see the constraint was honoured rather than take it on trust.
+
+Going over is a real cost, not a stylistic preference: the author has other work, and the
+professor reviewing it has a stack of these. A case too long to revise does not get
+revised.
 
 Identify the next document in sequence. If the user asks for a specific document out of order, explain the recommended sequence and ask if they want to proceed anyway.
 
@@ -149,6 +173,9 @@ After writing each section, perform lightweight checks:
   EDITED or ASR, is the convention applied here rather than deferred?
 - **Number check**: Does every statistic or financial figure cite its source?
 - **Claim check**: Are there any claims that came from AI knowledge rather than source documents?
+- **Length check**: Is this section within its share of the document's word budget? If the
+  document is trending long, correct it now — over-length is far cheaper to fix a section
+  at a time than in one pass at the end.
 
 For any unverified claims found:
 - Flag them inline with a comment: `<!-- VERIFY: [claim] — source needed -->`

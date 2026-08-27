@@ -5,7 +5,7 @@
 **Case**: ______________________________________
 **Author(s)**: ______________________________________
 **Date of last clean `/verify-all` run**: ______________
-**Template version**: 4.2.0
+**Template version**: 4.2.1
 
 ## The pledge
 

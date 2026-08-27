@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v4.2.0-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v4.2.1-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -202,6 +202,16 @@ Cowork works on your project folder directly — it reads your sources, writes t
 documents, and keeps the tracking files current, the same as the developer tools below.
 What it does not require is that you be comfortable with a command line.
 
+**Two places still touch the command line, and you can avoid both.** Getting the files
+onto your computer (Step 2) is written with `git clone` — instead, use GitHub's
+**"Download ZIP"** button and unzip it wherever you keep your work. And `/export-pdf`
+prepares your markdown but hands the actual conversion to a tool like Pandoc; you can
+skip that and open the finished `.md` files in Word, Google Docs, or any markdown editor
+to produce a PDF. Saving your work with `/git-update` is also git-based — if you are not
+using git, keep the folder in a synced drive and skip that step. **Nothing in the
+authoring, sourcing, or verification workflow needs a terminal**; those three
+conveniences do.
+
 1. Open Cowork and point it at the folder you created in Step 2.
 2. Say: **"Read AGENTS.md and help me develop my case study."**
 3. Follow what it asks. It will configure the project, help you gather and assess
@@ -232,7 +242,7 @@ You do not need these. They exist because some authors already work in these too
 | Runs terminal commands | No | Yes | Yes | No |
 | `/slash-commands` | Ask in plain language | Yes (20 skills) | No (use natural language) | No |
 | Custom instructions | AGENTS.md | CLAUDE.md | .github/copilot-instructions.md | STARTER_PROMPT.md |
-| Setup required | None | Install + subscription | Install VS Code | None |
+| Setup required | None (download the ZIP) | Install + subscription | Install VS Code | None |
 | Best for | **Most authors** | Full automation, developers | Students already in VS Code | Any assistant, most manual |
 
 #### Option A: Claude Code
@@ -461,4 +471,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 4.2.0*
+*Template Version: 4.2.1*

@@ -329,3 +329,21 @@ basis to judge yet, on their first interaction with the kit. Recommending one si
 asking only *"does that work, or would you like it longer or shorter?"* gets a real
 answer from someone who has not thought about it, and still gets out of the way of
 someone who has. **Defaults are advice; menus are homework.**
+
+## v4.2.1 — 2026-08-27 (proxy findings)
+
+**69. A target nobody checks is a wish.** The kit named word-count targets for four
+releases and never told anyone to measure against them, and drafts came in 23-55% over —
+consistently, in every document, without anyone intending it. Long drafts feel thorough
+while you are writing them, and nothing in the workflow interrupted that feeling. Halving
+the targets in v4.2.0 would have changed the numbers in a config file and almost nothing
+about the output. **Every number the kit asks someone to hit needs a step that compares
+against it**, or it is decoration.
+
+**70. Run your instructions in the conditions your least-equipped user is in.** Three
+defects surfaced within one run of the workflow without slash-commands — an instruction
+to read a key that does not exist in older projects, a promise of no terminal contradicted
+by the README's own second step, and unenforced length targets. None was subtle. All three
+had been read past repeatedly by people who had a terminal open, a current config, and no
+reason to notice. **Comfort is the thing that hides the defect**; the way to find it is to
+take the comfort away.

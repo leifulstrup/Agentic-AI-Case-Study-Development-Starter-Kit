@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.2.1] - 2026-08-27
+
+*Three defects found by running the workflow with no slash-commands, as a Cowork user
+would. Two were introduced in v4.0.0; the third has probably always been there.*
+
+### Fixed
+- **`documents.required` had no handling for a config that lacks it.** v4.0.0 told agents
+  in bold to read that key before assuming four documents, and never said what to do when
+  it is absent — which is the case for every project created before v4.0.0. An agent hit
+  exactly that and had to guess. Both `AGENTS.md` and `write-document.md` now say: fall
+  back to all four, mention once that the setting exists, continue. **A missing key is a
+  default, not an error**
+
+- **The Cowork path claimed no terminal was needed, and that was not true.** v4.0.0 said
+  Cowork "does not require a terminal, an editor, or any developer setup" while the
+  README's own Step 2 opens with `git clone`, `/export-pdf` hands over a Pandoc command,
+  and `/git-update` is entirely git. The README now names all three and gives the
+  non-terminal alternative for each — GitHub's Download ZIP button, opening the finished
+  markdown in Word or Docs to make a PDF, and keeping the folder in a synced drive if you
+  are not using git. **Nothing in the authoring, sourcing or verification workflow needs a
+  terminal**; those three conveniences do, and saying so is better than a claim an author
+  discovers is wrong at step two
+
+- **Word-count targets were stated but never enforced, and agents overshoot badly.** In
+  testing, an agent following `write-document` exceeded every target it was given —
+  Main Case +37%, Supplement +49%, Teaching Note +23%, Additional Sources +55%, **+41% on
+  the package**. Halving the targets in v4.2.0 achieves nothing if drafts land 41% over
+  them. The skill now requires budgeting the target across planned sections *before*
+  writing, checking the count when each document is finished, cutting when more than 10%
+  over **before** showing the author, cutting by deleting the weakest material rather than
+  compressing prose, and reporting the final count against target. A per-section length
+  check is added to the inline verification, because over-length is far cheaper to correct
+  a section at a time than in one pass at the end
+
+### Notes
+- All three were found by having an agent run the full workflow from `AGENTS.md` with no
+  slash-command surface — the condition a Cowork user is in. That test also confirmed the
+  v4.0.0 premise holds: the agent located every procedure through `AGENTS.md`, ran eight
+  of them, and produced a complete four-document package without a single slash-command
+- It does **not** substitute for running actual Cowork, and the README's "not yet
+  field-tested" callout stands
+
 ## [4.2.0] - 2026-08-27
 
 *Document lengths cut to roughly half, and `/setup-case` now recommends rather than

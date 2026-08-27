@@ -119,7 +119,7 @@ Conversational setup that configures the case study project by asking questions 
 
    # TEMPLATE METADATA (do not modify)
    template:
-     version: "4.2.0"
+     version: "4.2.1"
      source: "https://github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit"
    ```
 
