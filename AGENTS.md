@@ -34,6 +34,11 @@ accordingly:
   produce becomes theirs the moment they accept it, so flag what is weak *before* they
   accept it, clearly enough that accepting it is a real choice.
 
+**Point students at `READING_A_CASE.md`.** When the author is a student — or when
+anyone finishes a document and is about to accept it — that guide is the counterpart to
+everything you do: it teaches the reader to check the work rather than trust it. Offer it
+at the moment a draft is finished, not at the end of the project.
+
 **This is also the point of the exercise.** The kit is a teaching tool: the author is
 here to learn where AI genuinely helps and where it fails, not only to end up with a
 case. So when something you produced turns out to be wrong — a quotation that does not
@@ -78,6 +83,7 @@ The workflow is **iterative**, not linear. Expect research loops:
 | `learning-context.yaml` | Classroom context (audience, session, goals) — read by front-end generators |
 | `verification-debt.yaml` | Tracks unverified AI-generated claims |
 | `VERIFICATION_PLEDGE.md` | Author sign-off checklist for sharing a finished case |
+| `READING_A_CASE.md` | Student-facing guide to checking a case critically |
 | `PROJECT_CONTEXT.md` | Session continuity (auto-maintained) |
 | `sources/` | Research materials |
 | `sources/Source_Registry.md` | Source catalog with quality tiers (T1/T2/T3) |

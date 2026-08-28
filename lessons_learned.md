@@ -397,3 +397,29 @@ a hardcoded version fourteen releases stale, examples advertising a length the k
 longer targets, a publication bar that cannot be met offline. Reading your own
 instructions does not find these, because you read what you meant. **Running them does**,
 because an agent has only what you wrote.
+
+## v4.4.0 — 2026-08-27 (the reader)
+
+**77. An absence of records is not an absence of evidence.** A status review marked
+classroom teaching "untested" because `evals/test-log.md` had no entry for it. The kit had
+in fact been used by roughly thirty students and three faculty, with at least two case
+packages taught successfully — none of it logged, all of it known to the maintainer. The
+review then ranked a roadmap on that hole. **This is the project's own most-repeated bug
+wearing different clothes**: a check that reports "none found" having looked in exactly
+one place. When the record is silent about something important, the next move is to ask
+the person who would know, not to conclude it never happened.
+
+**78. Teach with your failures, not your successes.** The student guide is built almost
+entirely from defects this project shipped and later caught — a verification that passed
+over five real misquotations, a headline number that came from the interviewer, a
+correction round that made three integrity claims *more precisely false*. Invented
+examples would have been tidier and taught less. **A documented history of being
+confidently wrong is a teaching asset**, and most projects discard it out of
+embarrassment. Keeping `lessons_learned.md` honest turned out to have a second payoff
+nobody planned.
+
+**79. Distinguish what is proven from what is merely adjacent to it.** The workflow is
+classroom-proven; the verification machinery added since v3.3 is not, because the cohort
+that used it ran on v3.1.x. Those two facts sit one sentence apart and blur together very
+easily — "the kit is classroom-proven" would be true and would smuggle in a claim about
+code no student has ever run.

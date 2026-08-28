@@ -7,6 +7,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.0] - 2026-08-27
+
+*The kit has always made the author careful. It has never taught the reader to check.
+This adds the missing half — and corrects the project's own record, which understated its
+classroom use badly enough to distort the roadmap.*
+
+### Added
+- **`READING_A_CASE.md` — a student-facing guide to checking a case critically.** Every
+  verification tool in this kit points at the person writing the case; the student
+  receives a verified artifact and is implicitly invited to trust it, which is the
+  opposite of the outcome the exercise exists to produce. The guide inverts that. It
+  covers six failure patterns — **each one a real defect from this project's own logs,
+  cited with the run it came from** — a thirty-minute checking procedure short enough
+  that students will actually run it, three exercises including verifying a classmate's
+  case, and a reflection prompt whose most useful entry is *"one thing you accepted
+  without checking, and why."*
+  - The material is deliberately drawn from the maintainers' failures rather than
+    invented examples: a verification pass that reported clean over five real quote
+    defects; a headline figure spoken by an interviewer and carried as the subject's
+    claim in three of four documents; a 33-source base that was 82% the subject
+    describing himself; a correction round that introduced eleven new defects while
+    fixing twenty-five; and an AI reporting *"Fixed. All 15 converted"* with eight still
+    live. **A record of being confidently wrong teaches this better than any invented
+    example, and the project has an unusually complete one**
+  - Wired into the README's file table and teaching section, and into `AGENTS.md` so
+    agents offer it when a draft is finished rather than at the end of the project
+
+### Changed
+- **`PROJECT_CONTEXT.md` now records the kit's actual classroom use.** Roughly **30 MBA
+  students and 3 faculty** have built cases with it, students in both roles the kit
+  supports — authoring and critiquing their own work — and faculty have **taught with the
+  output of at least two case developments.** The testing history listed three individual
+  tests and none of this, so the repository's own record implied the pedagogical premise
+  was unproven when it has been demonstrated at cohort scale
+  - The correction comes with the distinction that matters: that adoption ran on
+    **v3.1.x-era releases**, before source integrity, the independence cap, the freeze
+    protocol, and the halved lengths. **The method is classroom-proven; the current
+    verification pipeline is not.** Those are two different claims and the record now
+    keeps them apart
+
+### Notes
+- The understatement had a cost worth naming: a status review written the same day marked
+  classroom teaching **untested** and ranked the roadmap accordingly. That conclusion was
+  drawn from what the repository's logs contained rather than from what its maintainer
+  knew — **an absence of records read as an absence of evidence**, which is the same
+  failure this project has documented in its own tooling more than ten times
+
 ## [4.3.1] - 2026-08-27
 
 *Five defects found by running a full authoring pass against the fixture — the first run

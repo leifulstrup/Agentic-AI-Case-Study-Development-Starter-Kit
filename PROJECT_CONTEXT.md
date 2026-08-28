@@ -6,7 +6,7 @@ Quick reference for session continuity. Auto-maintained by skills — you do not
 
 **Repository**: Agentic AI Case Study Development Starter Kit
 **Type**: GitHub template repository
-**Version**: 4.3.1
+**Version**: 4.4.0
 **Course**: ITEC-617, American University Kogod School of Business, Spring 2026
 **Purpose**: Template for developing business school MBA case studies from digital sources using AI tools
 
@@ -52,6 +52,25 @@ See `verification-debt.yaml` for details.
 - Rob Silverman (beginner): Chat tool path tested — exposed UX issues fixed in v3.0.0
 - Leif's Moderna case (power-user): Full Claude Code path tested — exposed verification and bias issues fixed in v3.0.0
 - Copilot Agent Mode (v3.1.0): Two tests passed — status check and source assessment both used correct terminology and process model
+
+### Classroom adoption (v3.1.x-era releases)
+
+**The kit has been used in teaching, and this record previously did not say so.**
+Approximately **30 MBA students and 3 faculty** have built cases with it. Students used
+it in both roles the kit supports — authoring their own cases, and critiquing them as
+part of learning to work with AI. **Faculty have taught with the output of at least two
+case developments, successfully.**
+
+Two things follow. First, the pedagogical premise is not speculative: the workflow
+survives contact with a real cohort, and students critiquing their own AI-assisted work
+is an established use rather than an aspiration. Second, this adoption ran on **v3.1.x-era
+releases** — before source integrity (v3.3), the independence cap, the freeze protocol,
+the verification-independence rule, and the halved document lengths. Feedback from those
+users describes an earlier kit, and the newer verification machinery has correspondingly
+*less* classroom evidence behind it than the workflow as a whole.
+
+**Nothing since v3.1.x has been taught.** Keep the two claims distinct: the method is
+classroom-proven; the current verification pipeline is not.
 
 ## Next Steps
 

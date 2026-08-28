@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v4.3.1-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v4.4.0-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -152,6 +152,12 @@ frequently wrong, said in complete good faith** — in the same test an AI repor
 corrections complete when eight were still sitting in the documents. It was not being
 evasive; it had genuinely lost track. Neither of those is a reason to distrust the tool.
 They are reasons to check its work, which is your job anyway.
+
+**Students: start with [`READING_A_CASE.md`](READING_A_CASE.md).** It covers what actually
+goes wrong — every example drawn from a real failure in this project's own logs — a
+thirty-minute checking procedure, and three exercises including verifying a classmate's
+case. Checking a case teaches more than building one, and it is the half most courses
+skip.
 
 **Notice those moments and write them down** — the reflection is a large part of the learning, arguably larger than the
 finished document. `lessons_learned.md` exists for exactly that, and this project's own
@@ -369,6 +375,7 @@ Check your progress anytime: `/check-status`
 |------|---------|
 | `AGENTS.md` | Canonical instructions for AI agents (all tools) |
 | `VERIFICATION_PLEDGE.md` | Author sign-off checklist for sharing a finished case |
+| `READING_A_CASE.md` | **For students** — how to check a case critically, with a 30-minute procedure and three exercises |
 | `STARTER_PROMPT.md` | Prompt for chat tools (ChatGPT, Claude.ai, Gemini) |
 | `case-config.yaml` | Central configuration (auto-written by `/setup-case`) |
 | `learning-context.yaml` | Classroom context for tailoring generated teaching materials |
@@ -482,4 +489,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 4.3.1*
+*Template Version: 4.4.0*

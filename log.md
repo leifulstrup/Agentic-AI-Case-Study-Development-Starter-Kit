@@ -652,3 +652,31 @@ you read what you meant. Running them does, because an agent has only what you w
 **Kept**: the case package at `eval-runs/authoring-2026-08-27/`, outside any repository —
 four documents, four exports, nine logs, a full defect history, and an honest status of
 not fit to publish.
+
+## 2026-08-27 — v4.4.0: the missing half of the pedagogy
+
+**Context**: two facts arrived together. The kit has been used by roughly 30 MBA students
+and 3 faculty, with at least two case packages taught successfully — none of it in the
+repository's record. And the largest gap between what the kit does and what it is *for*
+was that every verification tool points at the author, leaving the student a passive
+recipient of a verified artifact.
+
+**`READING_A_CASE.md`** closes the second. Six failure patterns, a thirty-minute checking
+procedure, three exercises, and a reflection prompt. Every example is a real defect from
+this project's logs rather than an invention — the verification pass that reported clean
+over five misquotations, the headline figure spoken by an interviewer and carried as the
+subject's claim, the 82%-self-sourced base that looked rigorous, the correction round that
+introduced eleven defects while fixing twenty-five. The record of being wrong turned out to
+be the most valuable teaching material available, which is not a use anyone anticipated for
+`lessons_learned.md`.
+
+**`PROJECT_CONTEXT.md`** closes the first, with the distinction that matters kept intact:
+the adoption ran on v3.1.x-era releases, so the *method* is classroom-proven while the
+verification pipeline built since is not. Two claims, one sentence apart, very easy to
+blur.
+
+**Worth recording plainly**: a status review written earlier the same day marked classroom
+teaching untested and ordered its recommendations around that. It was reading the logs
+rather than asking the maintainer — an absence of records taken for an absence of evidence,
+which is this project's most-repeated bug in different clothing. The review has been
+corrected.
