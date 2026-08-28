@@ -160,6 +160,8 @@ as **NOT RUN** and listed under Critical Issues.
 - [ ] Disclaimers added (/add-disclaimers)
 - [ ] Cross-document alignment confirmed
 - [ ] PDF exports generated (/export-pdf)
+- [ ] Field report offered to the author (`report-experience.md`) — once, at the end,
+      declining is fine
 ```
 
 ## After the Author Fixes What You Found

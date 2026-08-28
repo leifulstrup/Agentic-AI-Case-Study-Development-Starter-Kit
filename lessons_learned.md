@@ -423,3 +423,26 @@ classroom-proven; the verification machinery added since v3.3 is not, because th
 that used it ran on v3.1.x. Those two facts sit one sentence apart and blur together very
 easily — "the kit is classroom-proven" would be true and would smuggle in a claim about
 code no student has ever run.
+
+## v4.5.0 — 2026-08-28 (collection)
+
+**80. Collect evidence at the moment it exists, not when you get around to asking.** The
+plan was to survey thirty past users about runs they finished weeks ago. What they would
+remember is the outcome; what matters is the friction, and friction is forgotten within
+hours of being worked around. The agent that just spent an hour inside the run still has
+all of it — which instruction was ambiguous, which step dragged, which file was missing.
+**Ask the party that was present.** A survey harvests once and decays; an end-of-run
+prompt compounds with every future user.
+
+**81. The most valuable question is not "what went wrong" but "what did you work
+around".** People report failures. They do not report the step they quietly skipped, the
+field they left blank, the automatic thing they did by hand — because at the time it felt
+like coping rather than a defect, and by the end it feels like how the tool works.
+**Workarounds mark exactly where the design is wrong and where no complaint will ever be
+filed.** Every feedback form should ask for them by name.
+
+**82. Put the submit button in the user's hand.** The agent drafts, shows the full text,
+and hands over a pre-filled link — it never posts. That is partly consent and partly
+adoption: a mechanism needing a CLI and an authenticated account would have excluded most
+of this kit's actual users, who are professors and students rather than developers. **The
+lowest-friction path that still requires a human decision is usually a link.**

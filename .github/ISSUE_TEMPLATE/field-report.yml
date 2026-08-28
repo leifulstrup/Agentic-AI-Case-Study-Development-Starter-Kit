@@ -1,0 +1,138 @@
+name: Field report — how a real run went
+description: What happened when you actually used the kit. Usually filled in for you by the AI you were working with, at the end of a case.
+title: "[Field] "
+labels: ["field-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **This is the most useful thing anyone sends us.** Everything the kit has learned
+        about its own failures came from watching real runs, not from planning.
+
+        If an AI assistant drafted this for you: read it before submitting, delete anything
+        you would rather not share, and change any wording that does not match what
+        happened. It is your report.
+
+        **Please do not paste case content, source material, or file paths from your
+        computer.** Describe what the *kit* did — "the source assessment passed a base
+        that was almost entirely the company's own material" rather than the material
+        itself.
+
+  - type: input
+    id: version
+    attributes:
+      label: Kit version
+      description: In `TEMPLATE_VERSION`, or the README badge.
+      placeholder: "4.4.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: path
+    attributes:
+      label: Which tool did you use?
+      options:
+        - Claude Cowork
+        - Claude Code
+        - VS Code + GitHub Copilot
+        - Chat tool (ChatGPT, Claude.ai, Gemini)
+        - Other / more than one
+    validations:
+      required: true
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: You are
+      options:
+        - Faculty building a case to teach
+        - Faculty using the kit with students
+        - Student building a case
+        - Student critiquing a case
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Where in the workflow did this come up?
+      options:
+        - Getting set up / installing
+        - Choosing a topic (scouting)
+        - Gathering and registering sources
+        - Source assessment / the go-no-go gate
+        - Coaching — closing source gaps
+        - Writing the documents
+        - Verification
+        - Fixing what verification found
+        - Publishing / exporting
+        - Teaching with the result
+        - Across the whole run
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of thing is it?
+      description: A rough call is fine — we re-classify on our end anyway.
+      options:
+        - "DEFECT — the kit did something incorrect"
+        - "GAP — the kit did nothing where it should have done something"
+        - "FRICTION — the kit was right, but the path was slow or confusing"
+        - "MISFIT — the kit assumed a kind of case that did not match mine"
+        - "WORKED WELL — worth knowing what to protect"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: What happened?
+      description: What you expected, what happened instead. Behaviour of the kit, not content of your case.
+      placeholder: |
+        The source assessment returned YELLOW on a base that was almost entirely the
+        subject's own writing. It described the imbalance accurately in the report and
+        still cleared us to start writing.
+    validations:
+      required: true
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: What did you work around?
+      description: |
+        **The most valuable field on this form.** Anything you or your AI assistant quietly
+        did differently because the kit's way did not fit — a step skipped, an instruction
+        ignored, a file edited by hand that was supposed to be automatic. Workarounds are
+        where the design is wrong and nobody thinks to complain.
+      placeholder: |
+        We stopped using the export step and just opened the markdown in Word.
+        The AI kept asking for a config field our course does not use, so we left it blank.
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What would have helped?
+      description: No need to design a fix — saying what you wanted at that moment is enough.
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else worth knowing
+      description: Subject matter of the case in general terms, cohort size, time available, unusual constraints. Optional.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Before you submit
+      options:
+        - label: I have read this report and it contains no case content, source material, student work, or paths from my computer.
+          required: true

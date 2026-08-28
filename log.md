@@ -680,3 +680,34 @@ teaching untested and ordered its recommendations around that. It was reading th
 rather than asking the maintainer — an absence of records taken for an absence of evidence,
 which is this project's most-repeated bug in different clothing. The review has been
 corrected.
+
+## 2026-08-28 — v4.5.0: the kit collects its own evidence
+
+**Context**: the previous session's plan for gathering field evidence was to survey the
+~30 students and 3 faculty who have used the kit. Workable once, and it decays — you chase
+people about runs they finished weeks ago, and what they remember is the outcome rather
+than the friction.
+
+**The better mechanism, suggested by Leif**: have the agent offer a short field report as
+the final optional step of a run. It knows what the user does not — which instruction it
+interpreted because it was ambiguous, what it worked around, which step dragged, which
+referenced file did not exist — and it knows it for about an hour after finishing.
+
+**What shipped**: `/report-experience`, offered once at the end and dropped without
+argument if declined; a structured GitHub issue form carrying version, tool path, role,
+stage, classification, what happened, and what was worked around. Reports use the
+DEFECT / GAP / FRICTION / MISFIT taxonomy the intake method already uses, so triage is
+pre-done.
+
+**Three design decisions worth recording.** The agent drafts from its own memory rather
+than interviewing the user, because the valuable material is the part the user never saw.
+Submission is a pre-filled link rather than a `gh` call — most people using this kit have
+neither a GitHub CLI nor an authenticated account, and the link also puts the submit button
+in their hand rather than the agent's. And privacy is applied while drafting: a report
+describes kit behaviour, never case content, with the rewrite shown explicitly in the skill
+rather than left as a rule the user is asked to enforce afterwards.
+
+**The uncomfortable observation** that goes with this release: the project has spent months
+building seeded-defect sets and blind agent probes to generate evidence, while thirty real
+users' experience went uncollected and no mechanism existed to capture the thirty-first.
+This is the cheap instrument that should have been built first.

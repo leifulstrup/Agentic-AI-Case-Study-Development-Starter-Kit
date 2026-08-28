@@ -184,6 +184,16 @@ Then check across documents: do the same figures match everywhere, does the arit
 
 If you used information from your training data rather than my sources, tell me explicitly: "Note: I used general knowledge for [X]. You should verify this against [suggested source type]."
 
+## When We're Done
+
+Offer to draft me a short note for the kit's maintainers about how this went — especially
+**anything you worked around** because my instructions or the kit's did not quite fit, and
+anything the kit told us that turned out to be wrong. Show me the text, and give me the
+link to file it at
+`github.com/leifulstrup/Agentic-AI-Case-Study-Development-Starter-Kit/issues/new?template=field-report.yml`.
+Don't include my case content or my sources — describe what the *kit* did. Ask once; if I
+say no, drop it.
+
 ## Before I Share This Case
 
 Walk me through a final check and tell me honestly where I stand:

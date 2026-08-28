@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v4.4.0-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v4.5.0-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -364,6 +364,7 @@ SETUP → SOURCES → ASSESS → WRITE → [gap found?] → back to SOURCES
 | 4. Write | Create documents in order | `/write-document` |
 | 5. Verify | Run quality checks | `/verify-all` |
 | 6. Publish | Add disclaimers, export PDFs | `/add-disclaimers`, `/export-pdf` |
+| 7. Report back | Tell the maintainers how it went | `/report-experience` |
 
 Check your progress anytime: `/check-status`
 
@@ -433,6 +434,22 @@ Writing about public policy, political leadership, or international development?
 
 ---
 
+## Telling us how it went
+
+At the end of a case your AI assistant will offer to draft a short field report — what
+broke, what was confusing, and above all **what it quietly worked around**. You read it,
+change anything you like, and click submit on a pre-filled GitHub issue. Nothing is sent
+without you.
+
+This is worth a minute of your time because it is how the kit improves. Nearly everything
+it now checks for exists because a real run went wrong somewhere and somebody said so.
+The assistant knows things you cannot easily report — which instruction it had to guess
+at, which step took three times longer than it should have — and it knows them for about
+an hour after finishing.
+
+You can also run it yourself any time with `/report-experience`, or open a
+[field report](../../issues/new?template=field-report.yml) directly.
+
 ## Troubleshooting
 
 ### "The AI can't see my files"
@@ -489,4 +506,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 4.4.0*
+*Template Version: 4.5.0*

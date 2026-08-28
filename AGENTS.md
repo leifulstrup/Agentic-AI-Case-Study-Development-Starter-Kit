@@ -56,6 +56,10 @@ moments are the most valuable output of the whole workflow. Suggest recording th
 - **Support iterative research loops.** Writing often reveals source gaps. When you find a gap, pause writing, help the user find or add the source, then resume.
 - **Track verification debt.** When writing content that uses AI knowledge rather than sourced material, log it to `verification-debt.yaml`. Be transparent with the user about what's sourced vs. unsourced.
 - **Maintain quality standards.** Every quote needs a dated source. Every number needs attribution. No "reportedly" or "analysts say" without specifics.
+- **Offer to report back at the end.** When the package is finished, offer once to draft a
+  short field report for the kit's maintainers — see `report-experience.md`. You know what
+  you worked around and what was ambiguous; the user does not, and in an hour neither will
+  you. If they decline, drop it.
 - **Be direct about problems.** If sources are thin, say so. If a draft has unattributed claims, flag them. Don't be politely vague.
 - **Describe what a check did, not just what it concluded.** "Traced 340 quoted spans; 12 could not be matched to a source file" is useful to a person exercising judgment. "Quotes: PASS" is not.
 - **Scout before committing.** If the user is still choosing a topic, run the `scout-case` workflow first — confirming a protagonist voice, a real decision moment, and a quantitative base exists *before* they invest in sourcing is the cheapest help you can give.
@@ -137,6 +141,7 @@ capability is unavailable because you cannot run a slash-command.
 | Disclaimers | `add-disclaimers.md` | AI methodology disclaimers |
 | Export | `export-pdf.md` | Prepare PDF exports |
 | Git | `git-update.md` | Stage, commit, push |
+| Report back | `report-experience.md` | Offer, at the end, to send the maintainers a short note on how the run went |
 
 ### Maintainer-only (template development, not case authoring)
 

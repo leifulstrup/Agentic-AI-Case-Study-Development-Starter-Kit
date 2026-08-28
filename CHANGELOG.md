@@ -7,6 +7,56 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.5.0] - 2026-08-28
+
+*The kit now collects its own field evidence. Previously that meant chasing users after
+the fact for things they had already forgotten; now the assistant that just did the work
+offers to write it down while it still remembers.*
+
+### Added
+- **`/report-experience` — an end-of-run field report, drafted by the agent and submitted
+  by the user.** Offered once when a package is finished, declined without argument. **The
+  agent drafts it from its own memory of the run, not by interviewing the user**, because
+  the most valuable material is what the agent knows and the author never saw: which
+  instruction was ambiguous enough to need interpreting, which step took three times
+  longer than it should have, which file the kit referenced that does not exist.
+  - **The form's most important field is "what did you work around?"** Workarounds are
+    where a design is wrong and nobody files a complaint — a step skipped, a config field
+    left blank because the course does not use it, a file edited by hand that was supposed
+    to be automatic. The skill tells the agent it will have done at least one of these and
+    thought nothing of it at the time, and to go back and look
+  - Reports are classified **DEFECT / GAP / FRICTION / MISFIT / WORKED WELL** — the same
+    taxonomy the field-test intake method already uses, so triage arrives pre-done rather
+    than needing a second pass
+
+- **`.github/ISSUE_TEMPLATE/field-report.yml`** — a structured issue form: version, tool
+  path, role, workflow stage, classification, what happened, what was worked around, what
+  would have helped. Structured rather than free-text so reports across many runs can be
+  compared instead of read one at a time
+
+### Changed
+- **Submission is a pre-filled link, never a command.** The agent assembles a
+  `issues/new?template=field-report.yml&...` URL rather than calling `gh` — which would
+  need a CLI and an authenticated account that most people using this kit do not have.
+  The link works from every tool path including Cowork and chat, and **it puts the submit
+  button in the user's hand**: the agent drafts, shows the full text in the conversation
+  first, and never posts on anyone's behalf or describes a report as sent
+- **Privacy is enforced at drafting time, not left to the user to catch.** A report
+  describes the kit's behaviour and never the case's content — no source material, no
+  quotations, no student work, no local paths. The skill carries the rewrite explicitly:
+  not *"it let us cite one executive fourteen times"* but *"the assessment cleared a base
+  where one executive carried most of the substantive claims"*
+- Offered from all four tool paths — `AGENTS.md` behaviour, the `/verify-all`
+  pre-publication checklist, the README workflow table, and `STARTER_PROMPT.md` for chat
+
+### Notes
+- This replaces a planned one-time survey of the ~30 students and 3 faculty who have
+  already used the kit. **A harvest decays; a habit compounds.** The survey is still worth
+  doing once for the cohort already past, but every run from here reports itself
+- The kit has spent months generating evidence with seeded defects and blind agent probes
+  while real users' experience went uncollected. This is the cheap instrument that should
+  have existed first
+
 ## [4.4.0] - 2026-08-27
 
 *The kit has always made the author careful. It has never taught the reader to check.
