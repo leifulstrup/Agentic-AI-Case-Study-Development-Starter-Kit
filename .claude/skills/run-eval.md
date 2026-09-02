@@ -8,7 +8,7 @@ Execute a regression run of the kit against a frozen fixture, so results are com
 /run-eval [fixture-name]
 ```
 
-Defaults to `jpm-llm-suite`. See `evals/EVALS.md` for the method and `evals/test-log.md` for previous runs.
+Defaults to `jpm-llm-suite`. See `maintainer/evals/EVALS.md` for the method and `maintainer/evals/test-log.md` for previous runs.
 
 ## Why comparability is the whole point
 
@@ -38,8 +38,8 @@ RUN=../eval-runs/run-$(date +%F)-A
 mkdir -p "$RUN"
 git archive vX.Y.Z | tar -x -C "$RUN"        # the version under test, not the working tree
 rm -rf "$RUN/evals" "$RUN/.github"            # template-only; not part of a case project
-cp evals/fixtures/<fixture>/case-config.yaml "$RUN/"
-rsync -a --exclude COPY_SOURCES_HERE.md evals/fixtures/<fixture>/sources/ "$RUN/sources/"
+cp maintainer/evals/fixtures/<fixture>/case-config.yaml "$RUN/"
+rsync -a --exclude COPY_SOURCES_HERE.md maintainer/evals/fixtures/<fixture>/sources/ "$RUN/sources/"
 ```
 
 **Verify the corpus before doing anything else:**
@@ -62,13 +62,13 @@ Give the verifier and judge no access to ground truth. A defect-detection score 
 
 ### 4. Score all three layers
 
-Per `evals/EVALS.md`: deterministic grounding (`scripts/grounding_check.py` — a lead generator, not a gate), seeded-defect recall from `defect-set.yaml`, and judged quality. For coaching skills use `probe-set.yaml` instead.
+Per `maintainer/evals/EVALS.md`: deterministic grounding (`scripts/grounding_check.py` — a lead generator, not a gate), seeded-defect recall from `defect-set.yaml`, and judged quality. For coaching skills use `probe-set.yaml` instead.
 
 Run at least twice when a result will be used to fail a future version. A difference smaller than run-to-run variance is noise.
 
 ### 5. Record the run — including failures
 
-Append to `evals/test-log.md` using the template at the top of that file. Never rewrite a previous entry.
+Append to `maintainer/evals/test-log.md` using the template at the top of that file. Never rewrite a previous entry.
 
 Two sections matter most and are the easiest to skip:
 

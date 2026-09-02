@@ -110,7 +110,7 @@ package that a later line-by-line trace showed carried five genuine quote defect
 misquotes, dropped words, framing pulled inside quotation marks, and an illustration the
 author had invented sitting in quotes. The checks have been strengthened since, and they
 still are not a substitute for you reading your own case against your own sources. The
-full record, including the failures, is in `evals/test-log.md`.
+full record, including the failures, is in `maintainer/evals/test-log.md`.
 
 ### Your job, and the AI's
 
@@ -160,7 +160,7 @@ case. Checking a case teaches more than building one, and it is the half most co
 skip.
 
 **Notice those moments and write them down** — the reflection is a large part of the learning, arguably larger than the
-finished document. `lessons_learned.md` exists for exactly that, and this project's own
+finished document. `lessons_learned.md` exists for exactly that, and the maintainers' own
 entries are a record of the maintainers getting these things wrong and catching them
 later.
 
@@ -325,7 +325,7 @@ Running into issues with git, the terminal, or project setup? **Any AI tool can 
 
 **Manual setup**: Open `case-config.yaml` and replace the placeholder values.
 
-> **Tidying up (optional).** The template also ships the tooling used to maintain the kit itself. If you are writing a case rather than developing the template, you can delete `scripts/`, `evals/`, `docs/`, `RELEASING.md`, `.gitignore-private`, and the `release-kit` and `run-eval` skills from `.claude/skills/`. Nothing in the case workflow depends on them.
+> **Tidying up (optional).** Everything used to maintain the kit itself — release tooling, the eval framework, the development log — lives in one directory, `maintainer/`. If you are writing a case rather than developing the template, delete it. Nothing in the case workflow depends on it.
 
 ### Step 5: Gather Sources and Write
 
@@ -380,7 +380,6 @@ Check your progress anytime: `/check-status`
 | `STARTER_PROMPT.md` | Prompt for chat tools (ChatGPT, Claude.ai, Gemini) |
 | `case-config.yaml` | Central configuration (auto-written by `/setup-case`) |
 | `learning-context.yaml` | Classroom context for tailoring generated teaching materials |
-| `RELEASING.md` | Two-remote workflow for maintainers |
 | `verification-debt.yaml` | Tracks unverified AI-generated claims |
 | `sources/` | Your research materials |
 | `sources/Source_Registry.md` | Source catalog with quality tiers |
@@ -391,11 +390,9 @@ Check your progress anytime: `/check-status`
 | `.github/copilot-instructions.md` | VS Code Copilot custom instructions |
 | `PROJECT_CONTEXT.md` | Session continuity context |
 | `examples/` | Excerpts from a real generated case package — start here |
-| `evals/` | Regression-testing framework for kit versions (see `evals/EVALS.md`) |
-| `log.md`, `lessons_learned.md` | Development log and per-version lessons |
+| `maintainer/` | Everything for maintaining the kit itself — release tooling, eval framework, development log. Safe to delete when authoring a case |
+| `lessons_learned.md` | Your own record of what you learned building this case |
 | `docs/` | Workflow map as a standalone image for slides and handouts |
-| `scripts/` | Maintainer tooling: version bump, lint, release preflight, release notes |
-| `RELEASING.md` | Two-remote release workflow (maintainers) |
 
 ---
 
@@ -424,7 +421,7 @@ These `/slash-commands` work in **Claude Code**. **VS Code + Copilot** users: as
 | `/export-pdf` | Prepare documents for PDF export |
 | `/git-update` | Stage, commit, and push changes |
 
-**Maintainer skills** (for developing the template itself, not for writing a case): `/release-kit` cuts a new kit version; `/run-eval` regression-tests the kit against a frozen fixture. See `RELEASING.md`.
+**Maintainer skills** (for developing the template itself, not for writing a case): `/release-kit` cuts a new kit version; `/run-eval` regression-tests the kit against a frozen fixture. See `maintainer/RELEASING.md`.
 
 ---
 

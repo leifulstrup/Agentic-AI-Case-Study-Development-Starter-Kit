@@ -10,7 +10,7 @@ name: Create Release
 # Triggering on the tag means publishing a version and publishing its release are
 # the same action — neither can be forgotten without the other. Tags stay authored
 # locally (this workflow never creates one), so there is a single authority for
-# tags and `scripts/release-preflight.sh` check 10 remains meaningful.
+# tags and `maintainer/scripts/release-preflight.sh` check 10 remains meaningful.
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
 
           # Fail loudly rather than shipping boilerplate. A release with no notes
           # looks fine and tells a reader nothing; a red X is visible and fixable.
-          # scripts/release-preflight.sh check 4 blocks this earlier — this is the backstop.
+          # maintainer/scripts/release-preflight.sh check 4 blocks this earlier — this is the backstop.
           if ! grep -q "^## \[$VERSION\]" CHANGELOG.md; then
             echo "::error::No '## [$VERSION]' section in CHANGELOG.md. Add release notes, then re-run this workflow or create the release manually with scripts/release-notes.sh."
             exit 1

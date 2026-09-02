@@ -97,12 +97,11 @@ The workflow is **iterative**, not linear. Expect research loops:
 | `templates/` | Detailed prompts, QA workflows, source acquisition guide |
 | `.claude/skills/` | Skill definitions (Claude Code slash commands; other agents: perform the equivalent action described in each file) |
 | `docs/` | Presentation assets (workflow map for slides) — not needed to author a case |
-| `scripts/` | Maintainer tooling for releasing the kit itself (not used when authoring a case) |
-| `RELEASING.md` | Two-remote release workflow for maintainers |
+| `maintainer/` | Everything for maintaining the kit itself — scripts, evals, release workflow, development log. Not used when authoring a case; safe to delete |
 
 ## Maintainer vs. Author Workflows
 
-Most skills help someone **author a case study**. Four are for **maintaining the kit itself** and should not be offered to a professor or student writing a case: `release-kit`, `run-eval`, and the `scripts/` tooling they call. If you are working inside the template repository rather than a case project, see `RELEASING.md`.
+Most skills help someone **author a case study**. Four are for **maintaining the kit itself** and should not be offered to a professor or student writing a case: `release-kit`, `run-eval`, and the `maintainer/scripts/` tooling they call. If you are working inside the template repository rather than a case project, see `maintainer/RELEASING.md`.
 
 ## Source Tier Definitions
 

@@ -6,11 +6,11 @@
 # locally reported 78 violations where CI saw 10; the 68 phantoms hid the real
 # ones and cost a full diagnostic cycle. Lint what CI lints.
 #
-# Usage:  scripts/lint.sh            lint tracked markdown
-#         scripts/lint.sh --fix      apply markdownlint's safe autofixes
+# Usage:  maintainer/scripts/lint.sh            lint tracked markdown
+#         maintainer/scripts/lint.sh --fix      apply markdownlint's safe autofixes
 
 set -euo pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 
 if command -v markdownlint >/dev/null 2>&1; then
   MDL="markdownlint"

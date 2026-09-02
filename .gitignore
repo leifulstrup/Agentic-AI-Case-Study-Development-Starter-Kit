@@ -53,5 +53,5 @@ node_modules/
 *.key
 
 # Eval fixture source corpora (copyright — keep local, commit only the manifest)
-evals/fixtures/*/sources/
-evals/fixtures/*/golden/
+maintainer/evals/fixtures/*/sources/
+maintainer/evals/fixtures/*/golden/

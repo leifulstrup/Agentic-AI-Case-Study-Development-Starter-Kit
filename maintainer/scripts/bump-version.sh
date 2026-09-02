@@ -6,11 +6,11 @@
 # hand and each one needed a follow-up grep to catch stragglers. This script
 # exists so that never has to be remembered again.
 #
-# Usage:  scripts/bump-version.sh 3.5.0
-#         scripts/bump-version.sh --check      (verify consistency, change nothing)
+# Usage:  maintainer/scripts/bump-version.sh 3.5.0
+#         maintainer/scripts/bump-version.sh --check      (verify consistency, change nothing)
 
 set -euo pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 
 fail() { printf '\033[31mFAIL\033[0m  %s\n' "$*" >&2; exit 1; }
 ok()   { printf '\033[32m  ok\033[0m  %s\n' "$*"; }
@@ -33,7 +33,7 @@ if [ "${1:-}" = "--check" ]; then
 fi
 
 NEW="${1:-}"
-[ -n "$NEW" ] || fail "usage: scripts/bump-version.sh X.Y.Z   (or --check)"
+[ -n "$NEW" ] || fail "usage: maintainer/scripts/bump-version.sh X.Y.Z   (or --check)"
 [[ "$NEW" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || fail "'$NEW' is not semver (X.Y.Z)"
 [ "$NEW" != "$CURRENT" ] || fail "already at $NEW"
 
@@ -61,4 +61,4 @@ if [ -n "$STRAY" ]; then
 fi
 
 echo
-echo "Next: add a [$NEW] section to CHANGELOG.md, then run scripts/release-preflight.sh"
+echo "Next: add a [$NEW] section to CHANGELOG.md, then run maintainer/scripts/release-preflight.sh"

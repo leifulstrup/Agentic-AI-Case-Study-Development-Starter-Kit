@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Print the CHANGELOG section for a version, ready to pipe into `gh release create`.
 #
-# Usage:  scripts/release-notes.sh 3.4.0
-#         scripts/release-notes.sh            (uses TEMPLATE_VERSION)
-#         scripts/release-notes.sh 3.4.0 > /tmp/notes.md
+# Usage:  maintainer/scripts/release-notes.sh 3.4.0
+#         maintainer/scripts/release-notes.sh            (uses TEMPLATE_VERSION)
+#         maintainer/scripts/release-notes.sh 3.4.0 > /tmp/notes.md
 
 set -euo pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 
 VERSION="${1:-$(tr -d '[:space:]' < TEMPLATE_VERSION)}"
 

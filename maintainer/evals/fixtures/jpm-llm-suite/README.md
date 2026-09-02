@@ -19,7 +19,7 @@ Frozen regression fixture based on the JPMorgan Chase LLM Suite case (ITEC-617 S
 1. Copy the source files from the private `ITEC-617-Spring-2026-JP-Morgan-Chase-and-AI-Case-Study-Prototype` repo's `sources/` into `sources/` here (same subfolder structure: transcripts/, financial/, news/, reports/).
 2. Generate the manifest hashes and paste the output into `CORPUS_MANIFEST.md`:
    ```bash
-   cd evals/fixtures/jpm-llm-suite
+   cd maintainer/evals/fixtures/jpm-llm-suite
    find sources -type f ! -name .gitkeep -exec shasum -a 256 {} \; | sort -k2
    ```
 3. Commit the updated `CORPUS_MANIFEST.md` (hashes only — never the sources).

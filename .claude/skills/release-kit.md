@@ -10,15 +10,15 @@ Cut a new version of the starter kit itself. **This is a maintainer skill, not a
 
 ## Role
 
-The scripts handle what is deterministic; you handle what requires judgment. Never do by hand what `scripts/` already does — that is how version drift and phantom lint failures got introduced in the first place.
+The scripts handle what is deterministic; you handle what requires judgment. Never do by hand what `maintainer/scripts/` already does — that is how version drift and phantom lint failures got introduced in the first place.
 
 | Decision | Who |
 |----------|-----|
 | Which version number | You + the user (semver judgment) |
 | What the changelog says | You (prose) |
-| Whether the release is safe to publish | `scripts/release-preflight.sh` |
-| Propagating the version | `scripts/bump-version.sh` |
-| Whether markdown is clean | `scripts/lint.sh` |
+| Whether the release is safe to publish | `maintainer/scripts/release-preflight.sh` |
+| Propagating the version | `maintainer/scripts/bump-version.sh` |
+| Whether markdown is clean | `maintainer/scripts/lint.sh` |
 
 ## The one rule that is not negotiable
 
@@ -29,7 +29,7 @@ Both halves of that have been violated once and cost a cleanup:
 - **Never `git commit --amend` a commit that has been pushed.** The amend creates a different commit carrying the same version number as one already published. Ship the correction as a patch release instead.
 - **Never recreate or move a tag that has been pushed.** An annotated tag is an object; recreating it produces a *new object* even when it points at the same commit, and the push is rejected mid-run — after some refs have already landed. If a local tag has drifted, adopt the published one: `git tag -d <tag> && git fetch <remote> --tags`.
 
-Before any `--amend` or `git tag -f`, ask one question: *has this been pushed?* If yes or unsure, don't. `scripts/release-preflight.sh` checks 8 and 10 catch both, but the check is a backstop, not permission to skip the question.
+Before any `--amend` or `git tag -f`, ask one question: *has this been pushed?* If yes or unsure, don't. `maintainer/scripts/release-preflight.sh` checks 8 and 10 catch both, but the check is a backstop, not permission to skip the question.
 
 **Push targets separately.** Use `git push origin main --tags; git push public main --tags` with a semicolon, not `&&`. They are independent remotes, and a rejected ref on the first should not silently skip the second.
 
@@ -61,21 +61,21 @@ Standards for the prose:
 ### 4. Bump
 
 ```bash
-scripts/bump-version.sh X.Y.Z
+maintainer/scripts/bump-version.sh X.Y.Z
 ```
 
 Do not edit the seven version locations by hand. If the script reports stragglers, resolve each one — historical references in CHANGELOG, logs, and `examples/` are expected and should stay.
 
 ### 5. Update the running records
 
-- `log.md` — what changed this session and *why*, including anything surprising. Note environment quirks that cost time; the next session should not rediscover them.
-- `lessons_learned.md` — only if something was genuinely learned. Not every release teaches something; padding this file makes it useless.
-- `evals/test-log.md` — if the release changes behavior, it needs a regression run first (see `run-eval`). Documentation-only releases do not.
+- `maintainer/log.md` — what changed this session and *why*, including anything surprising. Note environment quirks that cost time; the next session should not rediscover them.
+- `maintainer/lessons_learned.md` — only if something was genuinely learned. Not every release teaches something; padding this file makes it useless.
+- `maintainer/evals/test-log.md` — if the release changes behavior, it needs a regression run first (see `run-eval`). Documentation-only releases do not.
 
 ### 6. Preflight
 
 ```bash
-scripts/release-preflight.sh
+maintainer/scripts/release-preflight.sh
 ```
 
 Nine checks; every one corresponds to something that previously went wrong. Do not proceed past a FAIL, and do not "fix" a check by weakening it. The copyright check in particular is the one error that cannot be undone once published.
@@ -87,7 +87,7 @@ git add -A && git commit -m "vX.Y.Z — <release name>
 
 <why this release exists, 2-4 lines>"
 git tag -a vX.Y.Z -m "<release name>"
-scripts/release-preflight.sh          # re-run: the tag check now has something to check
+maintainer/scripts/release-preflight.sh          # re-run: the tag check now has something to check
 git push origin main --tags; \
 git push public main --tags           # semicolon: independent targets, don't chain
 ```
@@ -106,7 +106,7 @@ Check the Actions tab. Two outcomes:
 Manual fallback, if the workflow is broken or the tag was pushed before the workflow existed:
 
 ```bash
-scripts/release-notes.sh X.Y.Z > /tmp/notes-X.Y.Z.md
+maintainer/scripts/release-notes.sh X.Y.Z > /tmp/notes-X.Y.Z.md
 gh release create vX.Y.Z --repo <public-repo> --title "vX.Y.Z" \
   --notes-file /tmp/notes-X.Y.Z.md --latest
 ```

@@ -1,0 +1,448 @@
+# Lessons Learned
+
+*Append-only. One section per version. What we learned building, testing, and using each version — distinct from `log.md` (what changed) and `evals/test-log.md` (how it scored). The goal: no lesson gets learned twice.*
+
+---
+
+## v3.2.0 — 2026-07-07
+
+**1. The differentiator was buried.** The verification machinery (debt tracking, tier gates, seven checks) was the kit's strongest and most novel feature — external research found no comparable published framework — yet it appeared only as rows in a skills table. A capable evaluator nearly missed it. Fixed by leading the README with it. Lesson: periodically re-read the repo as a stranger; the pitch drifts from the substance.
+
+**2. License information lives in more places than LICENSE.** Badge, footer, config default, skill template block, and owner intent were five separately-drifting copies. Relicensing required a repo-wide grep. Lesson: minimize the places metadata is restated, and grep before declaring done.
+
+**3. Instruction-file duplication was already drifting.** CLAUDE.md and copilot-instructions.md were hand-maintained near-copies with small divergences. The AGENTS.md-canonical + thin-adapters structure removes the failure mode instead of patching it. Lesson: one source of truth, adapters point at it.
+
+**4. Verify capability claims against first-party docs — even our own.** During the evaluation, a secondary source claimed Claude Code natively reads AGENTS.md; official docs said otherwise (import/symlink required). And an early plan draft said Gemini CLI reads AGENTS.md "natively" when it needs a settings entry. Both caught by checking primary sources before shipping. Lesson: the kit's trace-to-primary rule applies to docs about the kit.
+
+**5. Judgment-dependent output is testable if you convert judgment to detection.** The breakthrough framing for regression-testing the kit: don't ask "is the case good?" (hard), ask "does verification catch the ten defects we planted?" (measurable recall). Pairwise comparison with position-swap handles the rest better than absolute scoring. Encoded in evals/EVALS.md.
+
+**6. Every real-world miss should become a permanent test.** The seeded-defect set should grow from actual failures (the Moderna test exposed financial errors and late-discovered bias — those belong in defect-set v1). Lesson: bugs are test cases wearing disguises.
+
+**7. (Baseline run, 2026-07-08) The seeded-defect method works better than hoped.** 10/10 planted defects caught with zero false alarms on the first try — including the offline URL defect (caught by cross-checking the bibliography against the source file's own footer, a detection path we didn't anticipate). Judgment-to-detection conversion is validated as the kit's regression backbone.
+
+**8. (Baseline run) The writer makes exactly the errors the verifier exists to catch.** The clean authoring run — following the kit's rules carefully — still produced a spliced composite quote, one altered quote, and a garbled attribution. The verification pass caught all of them and correctly blocked publication. Two implications: never skip verification even on "careful" runs, and the verdict scale needs a MODIFIED category (verbatim words, altered assembly) — the two real failure classes found are exactly the ones the current VERIFIED/LIKELY/DISPUTED/APOCRYPHAL scale can't name.
+
+**9. (Baseline run) Naive deterministic checkers over-flag prose.** grounding_check.py v1 reported 54.8% quote grounding while full agent tracing showed ~97% — the regex counts rhetorical/hypothetical quoted text (Teaching Note cold-call prompts, scare quotes) as attributed quotes. Deterministic tools for prose need linguistic awareness (attribution patterns) or they become noise generators; until v2, the script is a lead-generator, not a gate.
+
+**10. (Baseline run) The bias check measures the wrong denominator.** Outlet-origin counting scored the corpus 20% "company-generated," but ~80% of substantive claims are JPMorgan executives speaking through independent outlets. Bias assessment should count by claim-maker voice, not publication masthead. Queued for v3.3.
+
+**11. (Baseline run) The judge's critique converged with the human plan.** The opus judge's top improvements (forcing event, quantitative exhibit, dissenting voice) independently match what the case-method literature says separates drafts from published cases — evidence the rubric dimensions are pointing at real quality, and a concrete authoring-skill improvement: `/write-document` should ask "what quantitative exhibit will students compute with?" during Main Case setup.
+
+**12. Agentic maintenance sessions have their own friction.** `.claude/` was write-protected for file tools in this environment; shell was the workaround. Documenting environment quirks in log.md saves the next session the rediscovery.
+
+**13. (Bookends, 2026-07-09) The pipeline's ends were where the leverage was.** Two conversations added a pre-stage and a post-stage input without touching the verified middle — evidence that the "verified body as hinge" architecture is sound: upstream work makes the body trustworthy, downstream work renders it, and neither perturbs the other.
+
+**14. Scouting predictions are an eval signal, not just a convenience.** Because `/scout-case` scores on the same four dimensions `/assess-sources` uses later, predicted-vs-actual becomes measurable. A scout that systematically over-promises is a defect we can catch, not a vibe.
+
+**15. Mass customization needed an input, not more generators.** The front-end plan was complete except for anything describing the classroom. `learning-context.yaml` is small, but without it "many front-ends" means "the same artifact generated repeatedly." The failure mode to watch: a generator that reads the context file and ignores it — hence the context-sensitivity eval probe.
+
+**16. Two remotes beat a fork.** The instinct to protect a working repo was right; the fork was the wrong mechanism. One history with a private default remote and a public release remote gives the same safety without the eventual manual porting between drifting codebases.
+
+**17. (Probes, 2026-07-27) The coach outperformed two prior expert passes on the same material.** A verification agent and an opus rubric judge had both gone over this case; the coach found everything they found and eight material issues they missed — vendor sponsorship of a "primary" source, an editor-processed transcript quoted as verbatim, a third contradictory headcount figure, and the discovery that the case's own title number was asserted by an interviewer and merely assented to. The lesson isn't that one agent is better; it's that **different diagnostic lenses catch different failures**. Verification asks "is this claim supported?"; coaching asks "what's missing and how confident is the foundation?" Both are needed.
+
+**18. Source independence is a hole no existing check covers.** The Cisco sponsorship and McKinsey's undisclosed commercial interest in the material it was summarizing both passed every gate the kit has, because tiering measures *access* (do we have the full text?) and bias assessment measures *outlet*. Neither asks "who paid for this, and what do they sell?" The Source Registry needs an interests column.
+
+**19. Scouting predicts well enough to be trusted.** MAE 0.5 with zero signed bias against a post-sourcing assessment, from web reconnaissance alone. More interesting: where scout and baseline disagreed on Reliability, the coach's independent analysis sided with the scout — the blind prediction may have been more accurate than the informed assessment it was scored against.
+
+**20. A regression fixture and a teaching corpus are different artifacts.** Both probes flagged the JPM corpus as stale. That's a virtue for regression testing (a moving corpus makes version comparison meaningless) and a defect for classroom use. Don't let one requirement corrupt the other — freeze v1 forever as the fixture, build v2 if the case is to be taught.
+
+## v3.3.0 — 2026-07-27
+
+**21. The bug was never where I assumed.** grounding_check's false-flag rate looked like a rhetorical-quoting problem; measuring it revealed a quote-parity bug that made the checker compare narrative prose against the corpus. I shipped an "attribution-aware" v2 that barely moved the number before measuring again and finding the real cause. Lesson: when a fix doesn't move the metric, the diagnosis is wrong — don't ship the second guess either, measure again.
+
+**22. Straight quotes are structurally ambiguous and prose tooling must respect that.** You cannot tell an opening `"` from a closing one. Any tool pairing them positionally breaks on the first unpaired mark and fails silently for the rest of the document. Curly quotes are self-describing; straight quotes need content-based validation.
+
+**23. The kit now demands more of the writer than the writer delivers.** v3.3's verification found ~40 unmarked smoothings in text the same system authored under the old rules. That's not hypocrisy, it's sequencing — but the fix belongs at drafting time, not verification time. A rule that only exists in the checker teaches the author nothing.
+
+**24. A stricter standard makes old results look worse, and that's success.** Same documents: ~225 verified under v3.2.0, ~33 under v3.3.0. The temptation is to read that as a regression. It's the opposite — v3.2.0 was counting quotes as verified that no honest reviewer would accept, because it asked "does this string appear in the corpus?" instead of "can this source support a quotation at all?" Corollary: golden baselines are versioned artifacts. Don't retroactively re-bless; record which standard a baseline was blessed under.
+
+## v3.5.0 — 2026-07-27
+
+**25. The kit was preaching a discipline it did not practice.** Verification gates, provenance logs, and checklists for case writing; memory and goodwill for its own releases. Every manual release step failed at least once across three releases. Automating them was not efficiency work — it was consistency between what the project claims and how it operates.
+
+**26. Test the failure path, not the happy path.** `release-preflight.sh` passing on a clean repo proves almost nothing. Staging a fake copyrighted file and confirming it refuses to proceed, and creating a commit after the tag to confirm it detects the drift — those tests are the reason to trust it. Both sabotage tests targeted errors that had actually occurred or nearly occurred.
+
+**27. A script's own testing found a bug in the script.** The preflight's skill-existence check read README's generic "`/slash-commands`" as a skill name. Automation introduces its own defects; the answer is to test it like anything else, not to trust it because it is code.
+
+**28. Research changed the guidance rather than confirming it.** The plausible assumption about Perplexity — agentic browser, therefore agentic workflow — is wrong in the way that matters. Comet cannot read local files at all, and the one surface that can is Mac-only with no documented git or shell. Faculty told "use your Perplexity license for this" would have hit a wall. Checking first-party documentation rather than reasoning from the product category is what the kit tells its users to do.
+
+## v3.5.3 — 2026-07-27
+
+**29. Published refs are immutable — and that includes tags.** Two mistakes in one release, both mine. I amended a commit that had already been pushed, producing a divergent commit carrying a published version number. Then, cleaning that up, I recreated the `v3.5.2` tag locally — which makes a *new tag object* even pointing at the same commit, so the next push was rejected part-way through, after other refs had landed. The intuition that "a tag is just a pointer" is wrong for annotated tags: they are objects with their own identity.
+
+**30. The backstop caught it, which is the argument for backstops.** Preflight check 8 flagged the divergent commit before it could reach a remote. That check was written the day before for a hypothetical; it fired on a real error within twenty-four hours. Check 10 (local tags must match published tags) has now been added for the second half, and tested by sabotage — because a rule that lives only in a document is a rule that gets skipped when you're moving fast.
+
+**31. Chain independent operations with `;`, not `&&`.** `git push origin … && git push public …` meant one rejected tag ref silently skipped the public push entirely. The two remotes are independent; failure on one says nothing about the other. Small syntax choice, real consequence.
+
+**32. Ask "has this been pushed?" before every `--amend` and `git tag -f`.** Both errors trace to the same skipped question. Amending is cheap right up until the moment it isn't, and the moment is invisible unless you check.
+
+---
+
+## Project reflection — 2026-07-27
+
+*Written at v3.5.4, after eight releases and twenty-one commits from v3.1.0. A stocktake rather than a version note.*
+
+**33. The kit is now defensible in a way it was not three weeks ago — and that is the real change.** Before, its quality rested on the author's care. Now it rests on measurement: a frozen corpus, sixteen seeded defects, recorded probe results, a blessed baseline, and an append-only test log. When the coach found eight material issues in material that had already passed two expert review passes, that was not a lucky catch — it was a designed one. The kit can now answer "how do you know?" with something other than "I checked carefully."
+
+**34. Nearly every improvement came from running the thing, not from thinking about it.** The independence column, the MODIFIED verdict, voice-based bias counting, the ASR quoting rule, the grounding-script parity bug, four preflight checks — all of them originated in a real run producing a real failure. The planning documents were useful for direction; almost none of the substance came from them. Build the smallest thing that can fail visibly, then run it.
+
+**35. The scoreboard that matters has not moved.** Three stars. One fork. Zero external professors have authored a case with this. Every measurement above is internal, and the pilot evidence (~95% engagement) predates all of it. The kit got substantially better at a job nobody outside this project has yet asked it to do.
+
+**36. Late in this session, effort drifted from the goal.** Four patch releases in one day — placeholder hygiene, a Perplexity rewrite, tag-immutability checks. Each was correct in isolation, and correctness is seductive: a failing lint check or a badly-worded paragraph presents itself as urgent in a way that "email three colleagues" never does. But the stated priority was adoption before Fall, and none of those four releases moves a professor closer to using the kit. The tell was the ratio: hours on release mechanics versus zero on getting it in front of a human.
+
+**37. Rigor has a cost, and it should be spent where the risk is.** The maintainer tooling was worth building — the release process was genuinely failing, repeatedly. But a starter kit with a ten-check release preflight and no users has its investment inverted. The verification machinery earns its keep the moment a student publishes a case with a fabricated quote; the release preflight earns its keep at a scale this project may never reach.
+
+**38. What would actually settle the open question.** One professor outside this project, taking the kit through `/scout-case` to a finished package, in their own subject area, with their own sources. That single run would test more than the entire eval suite does: whether the instructions are followable by someone who did not write them, whether the go/no-go gate feels helpful or obstructive, whether the output survives contact with a syllabus. Everything measured so far assumes a user who thinks like the author. Nothing has tested a user who does not.
+
+**39. (v3.7.0) The least capable path rotted the fastest, and nobody was looking.** `STARTER_PROMPT.md` sat four releases behind: no scouting, no coaching, no source independence, no quote verdicts. Every improvement that came out of a real failure reached the agentic paths and stopped there. The asymmetry is structural — skills are visible files that get edited when the workflow changes; a prose prompt is invisible infrastructure. And it lands on exactly the wrong users: the ones who can't run slash commands are also the ones least able to notice a guardrail is missing.
+
+**40. Cross-path parity needs a check, not good intentions.** Nothing today would catch this drift happening again. The fix is mechanical — compare methodology terms across the skills and the starter prompt — but worth resisting the reflex to add it immediately. The kit already has ten preflight checks and no external users; another check is cheaper to write than to justify.
+
+**41. The best bug reports came from a reader, not a test.** The eval suite, ten preflight checks, and sixteen seeded defects all passed while the chat path silently degraded. Leif noticing that a file wasn't referenced in a diagram found something none of the automation could, because automation checks what you thought to check. Someone reading with fresh eyes remains the highest-yield defect finder available.
+
+**42. (v3.8.0) A workflow that skips is indistinguishable from a workflow with nothing to do.** `release.yml` no-opped for six consecutive releases and produced no signal — green check, no output. Silent success is the worst failure mode in automation, worse than a crash, because nothing prompts investigation. Anything that can decide to do nothing should say so, or be structured so it cannot make that decision.
+
+**43. Match the fix to the failure mode, not to a general principle.** My first proposal was to delete the automation and make release creation manual, on the reasoning that explicit beats clever. Leif asked whether that was really best, and it wasn't: the failure was *a forgotten step*, and the response to a forgotten step is never "add a manual step." I had generalized from "this clever thing broke" to "less cleverness," when the actual lesson was narrower — this automation had the wrong trigger. Reaching for a maxim is a substitute for diagnosing.
+
+**44. Make the trigger the thing you cannot skip.** The fix works because pushing a tag and publishing a release became the same action. You can forget a step that sits beside the work; you cannot forget one that *is* the work. Prefer designs where the desired outcome is a side effect of something you were going to do anyway.
+
+**45. Fail loudly over degrading gracefully — when the degraded output looks fine.** The old workflow's fallback was "see CHANGELOG for details," which would have produced releases that pass visual inspection and tell a reader nothing. The rewrite errors instead. Graceful degradation is right when partial output helps; it is wrong when the partial output is indistinguishable from real output to everyone except a careful reader.
+
+**46. "Are you sure?" is worth answering seriously.** Both of today's course corrections — the over-negative Perplexity section and this one — came from Leif questioning an answer rather than accepting it. Neither would have been caught by any check in the repo. The reviewer who asks why remains more valuable than the checks, and the right response to being asked is to re-derive the answer rather than restate it.
+
+## v3.8.1 — 2026-07-31
+
+**47. Every evaluation of this kit so far has been self-administered.** I wrote the
+skills, then the evals, then ran and graded them. The seeded-defect method exists
+specifically to escape that circularity and it works — but it only tests what I
+thought to plant. Field testing by someone using the kit to do the actual job, on
+cases I did not choose and sources I did not curate, is a different and better class
+of evidence. The corresponding risk is reading it as confirmation of the roadmap I
+already wrote; if the field test happens to endorse every existing priority, the
+right response is suspicion of my reading rather than satisfaction.
+
+**48. The kit was fitted to one case, and that boundary is invisible from inside.**
+Everything here was built and tuned against a large public company with a named
+executive protagonist, abundant press coverage, and a technology-adoption arc. Cases
+that are smaller, private, non-US, public-policy, or shaped around a different kind
+of decision will strain the kit in places that look like bugs and are actually the
+edge of what it was fitted to. Distinguishing "defect" from "misfit" is the most
+valuable classification in a field-test review and the one I am least equipped to
+make unaided.
+
+**49. Fix the method before you see the data.** The intake procedure for the field
+test — how to inventory, classify, weight, and size the resulting release — was
+written before any of the test material was read. Not out of ceremony: a
+prioritization scheme invented after seeing the findings will rank whatever is most
+interesting to build, and the front-end generators are the most interesting thing on
+this roadmap while also being the least urgent.
+
+**50. Publishing a repo with your home directory in it says you didn't read it.**
+Preflight check 11 costs nothing per release and prevents a small leak with an
+outsized signal. The general form: guards are cheapest to add when nothing is
+currently wrong, because that is exactly when you can verify they work in both
+directions — this one was tested by planting a path and watching it fail, then
+removing it and watching it pass. It also flagged its own changelog entry on the
+first run, which is the useful reminder that a checker matching *prose about* the
+thing is a checker that will be switched off — the fix was to require a trailing
+path segment, not to add an exemption.
+
+**51. The bug you just fixed is probably also somewhere else.** One version after
+correcting a workflow that silently skipped its own job, preflight check 10 was found
+doing the same thing: an unreachable remote hit a `continue` and the check reported
+green having compared nothing. Nothing connected the two except the shape — *a guard
+that cannot see reports success*. After fixing a class of bug, it is worth spending
+ten minutes grepping for the same shape elsewhere, because the habit that produced it
+was not confined to one file.
+
+## v3.9.0 — 2026-08-26 (field test)
+
+*First lessons drawn from someone else building real cases with the kit, rather than
+from the author testing his own work. Two complete four-document packages, both
+against v3.8.0, both on the Claude Code path.*
+
+**52. A threshold written in prose is not a threshold.** The skills state numeric
+rules — `assess-bias` says company-affiliated voices above 50% make bias "at least
+MEDIUM"; `verify-quotes` says a VERIFIED verdict requires a source file and line
+number for each quote. Nothing computes either one. A model reads the prose and forms
+a judgment, and across three separate gates in a single run every judgment drifted the
+same direction: toward passing. A base at 62% company-affiliated was reported
+"LOW–MEDIUM". A quote check that reasoned about source *categories* rather than
+individual spans reported PASS, and a later span-by-span trace of the same documents
+found five real defects — two misquotes, framing pulled inside the quotation marks,
+dropped words, and constructed illustrations sitting in quotes. The rule was right
+and present the whole time; nothing made it binding.
+
+**53. Describing a problem is not gating it.** Faced with a source base that was
+about 82% the subject's own material, `/assess-sources` diagnosed the situation
+accurately and at length — it called the base one-sided, named it the opposite
+failure mode from a thin base, and set bias to HIGH. Then it returned YELLOW and the
+writing proceeded. The gate averages four dimensions, two of which reward volume, so
+a prolific self-publisher scores high on Depth and Completeness and pulls the average
+up past a RED reliability score. Independence entered the calculation only as a floor
+of one source. The prose was excellent and load-bearing on nothing. **If a finding
+should stop work, it has to be an input to the arithmetic, not a paragraph beside
+it.**
+
+**54. A summarized source is an unsourced source.** When research is delegated to
+subagents or read live through a browser, what lands on disk is the agent's dossier,
+and the dossier paraphrases. The verbatim wording stays in the session transcript and
+dies with it. Quotations then trace to nothing — not because anyone fabricated them,
+but because the only artifact that ever held the exact words was never a file. This
+was the root cause of most of the quote defects above. **The raw capture is the
+source; the dossier is a reading of it.** Save the capture before anything quotes
+from it.
+
+**55. Ignoring logs by default throws away the proof you did the work.** `*.log` sat
+in `.gitignore` from the beginning, and the assessment and verification logs — the
+evidence that the go/no-go gates ran and what they concluded — are written as `.log`.
+Of the two field cases, one committed its gate logs only because the operator noticed
+and forced the add; the other committed none, and its audit trail is simply gone. For
+a kit whose entire claim is that its output can be defended, discarding the record of
+the defence by default is the wrong side to err on. Generic ignore patterns inherited
+from software projects do not know which of your files are the product.
+
+## v3.9.1 — 2026-08-26 (correction)
+
+**56. Running a fix's procedure yourself measures the specification, not the
+behaviour.** v3.9.0's validation executed the mandated quote-tracing procedure as a
+script, scored 6/6 with no false alarms, and was reported as evidence the change
+worked. It was evidence of something weaker and more specific: that the procedure is
+*sufficient if followed*. Whether a skill-following agent would follow it is a
+different question, it needs a different experiment, and when that experiment was
+finally run the answer split — one half of the release worked and the other half had
+no measurable effect. **A script cannot measure compliance, because a script is
+compliance.** If the failure being fixed was "the procedure was specified but not
+performed," then testing by performing the procedure tests the one thing that was
+never broken.
+
+**57. Two fixes shipped under one diagnosis need separating before either is
+credited.** v3.9.0 rewrote a skill *and* changed the orchestration that calls it, both
+justified by a single observed failure. The changelog claimed both. Controlled
+comparison showed the skill rewrite was inert and the orchestration change carried the
+whole result — the finer-grained enumeration, the recovered defect, and a check that
+examined nothing being blocked rather than warned. Bundling them meant the release
+could not tell which one had earned the credit, and the inert half was described in
+the changelog with as much confidence as the effective one.
+
+**58. Fixing a real weakness is not the same as explaining the incident.** Three
+hypotheses about why the original verification reported PASS have now been tested, and
+none of them reproduces it. The release still improved the kit — the orchestration
+change is measurably better under the condition that matters. But the specific failure
+that prompted all of it remains unexplained, and the temptation at this point is to let
+a good result stand in for an answer. It does not. **An unexplained incident is still
+live**, and the next occurrence will not care that something adjacent to it was
+improved.
+
+## v3.10.0 — 2026-08-26 (instructions)
+
+**59. A condition you met and recorded is not a requirement until you write it down as
+one.** The first full verification run against the frozen fixture was performed by an
+independent agent, and its log says so in its own header: *"fresh eyes; did not author
+the documents."* Someone knew it mattered enough to record it. It never became a rule,
+so every run afterwards was free to skip it — and the runs that skipped it are the ones
+that produced a verification pass over real quote defects. **The gap between "we did the
+right thing and noted it" and "the kit requires the right thing" is invisible until
+someone does it differently**, and by then the omission looks like a choice nobody made.
+When a run records a condition it was careful about, that is a draft of a requirement:
+promote it or lose it.
+
+**60. Rules that live only in the checking path teach nothing to the writing path.**
+The quoting rules were canonical, correct, and detailed from v3.2.0 onward, and sat
+entirely in the verification skills. The writer's guidance asked one question — does
+this quote have a speaker and a date? — so the writer kept producing exactly the defects
+the verifier was built to catch, dozens at a time, across three separate measurements
+spanning four months. Nothing was wrong with the rules. They were in the wrong file.
+**Ask of any standard: who reads this, and at what moment?** A rule that arrives after
+the work is prevention that has been converted into rework.
+
+## v4.0.0 — 2026-08-26 (adoption)
+
+**61. The first question a kit asks a beginner should not be a choice between tools.**
+Step 3 opened with a comparison table across three options and asked the author to pick
+before they had done anything. For someone who has never used a terminal, that is a
+decision with no basis — every column is unfamiliar. The fix was not more explanation,
+it was **removing the question**: recommend one path, give it a complete quickstart, and
+move the comparison below for the minority who want it. The feedback came from a
+colleague who forked the kit for non-technical students and rebuilt the onboarding
+before using it, which is the kind of evidence you only get by letting someone else
+teach with your work.
+
+**62. A shortcut that only one tool has should never be described as the capability.**
+The kit's abilities live in the skill files; `/slash-commands` are Claude Code's way of
+reaching them. Because the docs led with commands, an agent on another path could
+reasonably conclude a capability was missing when only its shortcut was. **The
+specification and the interface to it are different things**, and conflating them makes
+every non-default path look degraded when it is merely different.
+
+**63. "Recommended" is a claim about evidence, and this release does not have it.**
+v4.0.0 promotes Cowork to the front door without a single end-to-end run behind it — for
+the users the kit's own findings identify as least able to notice a missing guardrail.
+The choice was made deliberately and the README carries a status callout saying so, which
+is the honest handling but not a substitute for the test. **Recording this here so that
+the next person to read these lessons finds the promise before they find the results.**
+
+## v4.1.0 — 2026-08-27 (claims)
+
+**64. The kit was overclaiming in exactly the way it warns authors not to.** The README
+said *"you can defend every sentence in your case"* and *"`/verify-all` traces every
+quote to a dated source"* — in a repository built around the observation that AI writes
+fluently and fabricates confidently, and whose own test log records a verification run
+passing a package that carried five real quote defects. Nobody wrote those sentences
+dishonestly; they were written when the checks were new and they simply were never
+revisited as evidence accumulated against them. **Marketing copy ages differently from
+code: a failing test announces itself, an overstated claim just sits there getting less
+true.** Any document that asserts what your tooling guarantees needs re-reading every
+time the tooling is measured.
+
+**65. Where a rule lives determines whether it changes behaviour.** The same principle —
+the human is accountable, the tool assists — needed to be in four places to actually
+operate: the README so the author absorbs it, `AGENTS.md` so every agent acts on it, the
+pledge so it survives contact with a department chair, and `STARTER_PROMPT.md` so the
+least-technical path is not the one that quietly drops it. A philosophy stated only in
+the introduction is a preference. Stated in the file the agent reads before every
+action, it is a constraint. **This is the same lesson as 60 arriving from a different
+direction**, which is usually a sign it is the real one.
+
+**66. "A human made the judgment calls" is worth nothing if the tool never hands one
+back.** The pledge already carried that line before this release, and the workflow still
+let an agent settle ambiguous questions by choosing whatever allowed work to continue.
+Accountability language on the author's side has to be matched by behavioural
+instruction on the agent's side, or it describes a division of labour that never
+happens.
+
+## v4.2.0 — 2026-08-27 (length)
+
+**67. A number restated in four files will disagree with itself within one release.**
+v4.0.0 lightened the word-count defaults in `case-config.yaml` and missed the README
+table, the `setup-case` config template, and two files under `templates/`. The template
+was the damaging one: `/setup-case` kept writing the *old heavy values* into every new
+project, so the documented default and the generated default were different numbers, and
+the generator won. **A value that belongs to configuration should appear in
+configuration once and be referenced everywhere else** — the fix was not to update four
+copies but to delete three of them.
+
+**68. Ask for a decision, not a specification.** The first version of the length question
+offered a four-tier menu and invited the author to name their own word count. That is a
+worse question: it asks someone to have a considered opinion about something they have no
+basis to judge yet, on their first interaction with the kit. Recommending one size and
+asking only *"does that work, or would you like it longer or shorter?"* gets a real
+answer from someone who has not thought about it, and still gets out of the way of
+someone who has. **Defaults are advice; menus are homework.**
+
+## v4.2.1 — 2026-08-27 (proxy findings)
+
+**69. A target nobody checks is a wish.** The kit named word-count targets for four
+releases and never told anyone to measure against them, and drafts came in 23-55% over —
+consistently, in every document, without anyone intending it. Long drafts feel thorough
+while you are writing them, and nothing in the workflow interrupted that feeling. Halving
+the targets in v4.2.0 would have changed the numbers in a config file and almost nothing
+about the output. **Every number the kit asks someone to hit needs a step that compares
+against it**, or it is decoration.
+
+**70. Run your instructions in the conditions your least-equipped user is in.** Three
+defects surfaced within one run of the workflow without slash-commands — an instruction
+to read a key that does not exist in older projects, a promise of no terminal contradicted
+by the README's own second step, and unenforced length targets. None was subtle. All three
+had been read past repeatedly by people who had a terminal open, a current config, and no
+reason to notice. **Comfort is the thing that hides the defect**; the way to find it is to
+take the comfort away.
+
+## v4.3.0 — 2026-08-27 (freeze)
+
+**71. A report about a moving target is false the moment it is read.** A `/verify-all` log
+was written, the documents changed fourteen minutes later, and four of the log's statements
+were untrue by the time a second pass read it. Nothing in the log was careless; nothing in
+it was wrong when written. The failure is structural — **a snapshot with no way to tell
+whether the snapshot still applies is worse than no snapshot**, because it is read as
+current. Freeze what you check, fingerprint it, and declare the report void if the
+fingerprint moves. The corollary caught us too: a verifier that repairs what it finds is
+checking a moving target of its own making.
+
+**72. Fixing is editing, and editing introduces defects.** Correcting 25 verification
+findings produced 11 new ones — about two new problems for every five fixed. This is not a
+failure of care; it is what happens when someone makes twenty-five changes to four
+interlocking documents in one pass, and it would happen to a human editor too. **The
+workflow ended at "fix the findings", which quietly assumed repair is free.** It is not,
+and it now gets its own verification pass.
+
+**73. "All fixed" is a claim, and it is wrong more often than anyone expects.** An agent
+reported fifteen corrections complete when eight were still sitting in the documents. It
+was not being evasive — it had lost track across a long round of edits, which is exactly
+what a person does. **Completion reports are the least reliable artifact in any workflow**,
+because the person writing one has the least fresh view of the work and the most reason to
+believe it is done. Check them against the source, never against the report.
+
+## v4.3.1 — 2026-08-27 (running what we shipped)
+
+**74. The instruction that breaks something is usually the one that was followed
+exactly.** An agent hit the Additional Sources word target as told, and severed the chain
+of custody for four quotations by doing it. Nothing malfunctioned: the rule said cut the
+weakest material, and in an evidence file the weakest material is still evidence.
+**Rules written for one kind of document get applied to every kind**, and the failure
+surfaces as obedience rather than as error — which is why it is invisible in review and
+obvious in a run.
+
+**75. A kit that tells authors not to overclaim was handing them an overclaim to paste.**
+`add-disclaimers` carried "all factual claims, quotes, and data points have been verified
+against primary source documents" as boilerplate, one release after the README was
+rewritten to remove exactly that class of sentence. The fix went where the claim was
+advertised and missed where it was *generated*. **When you correct a claim, grep for the
+claim** — the copy that matters most is the one a tool pastes into someone's document
+without anyone rereading it.
+
+**76. Four of five defects in this release had been read past by maintainers, and were
+found in one run by an agent following the instructions literally.** Not one was subtle:
+a hardcoded version fourteen releases stale, examples advertising a length the kit no
+longer targets, a publication bar that cannot be met offline. Reading your own
+instructions does not find these, because you read what you meant. **Running them does**,
+because an agent has only what you wrote.
+
+## v4.4.0 — 2026-08-27 (the reader)
+
+**77. An absence of records is not an absence of evidence.** A status review marked
+classroom teaching "untested" because `evals/test-log.md` had no entry for it. The kit had
+in fact been used by roughly thirty students and three faculty, with at least two case
+packages taught successfully — none of it logged, all of it known to the maintainer. The
+review then ranked a roadmap on that hole. **This is the project's own most-repeated bug
+wearing different clothes**: a check that reports "none found" having looked in exactly
+one place. When the record is silent about something important, the next move is to ask
+the person who would know, not to conclude it never happened.
+
+**78. Teach with your failures, not your successes.** The student guide is built almost
+entirely from defects this project shipped and later caught — a verification that passed
+over five real misquotations, a headline number that came from the interviewer, a
+correction round that made three integrity claims *more precisely false*. Invented
+examples would have been tidier and taught less. **A documented history of being
+confidently wrong is a teaching asset**, and most projects discard it out of
+embarrassment. Keeping `lessons_learned.md` honest turned out to have a second payoff
+nobody planned.
+
+**79. Distinguish what is proven from what is merely adjacent to it.** The workflow is
+classroom-proven; the verification machinery added since v3.3 is not, because the cohort
+that used it ran on v3.1.x. Those two facts sit one sentence apart and blur together very
+easily — "the kit is classroom-proven" would be true and would smuggle in a claim about
+code no student has ever run.
+
+## v4.5.0 — 2026-08-28 (collection)
+
+**80. Collect evidence at the moment it exists, not when you get around to asking.** The
+plan was to survey thirty past users about runs they finished weeks ago. What they would
+remember is the outcome; what matters is the friction, and friction is forgotten within
+hours of being worked around. The agent that just spent an hour inside the run still has
+all of it — which instruction was ambiguous, which step dragged, which file was missing.
+**Ask the party that was present.** A survey harvests once and decays; an end-of-run
+prompt compounds with every future user.
+
+**81. The most valuable question is not "what went wrong" but "what did you work
+around".** People report failures. They do not report the step they quietly skipped, the
+field they left blank, the automatic thing they did by hand — because at the time it felt
+like coping rather than a defect, and by the end it feels like how the tool works.
+**Workarounds mark exactly where the design is wrong and where no complaint will ever be
+filed.** Every feedback form should ask for them by name.
+
+**82. Put the submit button in the user's hand.** The agent drafts, shows the full text,
+and hands over a pre-filled link — it never posts. That is partly consent and partly
+adoption: a mechanism needing a CLI and an authenticated account would have excluded most
+of this kit's actual users, who are professors and students rather than developers. **The
+lowest-friction path that still requires a human decision is usually a link.**

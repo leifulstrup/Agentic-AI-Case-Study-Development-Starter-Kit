@@ -13,7 +13,7 @@ The kit's outputs are prose, not code: a new version can't be "unit tested" in t
 Pick a case with rich, already-collected sources — the JPMorgan AI case is ideal (VentureBeat "Beyond the Pilot" interview, McKinsey interview with Derek Waldron, Bloomberg TV Dimon interview, CNBC exclusive, Q3 2025 earnings).
 
 ```
-evals/fixtures/jpm-llm-suite/
+maintainer/evals/fixtures/jpm-llm-suite/
   case-config.yaml        ← frozen, fully filled in
   setup-answers.md        ← scripted answers to every question the skills ask
   sources/                ← the frozen corpus (copied in locally; see note below)
@@ -21,7 +21,7 @@ evals/fixtures/jpm-llm-suite/
   golden/                 ← a "blessed" output package from a known-good run
 ```
 
-> **Note**: `evals/fixtures/*/sources/` is gitignored in the public template (copyright — see `templates/SOURCE_ACQUISITION.md`). Keep the corpus in your private JPM case repo and copy it in when running evals. The MANIFEST (hashes only) is committed, so any runner can confirm they're testing against the identical corpus.
+> **Note**: `maintainer/evals/fixtures/*/sources/` is gitignored in the public template (copyright — see `templates/SOURCE_ACQUISITION.md`). Keep the corpus in your private JPM case repo and copy it in when running evals. The MANIFEST (hashes only) is committed, so any runner can confirm they're testing against the identical corpus.
 
 ## Running a regression pass
 
@@ -31,7 +31,7 @@ For each new kit version:
 2. Copy in the frozen corpus and config.
 3. Run the standard pipeline with a single agentic harness, answering prompts from `setup-answers.md`: add-sources → assess-sources → write-document (×4) → verify-all.
 4. Record the run context: **kit version, harness + version, model + version, date**. Model drift is a real confound — when comparing kit v3.2 to v3.3, use the same model for both runs whenever possible; when the model changed too, say so in the log.
-5. Score the output (below) and append results to `evals/test-log.md`.
+5. Score the output (below) and append results to `maintainer/evals/test-log.md`.
 
 Run the pipeline **twice** (n=2 minimum, n=3 better). LLMs are nondeterministic; a single run can't distinguish a regression from noise. Report ranges.
 
@@ -62,7 +62,7 @@ You can't easily score "is this verification skill *wise*?" — but you can scor
 
 Then run `/verify-all` and measure **detection recall** (how many of the N seeded defects were flagged?) and **precision** (how many flags were real vs. false alarms?). This converts "requires judgment" into a number, and it's the single best regression signal for the verification skills — if v3.3's checks catch 9/10 seeded defects where v3.2 caught 7/10, that's a real improvement; if it drops, that's a regression regardless of how nice the prose looks.
 
-Keep the seeded-defect list in `evals/fixtures/jpm-llm-suite/defect-set.yaml` (defect, location, expected detection) and grow it whenever a real-world miss is discovered — every production bug becomes a permanent test.
+Keep the seeded-defect list in `maintainer/evals/fixtures/jpm-llm-suite/defect-set.yaml` (defect, location, expected detection) and grow it whenever a real-world miss is discovered — every production bug becomes a permanent test.
 
 ## Layer 3 — Judged quality (rubric + comparison, per release)
 
@@ -83,4 +83,4 @@ For narrative quality, teachability, and tension — the truly judgment-laden di
 
 ## What "still working properly" means (release gate)
 
-A version passes when: Layer 1 all green (quote/number grounding 100%, debt 0), Layer 2 detection recall ≥ previous version on the standing defect set, and Layer 3 pairwise verdict is "no worse" than the previous version's golden output. Log every run — including failures — in `evals/test-log.md`.
+A version passes when: Layer 1 all green (quote/number grounding 100%, debt 0), Layer 2 detection recall ≥ previous version on the standing defect set, and Layer 3 pairwise verdict is "no worse" than the previous version's golden output. Log every run — including failures — in `maintainer/evals/test-log.md`.

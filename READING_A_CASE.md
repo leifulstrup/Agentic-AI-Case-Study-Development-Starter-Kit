@@ -26,7 +26,7 @@ you miss one.
 ## What actually goes wrong
 
 Every failure below is real. Each was found in a case built with this kit, and each is
-recorded in `evals/test-log.md` and `lessons_learned.md` with the run it came from. They
+recorded in `maintainer/evals/test-log.md` and `maintainer/lessons_learned.md` with the run it came from. They
 are not hypotheticals and they are not rare.
 
 ### 1. The quotation that is almost right
@@ -133,7 +133,7 @@ access — is not a check that passed.
 
 ## Three exercises
 
-**A · Find the planted defects.** `evals/fixtures/jpm-llm-suite/defect-set.yaml` holds 19
+**A · Find the planted defects.** `maintainer/evals/fixtures/jpm-llm-suite/defect-set.yaml` holds 19
 deliberately seeded errors drawn from real misses. Have someone inject a few into a copy
 of a finished case and hand it to you cold. Score yourself on how many you find, and — the
 more interesting number — how many you were confident about but wrong on.
@@ -183,4 +183,4 @@ before it goes out — because your name is on it and theirs is not.
 
 *The failures cited here are drawn from this project's own records. The maintainers
 found every one of them the hard way, usually after publishing something that turned out
-to be wrong. `lessons_learned.md` has 76 entries and most of them are mistakes.*
+to be wrong. `maintainer/lessons_learned.md` has more than eighty entries and most of them are mistakes.*

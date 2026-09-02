@@ -8,10 +8,10 @@
 # feature it was meant to ship, and — the unrecoverable one — the risk of
 # publishing copyrighted eval corpus to a public repository.
 #
-# Usage:  scripts/release-preflight.sh
+# Usage:  maintainer/scripts/release-preflight.sh
 
 set -uo pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 
 PASS=0; WARN=0; FAILED=0
 ok()   { printf '\033[32m  ok  \033[0m %s\n' "$*"; PASS=$((PASS+1)); }
@@ -30,7 +30,7 @@ else bad "uncommitted changes — commit or stash before releasing"; fi
 #
 # Both used to be `if ./script >/dev/null 2>&1`, which collapses three different
 # outcomes into two: passed, found something, and could not run. The third was
-# reported as the second. That is exactly how `scripts/lint.sh` — which aborted
+# reported as the second. That is exactly how `maintainer/scripts/lint.sh` — which aborted
 # on macOS's bash 3.2 — was reported for several versions as "lint violations"
 # against a tree whose markdown was clean.
 #
@@ -50,20 +50,20 @@ SHELL_BIN="${BASH:-/bin/bash}"
 
 # 2. Version consistency across all six locations
 run_gate "version stated consistently in all 6 locations" \
-         "version drift — run: scripts/bump-version.sh --check" \
-         "./scripts/bump-version.sh --check"
+         "version drift — run: maintainer/scripts/bump-version.sh --check" \
+         "./maintainer/scripts/bump-version.sh --check"
 
 # 3. Markdown lint (as CI runs it)
 run_gate "markdown lint clean (tracked files)" \
-         "lint violations — run: scripts/lint.sh" \
-         "./scripts/lint.sh"
+         "lint violations — run: maintainer/scripts/lint.sh" \
+         "./maintainer/scripts/lint.sh"
 
 # 4. CHANGELOG has a section for this version
 if grep -q "^## \[$VERSION\]" CHANGELOG.md; then ok "CHANGELOG has a [$VERSION] section"
 else bad "no [## $VERSION] section in CHANGELOG.md — releases need notes"; fi
 
 # 5. THE UNRECOVERABLE ONE: no copyrighted eval material staged for publication
-LEAK=$(git ls-files | grep -E 'evals/fixtures/[^/]+/(sources|golden)/' || true)
+LEAK=$(git ls-files | grep -E 'maintainer/evals/fixtures/[^/]+/(sources|golden)/' || true)
 if [ -z "$LEAK" ]; then ok "no eval corpus or golden baselines tracked (copyright)"
 else bad "TRACKED copyrighted material — DO NOT PUSH PUBLIC:"; echo "$LEAK" | sed 's/^/         /'; fi
 
@@ -142,7 +142,7 @@ fi
 #     A username segment must start with an alphanumeric and be followed by another
 #     path segment, so prose that writes the shape of a path -- /Users/... in a
 #     changelog entry, say -- is not mistaken for a real one.
-LEAKS=$(git grep -n -I -E '(/Users|/home)/[A-Za-z0-9][A-Za-z0-9._-]*/|C:\\Users\\[A-Za-z0-9]|Library/Application Support|local-agent-mode|\.local/share/Trash' -- . ':!*.gitignore*' ':!scripts/release-preflight.sh' 2>/dev/null | head -20)
+LEAKS=$(git grep -n -I -E '(/Users|/home)/[A-Za-z0-9][A-Za-z0-9._-]*/|C:\\Users\\[A-Za-z0-9]|Library/Application Support|local-agent-mode|\.local/share/Trash' -- . ':!*.gitignore*' ':!maintainer/scripts/release-preflight.sh' 2>/dev/null | head -20)
 #     (this script is excluded because it necessarily contains the patterns it hunts)
 if [ -z "$LEAKS" ]; then
   ok "no local machine paths in tracked files"

@@ -3,7 +3,7 @@
 *Proves every eval run uses the identical frozen corpus. Regenerate with the command below after copying sources in; any hash mismatch at run time means STOP — the corpus has drifted.*
 
 ```bash
-cd evals/fixtures/jpm-llm-suite
+cd maintainer/evals/fixtures/jpm-llm-suite
 find sources -type f ! -name .gitkeep -exec shasum -a 256 {} \; | sort -k2
 ```
 
