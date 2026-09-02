@@ -268,7 +268,6 @@ For public policy cases (case_type = "public_policy"), also reference `templates
 
 ## Notes
 
-- The detailed phase-by-phase prompts in `templates/PROMPTS.md` inform this skill's behavior — the student doesn't need to read PROMPTS.md directly
 - This skill is the primary way students create documents in v3
 - Always write to `case-study/` directory, never to the root or other locations
 - If the user wants to revise an existing document, read it first, ask what they want to change, and edit in place

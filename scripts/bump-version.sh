@@ -2,7 +2,7 @@
 # Propagate a new template version to every location that restates it,
 # then verify nothing was missed.
 #
-# The version lives in seven files. Three consecutive releases were bumped by
+# The version lives in six files. Three consecutive releases were bumped by
 # hand and each one needed a follow-up grep to catch stragglers. This script
 # exists so that never has to be remembered again.
 #
@@ -26,10 +26,9 @@ if [ "${1:-}" = "--check" ]; then
   grep -q "version: \"${CURRENT}\"" case-config.yaml     || { echo "  case-config.yaml"; missing=1; }
   grep -q "version: \"${CURRENT}\"" .claude/skills/setup-case.md || { echo "  setup-case.md"; missing=1; }
   grep -q "^version: \"${CURRENT}\"" CITATION.cff        || { echo "  CITATION.cff"; missing=1; }
-  grep -q "\*\*Version\*\*: ${CURRENT}" PROJECT_CONTEXT.md || { echo "  PROJECT_CONTEXT.md"; missing=1; }
   grep -q "\*\*Template version\*\*: ${CURRENT}" VERIFICATION_PLEDGE.md || { echo "  VERIFICATION_PLEDGE.md"; missing=1; }
   [ "$missing" -eq 0 ] || fail "version $CURRENT is not stated consistently (see above)"
-  ok "all 7 locations agree on $CURRENT"
+  ok "all 6 locations agree on $CURRENT"
   exit 0
 fi
 
@@ -45,7 +44,6 @@ sed -i.bak "s/template-v${CURRENT}-blue/template-v${NEW}-blue/; s/\*Template Ver
 sed -i.bak "s/^  version: \"${CURRENT}\"/  version: \"${NEW}\"/" case-config.yaml
 sed -i.bak "s/version: \"${CURRENT}\"/version: \"${NEW}\"/" .claude/skills/setup-case.md
 sed -i.bak "s/^version: \"${CURRENT}\"/version: \"${NEW}\"/; s/^date-released: .*/date-released: \"$(date +%F)\"/" CITATION.cff
-sed -i.bak "s/^\*\*Version\*\*: ${CURRENT}/**Version**: ${NEW}/" PROJECT_CONTEXT.md
 sed -i.bak "s/^\*\*Template version\*\*: ${CURRENT}/**Template version**: ${NEW}/" VERIFICATION_PLEDGE.md
 find . -name '*.bak' -not -path './.git/*' -delete
 

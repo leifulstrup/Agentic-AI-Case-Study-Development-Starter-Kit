@@ -157,7 +157,7 @@ This will:
 - Check attribution and flag unverified claims
 - Save to `case-study/` when complete
 
-**Chat tool users** — use the prompts in `templates/PROMPTS.md` to guide writing.
+**Chat tool users** — `STARTER_PROMPT.md` carries the writing guidance in conversational form.
 
 ### Research Loops
 
@@ -217,7 +217,7 @@ This runs all checks in sequence:
 - `/assess-bias` — perspective balance
 - `/verify-cross-document` — structural alignment
 
-**Chat tool users** — use the quality checklist in `templates/QA_WORKFLOW.md`.
+**Chat tool users** — the verification section of `STARTER_PROMPT.md` walks through the same checks in plain language.
 
 Address any issues and re-run until clean.
 

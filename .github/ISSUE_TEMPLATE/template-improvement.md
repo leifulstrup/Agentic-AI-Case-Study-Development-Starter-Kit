@@ -20,7 +20,7 @@ assignees: ''
 Select the area this improvement relates to:
 
 - [ ] Methodology / Process
-- [ ] Template Files (PROMPTS.md, etc.)
+- [ ] Reference documents (`templates/`)
 - [ ] Claude Code Skills
 - [ ] Documentation (README, guides)
 - [ ] GitHub Actions / CI

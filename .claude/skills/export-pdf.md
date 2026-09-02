@@ -100,7 +100,6 @@ Reminder: Run /add-disclaimers before final distribution if not already done.
 ## Notes
 
 - This skill prepares markdown for PDF conversion — it does not generate PDFs directly
-- The "Convert to PDF-Ready Format" prompt in `templates/PROMPTS.md` has additional formatting guidance
 - Teaching Note exports should include a "FOR INSTRUCTOR USE ONLY" header
 - Remove any verification debt comments before export
 

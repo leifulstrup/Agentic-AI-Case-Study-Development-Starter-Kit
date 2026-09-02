@@ -80,7 +80,7 @@ The one thing the script cannot judge: whether `evals/test-log.md` has a passing
 
 | Script | Purpose |
 |--------|---------|
-| `scripts/bump-version.sh X.Y.Z` | Propagate a version to all seven locations and verify; `--check` audits consistency without changing anything |
+| `scripts/bump-version.sh X.Y.Z` | Propagate a version to all six locations and verify; `--check` audits consistency without changing anything |
 | `scripts/lint.sh` | Lint tracked markdown exactly as CI does (`--fix` applies safe autofixes) |
 | `scripts/release-preflight.sh` | The eleven checks above |
 | `scripts/release-notes.sh X.Y.Z` | Extract a CHANGELOG section for `gh release create --notes-file` |

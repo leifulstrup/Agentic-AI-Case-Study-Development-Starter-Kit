@@ -3,7 +3,7 @@
 # to the public template.
 #
 # Each check corresponds to something that actually went wrong, or nearly did,
-# in a previous release: version drift across seven files, a red CI build that
+# in a previous release: version drift across six files, a red CI build that
 # had been red so long it stopped being read, a release tag that predated the
 # feature it was meant to ship, and — the unrecoverable one — the risk of
 # publishing copyrighted eval corpus to a public repository.
@@ -48,8 +48,8 @@ run_gate() {
 }
 SHELL_BIN="${BASH:-/bin/bash}"
 
-# 2. Version consistency across all seven locations
-run_gate "version stated consistently in all 7 locations" \
+# 2. Version consistency across all six locations
+run_gate "version stated consistently in all 6 locations" \
          "version drift — run: scripts/bump-version.sh --check" \
          "./scripts/bump-version.sh --check"
 
