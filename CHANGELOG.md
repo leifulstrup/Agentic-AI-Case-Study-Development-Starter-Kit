@@ -7,6 +7,78 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.6.0] - 2026-09-02
+
+*The repository was doing two jobs — the maintainer's workshop and the template a student
+clones — and about 43% of what a "Use this template" click delivered was material the README
+told students they could delete. Now it is one directory. Verified by a full authoring run
+on the streamlined tree before release.*
+
+### Changed
+- **Everything for maintaining the kit lives under `maintainer/`.** `evals/`, `scripts/`,
+  `RELEASING.md`, `.gitignore-private` and `log.md` moved there, with a README explaining each
+  and stating the whole directory is safe to delete. The README's seven-item "tidying up" note
+  is now one sentence. Root markdown files 13 → 11; 30,691 of 88,583 tracked words — 35% —
+  now sit in one deletable place
+- **`lessons_learned.md` splits.** The maintainers' 82 entries move to `maintainer/`, still
+  cited by `READING_A_CASE.md` as teaching material. The root gets a fresh project-facing
+  file: `AGENTS.md` tells agents to record the author's lessons there, and a student's file
+  should not begin with 82 of someone else's
+- **`PROJECT_CONTEXT.md` reset to what `/setup-case` fills.** It had been carrying the
+  maintainer's decisions, testing history, adoption record and roadmap — wrong inside a clone
+  from the first second, and stale for the template itself. Dropped from `bump-version.sh`'s
+  checked locations (seven → six): template identity belongs in `TEMPLATE_VERSION` and
+  `case-config.yaml`, not a project-state file
+- **Release tooling verified at the new paths rather than assumed.** All four scripts find the
+  repo root from `maintainer/scripts/`; preflight's cross-calls and its check-5 pattern
+  updated; `.gitignore` corpus patterns moved. **Check 5 — the guard against tracking the
+  copyrighted corpus, the one unrecoverable mistake — was sabotage-tested at the new path**: a
+  corpus file force-tracked, preflight FAILs; restored, it passes. The first attempt at that
+  test silently planted nothing because the path was assumed; the second asserts the plant
+  landed before reading the result
+
+### Removed
+- **Four `templates/` files from the first commit, each superseded by something that now
+  exists** — `PROMPTS.md` by the skills themselves (its PDF prompt was already `export-pdf.md`
+  steps 3–4 verbatim); `QA_WORKFLOW.md` by `/verify-all`; `FOLDER_TEMPLATE.md` by the repo
+  being a GitHub template; `RETROSPECTIVE.md` by `/report-experience` and `READING_A_CASE.md`.
+  7,053 words, nine references redirected
+
+### Fixed
+- **`validate-template.yml` required 16 of 21 skills and did not require `AGENTS.md` at all.**
+  The canonical instruction file could have been deleted and CI would have passed. Now
+  requires it, plus `READING_A_CASE.md`, `VERIFICATION_PLEDGE.md`, the three missing
+  author-facing skills, and the field-report issue form
+
+### Verified
+- **A full authoring run on the streamlined tree, scored against the v4.3.0 baseline with
+  criteria fixed before the run.** Four documents produced. Freeze protocol ran — with md5
+  fingerprints, stronger than the word counts the skill asks for. Post-correction pass ran
+  and caught one new defect the correction round introduced (a glossary component attributed
+  to a source that never uses the word), 32 of 33 fixes landing clean. **Every one of 16
+  verification logs was written by an agent that did not author the documents** — the
+  authoring agent self-ran nothing but the pre-writing source assessment, stricter than the
+  baseline's seven author-run checks. No output referenced a pre-move path. The three prose
+  documents came in *closer* to target than the baseline: Supplement +31% → +15%, Teaching
+  Note +24% → +12%, Main Case +9% → +10%
+- **Two scorer flags examined and attributed, neither to the streamline.** The scorer's
+  independence criterion required author-run checks to be labelled and so penalised a run
+  that delegated every check; corrected on the record. And Additional Sources came in at
+  +133% against a 2,000-word target — holding 120 traced quotations to the baseline's 33 —
+  because v4.3.1 says never cut the evidence file to hit a number. That rule is identical on
+  both trees and postdates the baseline; the comparison on that row crosses a rule change,
+  not a tree change. **It also shows the target is now meaningless for that document**, which
+  is recorded as an open calibration question rather than hidden
+
+### Notes
+- **An agent following "Who Verifies" stalled.** It commissioned an independent verifier,
+  ended its turn to wait, and never woke when the verifier reported — the notification went
+  to the session above it. A student on Cowork would have seen silence. The rule is right; how
+  it meets a real runtime is not yet addressed. Open
+- Minor rather than major because no author-facing capability changed and every skill
+  behaviour was verified unchanged. Maintainers with `scripts/…` in muscle memory or a forked
+  CI will need to add `maintainer/`
+
 ## [4.5.0] - 2026-08-28
 
 *The kit now collects its own field evidence. Previously that meant chasing users after

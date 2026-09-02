@@ -711,3 +711,41 @@ rather than left as a rule the user is asked to enforce afterwards.
 building seeded-defect sets and blind agent probes to generate evidence, while thirty real
 users' experience went uncollected and no mechanism existed to capture the thirty-first.
 This is the cheap instrument that should have been built first.
+
+## 2026-09-02 — v4.6.0: one repository, two jobs, now one directory
+
+**Context**: about 43% of what a "Use this template" click delivered was maintainer
+material — development log, lessons, eval framework, release tooling — listed in the README
+as seven things a student could delete. The README's own tidying note was the diagnosis.
+
+**Phase 1 removed what was dead.** Four `templates/` files from the first commit, each
+superseded: the pre-skills prompt library, a manual QA walkthrough of what `/verify-all`
+automates, a folder-setup guide from before the repo was a template, and a retrospective
+form now done better by `/report-experience`. `PROJECT_CONTEXT.md`, which had become the
+maintainer's roadmap, reset to the shape `/setup-case` fills. And a real gap in CI:
+`validate-template.yml` did not require `AGENTS.md`.
+
+**Phase 2 moved the rest under `maintainer/`.** Verified rather than assumed: every script
+finds the root from its new home, preflight's cross-calls and corpus pattern updated, and
+check 5 — the copyright guard — sabotage-tested at the new path. The first sabotage attempt
+planted nothing (assumed filename, silent pathspec failure) and reported the guard passing.
+The second asserts the plant landed first.
+
+**Then the regression gate**, with the scorer written before the run: a full authoring pass
+on the streamlined tree, minus `maintainer/`, exactly as a student receives it. Four
+documents; freeze protocol ran with md5s; post-correction pass caught one introduced defect
+(32 of 33 fixes clean); all 16 verification logs by agents that did not author the
+documents; no stale paths. Prose documents landed closer to target than the baseline.
+
+**Two REGRESSION flags, both examined, neither the streamline.** The scorer's independence
+criterion penalised a run for delegating *every* check — corrected on the record. Additional
+Sources at +133% is v4.3.1's evidence-file rule on logic both trees share; 120 traced
+quotations against the baseline's 33. That rule has made the target meaningless for that
+document — open, recorded, not hidden.
+
+**One thing learned that the release does not fix**: the authoring agent commissioned an
+independent verifier, ended its turn to wait, and never woke. The verifier's report came to
+the session above it. The instruction is right; its meeting with a runtime is not written.
+
+**Shipped as v4.6.0.** Minor: no author-facing capability changed, every skill behaviour
+verified. Root markdown 13 → 11; 35% of tracked words now in one deletable directory.

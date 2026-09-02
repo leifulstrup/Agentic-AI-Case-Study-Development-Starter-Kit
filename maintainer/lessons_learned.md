@@ -446,3 +446,36 @@ and hands over a pre-filled link — it never posts. That is partly consent and 
 adoption: a mechanism needing a CLI and an authenticated account would have excluded most
 of this kit's actual users, who are professors and students rather than developers. **The
 lowest-friction path that still requires a human decision is usually a link.**
+
+## v4.6.0 — 2026-09-02 (streamline)
+
+**83. A regression flag is a claim about the scorer as much as about the code.** Two
+REGRESSION lines came back from a scorer written with the criteria fixed in advance — the
+right discipline — and both were wrong. One penalised a run for having *zero* author-run
+checks, which was the stricter behaviour the rule asks for; the criterion had assumed some
+self-running would happen. The other compared across a rule change the scorer did not know
+about. Fixing the criteria before the data prevents drift toward the result you want; it
+does not make the criteria correct. **When a gate fires, examine the gate before examining
+the code**, and record which one was at fault.
+
+**84. "Never cut the evidence file" turned a target into a suggestion.** v4.3.1 exempted
+Additional Sources from length cutting because hitting the number had severed chains of
+custody. The next run produced a 4,667-word evidence file against a 2,000-word target,
+holding 120 traced quotations. That is the rule working — and it means the number in
+`case-config.yaml` is now decoration for that document. A rule that overrides a target
+should also say what the target now means, or remove it. Open.
+
+**85. An agent that ends its turn to wait does not wake up.** Following "Who Verifies," an
+authoring agent commissioned an independent verifier, then stopped to wait for it. The
+verifier finished and reported — to the session above, not to the agent that was waiting.
+Nothing in the instruction anticipates that. A student on Cowork would have watched
+nothing happen and not known why. **A rule that says "delegate this" has to say how to
+wait for the delegate**, because the runtime will not do it for you.
+
+**86. A sabotage test that plants nothing reports the guard as working.** The first check-5
+test at the new path used an assumed filename, `git add -f` failed silently on a bad
+pathspec, and preflight reported "ok" against an unchanged tree — which read as the guard
+passing. This is the same failure class as the six others, in a test written specifically
+to catch that failure class. The fix was not a better guess at the path; it was `find` the
+file, then assert it is tracked before reading any result. **Verify the plant, or the test
+verifies nothing.**

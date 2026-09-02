@@ -532,3 +532,92 @@ them."
 n=1. One corpus, one agent, one tool path. The partial result on claim 1 is a single
 observation, and the three CONFIRMED results say the instructions were *followed once* —
 not that they will be reliably.
+
+---
+
+## v4.6.0 — 2026-09-02 — jpm-llm-suite — REGRESSION GATE for the streamlined tree
+
+- Question: does moving 35% of the repository under `maintainer/` and removing four
+  legacy files change what the kit produces for a student? The user's constraint was that
+  the streamlined repo "continues to deliver the expected results in terms of case
+  quality," so the release was gated on this run
+- Design: the streamlined tree staged **minus `maintainer/`** — exactly what a student
+  receives after following the README's tidying note — with the frozen five-source corpus
+  and a config at current targets. **Identical prompt to the v4.3.0 baseline run**;
+  nothing about what was being measured was disclosed. Scorer written and calibrated
+  against the baseline **before** the run completed
+- Output kept at `eval-runs/authoring-2026-08-28-streamlined/`, outside any repository
+
+### Scorer output, verbatim
+
+```
+CRITERION                             BASELINE    THIS RUN   VERDICT
+--------------------------------------------------------------------------
+documents produced                           4           4   ok
+  Additional_Sources overshoot            +48%       +133%   worse
+  Case overshoot                           +9%        +10%   ok
+  Supplement overshoot                    +31%        +15%   ok
+  Teaching_Note overshoot                 +24%        +12%   ok
+package overshoot                         +27%        +44%   REGRESSION
+freeze protocol ran                        yes         yes   ok
+post-correction pass ran                   yes         yes   ok
+verifier declared (logs)                   all       16/16   ok
+independent-verifier declarations          >=1          16
+stale pre-move path refs in output           0           0   ok
+--------------------------------------------------------------------------
+Any line marked REGRESSION means the streamlined tree does not ship as-is.
+```
+
+### Attribution — both flags examined, neither is the streamline
+
+The scorer is mechanical and does not know why a number moved. Two flags fired; the
+discipline is to examine the gate before the code.
+
+**"verifier declared" — originally flagged as REGRESSION, corrected.** The scorer's first
+version required `SAME SESSION AS AUTHOR` labels > 0, on the assumption the author would
+self-run some checks and label them. This run's authoring agent self-ran **none** — it
+delegated all 16 verification logs to agents that "did not author the documents," and the
+second pass to one that "did not author the documents and did not make the corrections."
+Zero labels because zero same-session checks: the *stricter* reading of Who Verifies. The
+criterion was wrong; corrected on the record to "every log declares its verifier," met
+16/16. The line above shows the corrected criterion.
+
+**"package overshoot +44%" — a real number, attributable to v4.3.1, not to the move.** The
+entire delta is Additional Sources at +133% (4,667 words against 2,000). The three prose
+documents all landed *closer* to target than the baseline. The evidence file grew because
+v4.3.1 says never cut it to hit a number, after doing so had severed chains of custody —
+and it holds **120 traced quotations to the baseline's 33**, 59 table rows to 24. That rule
+is identical on both trees and postdates the baseline, so this row compares across a rule
+change. The streamline touched no skill logic. **Left as REGRESSION in the output above
+rather than edited out**, because it is also a genuine finding: the 2,000-word target is
+now meaningless for that document. Open calibration question, lesson 84.
+
+### What the run demonstrated, on the streamlined tree
+
+| | |
+|---|---|
+| Four documents produced | yes |
+| Freeze protocol | ran, with **md5 fingerprints** — stronger than the word counts the skill specifies; start and end identical |
+| Post-correction pass | ran by a fresh verifier; 32 of 33 fixes clean, **1 new defect caught** (a glossary component attributed to a source that never uses the word) |
+| Independence | all 16 verification logs by non-authors |
+| Stale pre-move paths in output | 0 |
+| Prose length vs baseline | Supplement +31% → +15%; Teaching Note +24% → +12%; Main Case +9% → +10% |
+
+**Verdict: the streamline ships.** Every skill behaviour the baseline established is present
+and in two cases stronger.
+
+### Observed, not part of the gate
+
+- **The authoring agent stalled.** It commissioned its independent verifier, ended its turn
+  to wait, and did not wake when the verifier reported — the notification went to the
+  session above. Resumed by message; then cut off by a usage limit before its final
+  cosmetic round. The tree was scored at the verified freeze it reached, which is the same
+  stage the baseline was scored at. Lesson 85; not addressed by this release
+- **The first check-5 sabotage test planted nothing** — assumed filename, silent pathspec
+  failure — and read as the guard passing. Rerun with the file found and the plant asserted
+  before any result was read. Lesson 86
+
+### Limits
+
+n=1 per tree. One corpus, one agent, one tool path. The comparison is against a single
+baseline run, and the scorer's tolerance band (+5 points) is a judgment, not a statistic.
