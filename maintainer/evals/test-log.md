@@ -621,3 +621,69 @@ and in two cases stronger.
 
 n=1 per tree. One corpus, one agent, one tool path. The comparison is against a single
 baseline run, and the scorer's tolerance band (+5 points) is a judgment, not a statistic.
+
+---
+
+## v4.6.0 — 2026-09-03 — jpm-llm-suite — COWORK, first run on the recommended path
+
+- The kit's recommended path since v4.0.0, never run until now. Executed by the maintainer
+  in **Claude Cowork** (a mode inside Claude.app — no CLI, works on local folders through
+  Spaces), model **Opus 4.8**, on the streamlined v4.6.0 tree minus `maintainer/`, with the
+  frozen five-source corpus
+- Three predictions recorded **before** the run, in `COWORK-TEST/RUN-THIS-IN-COWORK.md`
+- Scope verified against a 574-file md5 manifest taken beforehand
+
+### Predictions vs outcome
+
+| Prediction | Outcome |
+|---|---|
+| Files land in a session sandbox, not the project folder | **WRONG** — four documents, 8,100 words, in `case-study/` |
+| Finds the procedures without slash-commands | **CORRECT** — located and followed the skills via `AGENTS.md` |
+| An egress allowlist blocks the link check | **WRONG** — hosts reached; CNBC 403, YouTube 429 |
+
+The second is the claim every release since v4.0.0 rested on. The third error was a
+maintainer error: one session's `egressAllowedDomains` was read and asserted as a general
+property of Cowork.
+
+### What the run established
+
+| | |
+|---|---|
+| Time to a finished four-document package | ~25 minutes (straight through, no section pauses) |
+| Found `AGENTS.md` and skills unaided | yes |
+| Stayed inside the folder it was pointed at | yes — nothing outside `COWORK-TEST/` changed |
+| Offered `/report-experience` unprompted | yes — first real use of the v4.5.0 mechanism |
+| Author/verifier independence | **not met**; author and verifier were the same session, disclosed as the rule requires |
+
+### The reported headline finding was misattributed — and led to a real one
+
+The run reported that `/add-sources` fails to write the Independence and Processing
+columns. **The registry it saw was byte-identical to the v3.2.0 golden, staged by the
+maintainer.** `/add-sources` specifies both columns and had never been invoked, because a
+registry was already present.
+
+Underneath it, the real defect: the fixture ships sources and **no** registry, so every
+operator takes one from `golden/`. **Five prior runs did this**, which means source
+classification — ASR vs edited vs verbatim, and who has a stake — was silently absent from
+all of them. Fixed in v4.7.0: `run-eval.md` now requires the registry be generated, with
+the rule that golden is blessed output and never input.
+
+### Genuinely new: MISFIT, no sanctioned unattended mode
+
+The skills are written for a conversation — present a section, pause for approval. The
+recommended path exists to run unattended. Launched with "take it as far as you can," the
+agent invented a mode and reported it. Sanctioned in v4.7.0.
+
+### Also found
+
+- `sources/` ships `transcripts/`, `financial/`, `news/`, `reports/` holding only
+  `.gitkeep`, while `add-sources.md` tells authors to drop files there — a path-following
+  step against a flattened corpus would miss them
+- The fixture's `case-config.yaml` pins `template.version: 3.2.0` by design ("set at run
+  time"); the run reported it as stale. The kit's own config was correct at 4.6.0
+
+### Limits
+
+n=1. One corpus, one model, one operator, attended-launch-then-unattended. A Cowork run
+that delegates verification to a second session is untested, and that is the condition
+under which the independence rule actually bites.

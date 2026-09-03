@@ -179,6 +179,11 @@ catching them is the expensive path. **You are the cheap one.**
 - After each section, pause and ask: "How does this look? Any changes before I continue?"
 - Accept feedback, revise, then move to the next section
 
+**If nobody is there to review**, do not stall waiting and do not silently skip the step.
+Work unattended per *Working Attended or Unattended* in `AGENTS.md`: draft straight
+through, record each point where you would have paused, and hand the author one ledger of
+decisions at the end. Say which mode you used when you report the document.
+
 ### 5. Inline Verification (After Each Section)
 
 After writing each section, perform lightweight checks:

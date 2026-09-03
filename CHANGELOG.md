@@ -7,6 +7,70 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.7.0] - 2026-09-03
+
+*The recommended path has been run by a person. It works. Everything here comes from that
+run — including the finding that two of its three headline defects were the test's fault,
+not the kit's.*
+
+### Changed
+- **The Cowork callout is retired and replaced with what was observed.** Since v4.0.0 the
+  README has recommended Cowork to every new adopter while admitting it had never been
+  run. It has now been run end-to-end: **a complete four-document package from five
+  sources in about 25 minutes**, finding `AGENTS.md` and the skills unaided, writing every
+  file into the project folder, and offering a field report unprompted. The callout now
+  tells authors the two things that actually surprise them — it runs straight through
+  unless asked to pause, and the link check usually comes back blocked
+  - **The prediction that files would land in a session sandbox was wrong.** They went to
+    `case-study/` as the README says. The prediction that an egress allowlist would block
+    the link check was **also wrong** — the hosts were reached and refused (403, 429).
+    Both predictions were recorded before the run, which is why they could be wrong out
+    loud instead of quietly
+
+- **`AGENTS.md` gains "Working Attended or Unattended".** The skills are written for a
+  conversation — present each section, pause for approval — and the recommended path
+  exists to run multi-step work autonomously. **Those two facts had never been reconciled,
+  so an agent launched with "take it as far as you can" had to invent a mode.** One did,
+  sensibly, and reported it as a MISFIT. Now sanctioned: what may be done unattended
+  (gather, assess, draft, verify, fix), what may not (decide the case is finished, accept
+  a one-sided base, resolve a source conflict by picking one, publish — **an empty room is
+  not consent**), and the live pause traded for an end-of-run decision ledger the author
+  can reverse. Agents must report which mode they used, because an unattended run is
+  faster for having skipped the reviews, not for being better
+
+- **`/verify-links` distinguishes BLOCKED from DEAD.** It previously knew only "broken
+  (404, timeout)". In the run, `cnbc.com` returned 403 and `youtu.be` returned 429 — both
+  live, both refusing automated requests. Reporting those as broken sends an author
+  hunting for a replacement that is not missing; reporting them as checked claims a
+  verification that never happened. Four verdicts now: **OK**, **BLOCKED** (host answered
+  and refused — needs a human with a browser), **DEAD** (404/DNS — a real defect), and
+  **NOT RUN**. A run where every link is blocked is still NOT RUN, so the checklist stays
+  honest
+
+### Fixed
+- **Eval runs were being staged with a registry from `golden/`, and it is four versions
+  stale.** The fixture ships source files and no `Source_Registry.md`, so operators —
+  including this project's maintainers, in five prior runs — took one from
+  `golden/baseline-v3.2.0/`, which predates the v3.3 source-integrity work and carries
+  neither the Independence nor the Processing column. **Worse than stale: a pre-built
+  registry means `/add-sources` never runs**, so the classification logic that decides
+  whether a transcript is ASR, whether an interview was edited, and who has a stake in the
+  subject is silently excluded from the test. `run-eval.md` now says to let `/add-sources`
+  build it, and states the general rule: **golden is blessed output, never input** — its
+  artifacts are frozen at the standard of the version that produced them and get less
+  current every release
+  - This is the defect that produced the run's headline finding. The agent reported
+    `/add-sources` as failing to write columns it had never been asked to write. **The
+    finding was real about the file and wrong about the kit**, and it cost a round-trip to
+    establish
+
+### Notes
+- Cowork stayed inside the folder it was pointed at; nothing outside the test directory
+  changed, verified against a 574-file md5 manifest taken before the run
+- Author and verifier were the same session, disclosed in the outputs as the rule requires
+- First real use of `/report-experience`: offered unprompted, drafted from what the agent
+  had worked around, produced a pre-filled issue link
+
 ## [4.6.0] - 2026-09-02
 
 *The repository was doing two jobs — the maintainer's workshop and the template a student

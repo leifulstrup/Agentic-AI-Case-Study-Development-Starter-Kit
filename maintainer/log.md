@@ -749,3 +749,39 @@ the session above it. The instruction is right; its meeting with a runtime is no
 
 **Shipped as v4.6.0.** Minor: no author-facing capability changed, every skill behaviour
 verified. Root markdown 13 → 11; 35% of tracked words now in one deletable directory.
+
+## 2026-09-03 — v4.7.0: the recommended path, run by a person at last
+
+**Context**: Cowork has been the kit's recommended path since v4.0.0 and had never been
+run. Six consecutive session notes carried it as priority one. Research first established
+what it actually is — a mode inside Claude.app, no CLI, working on local folders through
+Spaces — which meant the run had to be done by hand, and the useful contribution was
+staging it so it cost nothing but the run.
+
+**It works.** Four documents, 8,100 words, about 25 minutes. It found `AGENTS.md` and the
+skills without being told where they were, wrote everything into `case-study/` as the
+README promises, stayed inside the folder it was pointed at (verified against a 574-file
+md5 manifest taken beforehand), and offered a field report unprompted — the first real use
+of the v4.5.0 mechanism.
+
+**Two of three predictions were wrong**, both recorded beforehand. Files did not land in a
+session sandbox. And no egress allowlist blocked the link check — the hosts were reached
+and refused with 403 and 429. That second error was mine twice over: I read one Cowork
+session's `egressAllowedDomains` and asserted it as a general property of Cowork.
+
+**The report's headline finding was also misattributed, and that one was my staging.** It
+said `/add-sources` fails to write Independence and Processing columns. The registry it
+saw was byte-identical to the v3.2.0 golden I had copied in; `/add-sources` specifies both
+columns and had never been invoked, because a registry was already present. Chasing it
+down surfaced the real defect underneath: **five prior runs, all of mine, staged the same
+stale golden registry and therefore never exercised source classification at all.**
+
+**What shipped**: the callout retired and replaced with observed behaviour; a sanctioned
+unattended mode reconciling skills written for a conversation with a path built for
+autonomy; BLOCKED separated from DEAD in the link check; and `run-eval.md` told to
+generate the registry rather than copy one, with the general rule that golden is output
+and never input.
+
+**Still open**: author and verifier were the same session in this run — disclosed, as the
+rule requires, but the independence *preference* went unmet. A Cowork run that delegates
+verification to a second session is untested.

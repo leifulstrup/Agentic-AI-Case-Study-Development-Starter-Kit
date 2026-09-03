@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v4.6.0-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v4.7.0-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -243,10 +243,14 @@ language instead ("assess my sources", "write the main case"), and the agent wil
 the matching skill file and follow the same procedure. `AGENTS.md` instructs it to.
 Every capability is reachable either way; only the shortcut differs.
 
-> **Status: newly added and not yet field-tested.** The Cowork path is documented here
-> because it is the best fit for non-technical authors, but it has not yet been run
-> end-to-end on a real case the way the Claude Code path has. If something in it does
-> not match what you see, please open an issue — that feedback is actively wanted.
+> **Status: run end-to-end, September 2026.** Cowork built a complete four-document case
+> package from a five-source corpus in about 25 minutes. It found `AGENTS.md` and the
+> skills on its own, wrote every file into the project folder, and offered a field report
+> at the end without being asked. Two things to know going in: **it runs straight through
+> rather than pausing between sections** unless you ask it to stop and review — say so if
+> you want the slower, section-by-section version. And **the link check will usually come
+> back blocked**, because news sites refuse automated requests; those links need a human
+> with a browser. Anything else that does not match what you see, please open an issue.
 
 #### Alternate paths, if you prefer one
 
@@ -503,4 +507,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 4.6.0*
+*Template Version: 4.7.0*

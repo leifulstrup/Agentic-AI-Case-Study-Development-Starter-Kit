@@ -42,6 +42,32 @@ cp maintainer/evals/fixtures/<fixture>/case-config.yaml "$RUN/"
 rsync -a --exclude COPY_SOURCES_HERE.md maintainer/evals/fixtures/<fixture>/sources/ "$RUN/sources/"
 ```
 
+**Do not stage a `Source_Registry.md`. Let `/add-sources` build it.**
+
+The fixture deliberately ships source files and no registry. Registration is where
+independence and processing status get classified — whether a transcript is ASR, whether
+an interview says it was edited, who has a stake in how the subject is portrayed. **Hand
+the run a pre-built registry and none of that logic ever executes**, and the run silently
+tests a smaller kit than the one you shipped.
+
+This went wrong in exactly that way: a Cowork run was staged with the registry from
+`golden/baseline-v3.2.0/`, which predates the v3.3 source-integrity work and carries
+neither column. The run reported the missing columns as a defect in `/add-sources` — a
+skill it had never invoked, because the file was already there. **The finding was about
+the staging, not the kit**, and it cost a round-trip to establish.
+
+Two rules follow:
+
+- **Never copy anything out of `golden/` into a fresh run.** Golden is blessed *output*
+  from a past version, not input. Its artifacts are frozen at the standard of the version
+  that produced them, and they get less current every release.
+- If a run genuinely needs to skip registration — a verification-only probe, say — write
+  the registry fresh against the **current** `sources/Source_Registry.md` template, and
+  say in the test-log entry that registration was skipped and why.
+
+```bash
+```
+
 **Verify the corpus before doing anything else:**
 
 ```bash

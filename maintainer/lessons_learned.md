@@ -479,3 +479,37 @@ passing. This is the same failure class as the six others, in a test written spe
 to catch that failure class. The fix was not a better guess at the path; it was `find` the
 file, then assert it is tracked before reading any result. **Verify the plant, or the test
 verifies nothing.**
+
+## v4.7.0 — 2026-09-03 (the recommended path, finally run)
+
+**87. A fixture that ships an artifact instead of generating it tests a smaller system
+than you shipped.** Five eval runs staged a `Source_Registry.md` copied from
+`golden/baseline-v3.2.0/` because the fixture ships sources and no registry. Two things
+followed, and the second is worse. The file was four versions stale, missing the
+Independence and Processing columns v3.3 added. And because a registry was already there,
+**`/add-sources` never ran** — so the classification logic that decides ASR vs edited vs
+verbatim, and who has a stake in the subject, was silently absent from every one of those
+runs. **Golden is blessed output, never input.** Anything copied out of it freezes your
+test at the standard of the version that produced it.
+
+**88. The skills assumed a person was watching, and the recommended path assumes nobody
+is.** Every authoring skill says to present a section and pause for approval. Cowork
+exists to run multi-step work unattended. Those two facts sat one directory apart for
+seven releases and were never reconciled, so the first agent launched with "take it as far
+as you can" had to invent a mode and tell us it had. **When you add a new execution
+context, re-read the instructions as that context** — not as the one you wrote them in.
+
+**89. "Broken" was one word doing three jobs.** The link check knew 404 and timeout. Real
+runs mostly produce **403 and 429** — the host answered and refused a robot. Calling that
+broken sends an author hunting for a replacement source that is not missing; calling it
+checked claims a verification that never happened. A vocabulary too coarse for the common
+case produces confident wrong advice, and the coarseness is invisible until something real
+exercises it.
+
+**90. A wrong prediction recorded in advance is worth more than a right one made after.**
+Two of three predictions before the Cowork run were wrong — files did not land in a
+sandbox, and no egress allowlist blocked the links. Both had been written down, so both
+failed publicly and cheaply, and the egress error exposed the real reason I had been
+wrong: I read one session's config and asserted a general property. Had those been formed
+after seeing the result, both would have been quietly reshaped into things I had known all
+along.
