@@ -7,7 +7,7 @@
 **Date of last clean `/verify-all` run**: ______________
 **That run was against a frozen package** (no edits during the check): ☐ yes
 **Corrections since that run were re-verified by someone who did not make them**: ☐ yes ☐ none made
-**Template version**: 4.7.0
+**Template version**: 4.8.0
 
 ## The pledge
 

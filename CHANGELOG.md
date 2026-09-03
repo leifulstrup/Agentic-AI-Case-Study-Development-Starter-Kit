@@ -7,6 +7,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.8.0] - 2026-09-03
+
+*A blocked check is a decision the author has to make, not a red mark for the kit to
+resolve. This gives them the options and the trade-offs, and declines to choose for them.*
+
+### Added
+- **`/verify-links` now hands the author an escalation ladder instead of a dead end.**
+  v4.7.0 taught it to distinguish BLOCKED from DEAD; it still left the author holding a
+  finding with nothing to do about it. It now names the specific URLs, says what happened
+  to each, and lays out the routes in order of how little they ask:
+  - **Open them yourself** — half a minute per link, no new software, no new account, and
+    the most reliable answer available, since a human with a browser is precisely what
+    these sites are checking for
+  - **Cowork's built-in browser**, which behaves like a real session and often reaches
+    what a plain fetch cannot — no new trust boundary for someone already working there
+  - **An institutional library proxy** for paywalled scholarly sources, using credentials
+    the author already has
+  - **Third-party fetch and scraping services**, stated honestly: they work, and they mean
+    installing software or connecting a service that gets access to what it fetches,
+    usually with a key to manage. Prefer something already vetted by the author or their
+    institution
+
+- **`AGENTS.md` generalises the principle beyond links**, under *A Check That Cannot Run
+  Must Say So*: reporting `NOT RUN` is the floor, not the job. Say what would settle it,
+  order the options by how little they ask, name the cost of the heavier ones once —
+  without alarm and without enthusiasm — **and let the author decide, because they know
+  their institution's rules and you do not**
+
+### Changed
+- **Three things the agent may never do**, now written rather than assumed: work around a
+  protection that is deliberately there (no retry loops, no alternate user agents, no
+  cache or mirror standing in for the source — that is a different page that might say
+  something else); suggest anything wanting the author's credentials or session; or name a
+  favourite third-party tool as though the kit endorses it
+- **The finding does not change based on what the author chooses.** Unverified stays
+  unverified in the report, including when they choose to do nothing. **The goal is an
+  accurate record, not a clean-looking one** — and publishing with a disclosed gap is an
+  honest state, which is the whole reason the kit tracks debt rather than hiding it
+- The README tells authors this before they meet it, so a blocked link reads as an
+  expected step with choices rather than a failure
+
+### Notes
+- Prompted by the first Cowork run, where `cnbc.com` returned 403 and `youtu.be` 429 — both
+  live, both refusing robots. The kit could say the check failed and could not say what to
+  do next, which leaves a non-technical author stuck at exactly the point where the answer
+  is easy
+
 ## [4.7.0] - 2026-09-03
 
 *The recommended path has been run by a person. It works. Everything here comes from that

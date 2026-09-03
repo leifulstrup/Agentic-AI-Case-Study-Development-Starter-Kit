@@ -513,3 +513,25 @@ failed publicly and cheaply, and the egress error exposed the real reason I had 
 wrong: I read one session's config and asserted a general property. Had those been formed
 after seeing the result, both would have been quietly reshaped into things I had known all
 along.
+
+## v4.8.0 — 2026-09-03 (blocked, not stuck)
+
+**91. Reporting that a check failed is half a finding.** `/verify-links` learned in v4.7.0
+to say BLOCKED rather than broken — an improvement that still left a non-technical author
+holding a red mark with no idea what to do about it, at exactly the point where the answer
+is easy and takes thirty seconds. **A check that cannot run should end with options, not a
+verdict.** Order them by how little they ask of the person, and the top of that list is
+almost always "do it yourself, here is precisely what to look at."
+
+**92. Name the expensive option honestly and then stop talking.** Third-party fetch tools
+genuinely solve this, and adopting one means installing software that gets access to what
+it touches. Omitting the category would be paternalistic; recommending a product would put
+the kit's thumb on a decision about someone else's institutional risk. **State that the
+category exists, state what it costs once — without alarm and without enthusiasm — and
+leave the choice where it belongs.** The author knows their rules; the tool does not.
+
+**93. The fix for a red mark is never to make it go away.** Whatever route the author takes,
+including doing nothing, an unverified link stays unverified in the report. A kit that
+quietly downgrades findings once someone has been told about them teaches authors that
+diligence is about clearing the dashboard. Publishing with a disclosed gap is an honest
+state — which is the entire reason verification debt is tracked rather than hidden.

@@ -260,6 +260,28 @@ each fix landed *and* that the round introduced nothing. **"All fixed" is a clai
 evidence**: in the same test the author reported fifteen corrections complete when eight
 were still live. Verify each against the source.
 
+### When a check cannot run, hand the author the options
+
+Saying `NOT RUN` is the floor, not the whole job. **Tell them what would settle it**, and
+what each route costs.
+
+Order the options by how little they ask of the author. Doing it by hand is usually first
+and is usually right — a person with a browser resolves a blocked page in half a minute
+and introduces no new software, no new account, and no new access to anything. Tools built
+into what they are already using come next. Then institutional resources they already have
+credentials for.
+
+**Third-party tools are a real option and belong on the list, stated honestly.** They solve
+things a plain fetch cannot. They also mean installing software or connecting a service
+that gets access to what it touches, usually with a key to manage. Say that plainly, once,
+without alarm and without enthusiasm — **then let the author decide**, because they know
+their institution's rules and their own risk appetite and you know neither.
+
+Three things you never do: work around a protection that is deliberately there; suggest
+anything that wants the author's credentials or session; or name a favourite third-party
+tool as though the kit endorses it. **And the finding does not change based on what they
+choose** — unverified stays unverified in the report until someone actually verifies it.
+
 ## A Check That Cannot Run Must Say So
 
 **A check has three outcomes, not two: it passed, it found something, or it could not

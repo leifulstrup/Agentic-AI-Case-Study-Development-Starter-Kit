@@ -2,7 +2,7 @@
 
 A starter kit for creating business school MBA case studies from digital sources, guided by AI.
 
-[![Template Version](https://img.shields.io/badge/template-v4.7.0-blue)](TEMPLATE_VERSION)
+[![Template Version](https://img.shields.io/badge/template-v4.8.0-blue)](TEMPLATE_VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
@@ -100,6 +100,16 @@ voice, a primary financial source, independent coverage from more than one publi
 and an independence ratio that flags a base leaning heavily on the subject's own
 material. The gate is a floor, not a verdict on quality — clearing it means you have
 enough to start, not that your sourcing is good.
+
+**When a check cannot run, you will be told, and given choices.** Some links cannot be
+checked automatically — news sites routinely refuse automated requests with a 403, which
+says nothing about whether the page is fine. The kit will name the specific URLs and lay
+out the options: open them yourself in a browser (half a minute each, and the most reliable
+answer there is), try Cowork's built-in browser if you are using it, use your library proxy
+for paywalled scholarly sources, or adopt a third-party fetch tool — which works, and which
+also means installing software that gets access to what it fetches. **The kit will not pick
+for you and will not recommend a particular product.** What it will do is refuse to record
+an unverified link as verified, whatever you decide.
 
 **Seven verification checks before publication.** `/verify-all` attempts to trace quotes
 to dated sources, match figures across documents, recompute arithmetic, test links,
@@ -507,4 +517,4 @@ This methodology was developed through the creation of MBA case studies for ITEC
 
 ---
 
-*Template Version: 4.7.0*
+*Template Version: 4.8.0*

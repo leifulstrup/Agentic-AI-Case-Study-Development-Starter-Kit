@@ -785,3 +785,29 @@ and never input.
 **Still open**: author and verifier were the same session in this run — disclosed, as the
 rule requires, but the independence *preference* went unmet. A Cowork run that delegates
 verification to a second session is untested.
+
+## 2026-09-03 — v4.8.0: what to do about a link you cannot check
+
+**Context**: the Cowork run got 403 from CNBC and 429 from YouTube. v4.7.0 fixed the
+vocabulary — those are BLOCKED, not broken — but the author was still left with a finding
+and no next step, which is worst for exactly the non-technical authors the recommended path
+serves.
+
+**What shipped**: `/verify-links` now names the specific URLs and lays out the routes in
+order of how little they ask — open it yourself (thirty seconds, no new software, and the
+most reliable answer since a human with a browser is what the site is checking for);
+Cowork's built-in browser for anyone already there; an institutional proxy for paywalled
+scholarly work; and third-party fetch tools, described honestly as working and as meaning
+software with access to what it fetches. No product is named. `AGENTS.md` carries the
+general form so it governs every check, not just links.
+
+**Three prohibitions written down rather than assumed**: never work around a protection
+that is deliberately there, never suggest anything wanting the author's credentials, never
+endorse a specific third-party tool. And the finding is unchanged by whatever the author
+chooses — unverified stays unverified, because the goal is an accurate record rather than a
+clean-looking one.
+
+**The framing that made this straightforward**: the kit already holds that the author is a
+manager and the tool an assistant. An assistant that says "I could not do this" and stops
+is failing at the assistant part; one that decides to install a scraper is failing at the
+manager part. Options with honest costs, decision left with the person accountable.
