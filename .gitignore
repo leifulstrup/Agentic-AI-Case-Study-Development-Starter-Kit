@@ -55,3 +55,10 @@ node_modules/
 # Eval fixture source corpora (copyright — keep local, commit only the manifest)
 maintainer/evals/fixtures/*/sources/
 maintainer/evals/fixtures/*/golden/
+
+# Claude Code local settings. "Yes, and don't ask again" saves the approved
+# command verbatim, so a credential typed inline lands in this file. It is
+# per-machine and must never be committed. A global gitignore does not travel
+# with a clone, so the rule lives here.
+.claude/settings.local.json
+.claude/*.local.json
