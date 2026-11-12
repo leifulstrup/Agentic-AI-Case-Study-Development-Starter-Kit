@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+- **`.gitignore` now excludes `.claude/settings.local.json` and `.claude/*.local.json`.**
+  Claude Code saves a command approved with "Yes, and don't ask again" verbatim in that
+  file, so a password or API key typed inline is stored with it. Apiiro found about 1,100
+  such files with live secrets in public repositories (Ars Technica, November 2026). The
+  global gitignore Claude Code sets up protects one machine and does not travel with a
+  clone, so every case study created from this template now carries the rule itself. The
+  tracked `.claude/skills/` files are unaffected.
+
 ## [4.8.0] - 2026-09-03
 
 *A blocked check is a decision the author has to make, not a red mark for the kit to
